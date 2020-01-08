@@ -1,33 +1,27 @@
 {
-  "name": "rocky114/excel",
-  "description": "PHP Library to read and write spreadsheet files (CSV, XLSX), in a fast and scalable way",
-  "type": "library",
-  "keywords": ["php","read","write","csv","xlsx","office","excel","spreadsheet","scale","memory","stream"],
-  "license": "MIT",
-  "homepage": "https://github.com/rocky114/excel",
-  "authors": [
-    {
-      "name": "rocky",
-      "email": "934313141@qq.com"
-    }
-  ],
-  "require": {
-    "php": ">=7.1.0",
-    "ext-zip": "*",
-    "ext-xmlreader" : "*"
-  },
-  "suggest": {
-    "ext-iconv": "To handle non UTF-8 CSV files (if \"php-intl\" is not already installed or is too limited)",
-    "ext-intl": "To handle non UTF-8 CSV files (if \"iconv\" is not already installed)"
-  },
-  "autoload": {
-    "psr-4": {
-      "Rocky114\\Excel\\": "src"
-    }
-  },
-  "config": {
-    "platform": {
-      "php": "7.1"
-    }
-  }
+    "name": "rocky114/excel",
+    "description": "PHP Library to read and write spreadsheet files (CSV, XLSX), in a fast and scalable way",
+    "type": "library",
+    "keywords": ["php","read","write","csv","xlsx","office","excel","spreadsheet","scale","memory","stream"],
+    "license": "MIT",
+    "homepage": "https://github.com/rocky114/excel",
+    "authors": [
+        {
+          "name": "rocky",
+          "email": "934313141@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "ext-zip": "*",
+        "ext-xmlreader" : "*",
+        "box/spout": "3.1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Rocky114\\Excel\\": "src"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
