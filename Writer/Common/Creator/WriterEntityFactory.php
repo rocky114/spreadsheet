@@ -30,7 +30,7 @@ class WriterEntityFactory
 
     public static function createRow(array $cells = [], Style $rowStyle = null)
     {
-
+        return new Row($cells, $rowStyle);
     }
 
     public static function createRowFromArray(array $cellValues = [], Style $rowStyle = null)
