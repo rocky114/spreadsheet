@@ -1,7 +1,11 @@
 <?php
 
-namespace Rocky114\Excel\Common\Entity\Style;
+namespace Box\Spout\Common\Entity\Style;
 
+/**
+ * Class Style
+ * Represents a style to be applied to a cell
+ */
 class Style
 {
     /** Default values */
@@ -28,9 +32,9 @@ class Style
     private $hasSetFontUnderline = false;
 
     /** @var bool Whether the font should be struck through */
-    private $fontStrikeThrough = false;
+    private $fontStrikethrough = false;
     /** @var bool Whether the strikethrough property was set */
-    private $hasSetFontStrikeThrough = false;
+    private $hasSetFontStrikethrough = false;
 
     /** @var int Font size */
     private $fontSize = self::DEFAULT_FONT_SIZE;
@@ -214,18 +218,18 @@ class Style
     /**
      * @return bool
      */
-    public function isFontStrikeThrough()
+    public function isFontStrikethrough()
     {
-        return $this->fontStrikeThrough;
+        return $this->fontStrikethrough;
     }
 
     /**
      * @return Style
      */
-    public function setFontStrikeThrough()
+    public function setFontStrikethrough()
     {
-        $this->fontStrikeThrough = true;
-        $this->hasSetFontStrikeThrough = true;
+        $this->fontStrikethrough = true;
+        $this->hasSetFontStrikethrough = true;
         $this->shouldApplyFont = true;
 
         return $this;
@@ -234,9 +238,9 @@ class Style
     /**
      * @return bool
      */
-    public function hasSetFontStrikeThrough()
+    public function hasSetFontStrikethrough()
     {
-        return $this->hasSetFontStrikeThrough;
+        return $this->hasSetFontStrikethrough;
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Rocky114\Excel\Common\Exception;
+namespace Box\Spout\Common\Exception;
 
 /**
  * Class InvalidColorException

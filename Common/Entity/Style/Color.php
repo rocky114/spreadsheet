@@ -1,8 +1,8 @@
 <?php
 
-namespace Rocky114\Excel\Common\Entity\Style;
+namespace Box\Spout\Common\Entity\Style;
 
-use Rocky114\Excel\Common\Exception\InvalidColorException;
+use Box\Spout\Common\Exception\InvalidColorException;
 
 /**
  * Class Color

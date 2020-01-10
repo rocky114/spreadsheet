@@ -1,10 +1,13 @@
 <?php
 
-namespace Rocky114\Excel\Common\Entity;
+namespace Box\Spout\Common\Entity;
 
-use Rocky114\Excel\Common\Entity\Style\Style;
-use Rocky114\Excel\Common\Helper\CellTypeHelper;
+use Box\Spout\Common\Entity\Style\Style;
+use Box\Spout\Common\Helper\CellTypeHelper;
 
+/**
+ * Class Cell
+ */
 class Cell
 {
     /**
@@ -61,7 +64,10 @@ class Cell
      */
     protected $style;
 
-
+    /**
+     * @param $value mixed
+     * @param Style|null $style
+     */
     public function __construct($value, Style $style = null)
     {
         $this->setValue($value);
