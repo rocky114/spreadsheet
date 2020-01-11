@@ -9,10 +9,6 @@ use Rocky114\Excel\Common\Type;
 use Rocky114\Excel\Writer\Common\Creator\Style\StyleBuilder;
 use Rocky114\Excel\Writer\CSV\Manager\OptionsManager as CSVOptionsManager;
 use Rocky114\Excel\Writer\CSV\Writer as CSVWriter;
-use Rocky114\Excel\Writer\ODS\Creator\HelperFactory as ODSHelperFactory;
-use Rocky114\Excel\Writer\ODS\Creator\ManagerFactory as ODSManagerFactory;
-use Rocky114\Excel\Writer\ODS\Manager\OptionsManager as ODSOptionsManager;
-use Rocky114\Excel\Writer\ODS\Writer as ODSWriter;
 use Rocky114\Excel\Writer\WriterInterface;
 use Rocky114\Excel\Writer\XLSX\Creator\HelperFactory as XLSXHelperFactory;
 use Rocky114\Excel\Writer\XLSX\Creator\ManagerFactory as XLSXManagerFactory;
@@ -27,40 +23,9 @@ use Rocky114\Excel\Writer\XLSX\Writer as XLSXWriter;
 class WriterFactory
 {
     /**
-     * This creates an instance of the appropriate writer, given the extension of the file to be written
-     *
-     * @param string $path The path to the spreadsheet file. Supported extensions are .csv,.ods and .xlsx
-     * @throws \Rocky114\Excel\Common\Exception\UnsupportedTypeException
-     * @return WriterInterface
-     */
-    public static function createFromFile(string $path)
-    {
-        $extension = \strtolower(\pathinfo($path, PATHINFO_EXTENSION));
-
-        return self::createFromType($extension);
-    }
-
-    /**
-     * This creates an instance of the appropriate writer, given the type of the file to be written
-     *
-     * @param string $writerType Type of the writer to instantiate
-     * @throws \Rocky114\Excel\Common\Exception\UnsupportedTypeException
-     * @return WriterInterface
-     */
-    public static function createFromType($writerType)
-    {
-        switch ($writerType) {
-            case Type::CSV: return self::createCSVWriter();
-            case Type::XLSX: return self::createXLSXWriter();
-            default:
-                throw new UnsupportedTypeException('No writers supporting the given type: ' . $writerType);
-        }
-    }
-
-    /**
      * @return CSVWriter
      */
-    private static function createCSVWriter()
+    public static function createCSVWriter()
     {
         $optionsManager = new CSVOptionsManager();
         $globalFunctionsHelper = new GlobalFunctionsHelper();
@@ -73,7 +38,7 @@ class WriterFactory
     /**
      * @return XLSXWriter
      */
-    private static function createXLSXWriter()
+    public static function createXLSXWriter()
     {
         $styleBuilder = new StyleBuilder();
         $optionsManager = new XLSXOptionsManager($styleBuilder);
@@ -83,20 +48,5 @@ class WriterFactory
         $managerFactory = new XLSXManagerFactory(new InternalEntityFactory(), $helperFactory);
 
         return new XLSXWriter($optionsManager, $globalFunctionsHelper, $helperFactory, $managerFactory);
-    }
-
-    /**
-     * @return ODSWriter
-     */
-    private static function createODSWriter()
-    {
-        $styleBuilder = new StyleBuilder();
-        $optionsManager = new ODSOptionsManager($styleBuilder);
-        $globalFunctionsHelper = new GlobalFunctionsHelper();
-
-        $helperFactory = new ODSHelperFactory();
-        $managerFactory = new ODSManagerFactory(new InternalEntityFactory(), $helperFactory);
-
-        return new ODSWriter($optionsManager, $globalFunctionsHelper, $helperFactory, $managerFactory);
     }
 }

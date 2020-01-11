@@ -16,30 +16,6 @@ use Rocky114\Excel\Writer\WriterInterface;
 class WriterEntityFactory
 {
     /**
-     * This creates an instance of the appropriate writer, given the type of the file to be written
-     *
-     * @param  string $writerType Type of the writer to instantiate
-     * @throws \Rocky114\Excel\Common\Exception\UnsupportedTypeException
-     * @return WriterInterface
-     */
-    public static function createWriter($writerType)
-    {
-        return WriterFactory::createFromType($writerType);
-    }
-
-    /**
-     * This creates an instance of the appropriate writer, given the extension of the file to be written
-     *
-     * @param string $path The path to the spreadsheet file. Supported extensions are .csv, .ods and .xlsx
-     * @throws \Rocky114\Excel\Common\Exception\UnsupportedTypeException
-     * @return WriterInterface
-     */
-    public static function createWriterFromFile(string $path)
-    {
-        return WriterFactory::createFromFile($path);
-    }
-
-    /**
      * This creates an instance of a CSV writer
      *
      * @return \Rocky114\Excel\Writer\CSV\Writer
@@ -47,7 +23,7 @@ class WriterEntityFactory
     public static function createCSVWriter()
     {
         try {
-            return WriterFactory::createFromType(Type::CSV);
+            return WriterFactory::createCSVWriter();
         } catch (UnsupportedTypeException $e) {
             // should never happen
         }
@@ -61,7 +37,7 @@ class WriterEntityFactory
     public static function createXLSXWriter()
     {
         try {
-            return WriterFactory::createFromType(Type::XLSX);
+            return WriterFactory::createXLSXWriter();
         } catch (UnsupportedTypeException $e) {
             // should never happen
         }
