@@ -6,8 +6,15 @@ use Rocky114\Excel\Common\Entity\Cell;
 use Rocky114\Excel\Common\Entity\Row;
 use Rocky114\Excel\Common\Entity\Style\Style;
 use Rocky114\Excel\Common\Exception\UnsupportedTypeException;
-use Rocky114\Excel\Common\Type;
-use Rocky114\Excel\Writer\WriterInterface;
+use Rocky114\Excel\Common\Creator\HelperFactory;
+use Rocky114\Excel\Common\Helper\GlobalFunctionsHelper;
+use Rocky114\Excel\Writer\Common\Creator\Style\StyleBuilder;
+use Rocky114\Excel\Writer\CSV\Manager\OptionsManager as CSVOptionsManager;
+use Rocky114\Excel\Writer\CSV\Writer as CSVWriter;
+use Rocky114\Excel\Writer\XLSX\Creator\HelperFactory as XLSXHelperFactory;
+use Rocky114\Excel\Writer\XLSX\Creator\ManagerFactory as XLSXManagerFactory;
+use Rocky114\Excel\Writer\XLSX\Manager\OptionsManager as XLSXOptionsManager;
+use Rocky114\Excel\Writer\XLSX\Writer as XLSXWriter;
 
 /**
  * Class WriterEntityFactory
@@ -23,7 +30,12 @@ class WriterEntityFactory
     public static function createCSVWriter()
     {
         try {
-            return WriterFactory::createCSVWriter();
+            $optionsManager = new CSVOptionsManager();
+            $globalFunctionsHelper = new GlobalFunctionsHelper();
+
+            $helperFactory = new HelperFactory();
+
+            return new CSVWriter($optionsManager, $globalFunctionsHelper, $helperFactory);
         } catch (UnsupportedTypeException $e) {
             // should never happen
         }
@@ -37,7 +49,14 @@ class WriterEntityFactory
     public static function createXLSXWriter()
     {
         try {
-            return WriterFactory::createXLSXWriter();
+            $styleBuilder = new StyleBuilder();
+            $optionsManager = new XLSXOptionsManager($styleBuilder);
+            $globalFunctionsHelper = new GlobalFunctionsHelper();
+
+            $helperFactory = new XLSXHelperFactory();
+            $managerFactory = new XLSXManagerFactory(new InternalEntityFactory(), $helperFactory);
+
+            return new XLSXWriter($optionsManager, $globalFunctionsHelper, $helperFactory, $managerFactory);
         } catch (UnsupportedTypeException $e) {
             // should never happen
         }
