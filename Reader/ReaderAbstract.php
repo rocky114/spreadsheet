@@ -1,13 +1,13 @@
 <?php
 
-namespace Box\Spout\Reader;
+namespace Rocky114\Excel\Reader;
 
-use Box\Spout\Common\Exception\IOException;
-use Box\Spout\Common\Helper\GlobalFunctionsHelper;
-use Box\Spout\Common\Manager\OptionsManagerInterface;
-use Box\Spout\Reader\Common\Creator\InternalEntityFactoryInterface;
-use Box\Spout\Reader\Common\Entity\Options;
-use Box\Spout\Reader\Exception\ReaderNotOpenedException;
+use Rocky114\Excel\Common\Exception\IOException;
+use Rocky114\Excel\Common\Helper\GlobalFunctionsHelper;
+use Rocky114\Excel\Common\Manager\OptionsManagerInterface;
+use Rocky114\Excel\Reader\Common\Creator\InternalEntityFactoryInterface;
+use Rocky114\Excel\Reader\Common\Entity\Options;
+use Rocky114\Excel\Reader\Exception\ReaderNotOpenedException;
 
 /**
  * Class ReaderAbstract
@@ -22,7 +22,7 @@ abstract class ReaderAbstract implements ReaderInterface
     /** @var InternalEntityFactoryInterface Factory to create entities */
     protected $entityFactory;
 
-    /** @var \Box\Spout\Common\Helper\GlobalFunctionsHelper Helper to work with global functions */
+    /** @var \Rocky114\Excel\Common\Helper\GlobalFunctionsHelper Helper to work with global functions */
     protected $globalFunctionsHelper;
 
     /** @var OptionsManagerInterface Writer options manager */
@@ -103,7 +103,7 @@ abstract class ReaderAbstract implements ReaderInterface
      * that the file exists and is readable.
      *
      * @param  string $filePath Path of the file to be read
-     * @throws \Box\Spout\Common\Exception\IOException If the file at the given path does not exist, is not readable or is corrupted
+     * @throws \Rocky114\Excel\Common\Exception\IOException If the file at the given path does not exist, is not readable or is corrupted
      * @return void
      */
     public function open($filePath)
@@ -210,7 +210,7 @@ abstract class ReaderAbstract implements ReaderInterface
     /**
      * Returns an iterator to iterate over sheets.
      *
-     * @throws \Box\Spout\Reader\Exception\ReaderNotOpenedException If called before opening the reader
+     * @throws \Rocky114\Excel\Reader\Exception\ReaderNotOpenedException If called before opening the reader
      * @return \Iterator To iterate over sheets
      */
     public function getSheetIterator()

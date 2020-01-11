@@ -1,10 +1,10 @@
 <?php
 
-namespace Box\Spout\Reader\CSV\Manager;
+namespace Rocky114\Excel\Reader\CSV\Manager;
 
-use Box\Spout\Common\Helper\EncodingHelper;
-use Box\Spout\Common\Manager\OptionsManagerAbstract;
-use Box\Spout\Reader\Common\Entity\Options;
+use Rocky114\Excel\Common\Helper\EncodingHelper;
+use Rocky114\Excel\Common\Manager\OptionsManagerAbstract;
+use Rocky114\Excel\Reader\Common\Entity\Options;
 
 /**
  * Class OptionsManager

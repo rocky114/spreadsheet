@@ -1,8 +1,8 @@
 <?php
 
-namespace Box\Spout\Reader\XLSX\Manager\SharedStringsCaching;
+namespace Rocky114\Excel\Reader\XLSX\Manager\SharedStringsCaching;
 
-use Box\Spout\Reader\Exception\SharedStringNotFoundException;
+use Rocky114\Excel\Reader\Exception\SharedStringNotFoundException;
 
 /**
  * Class InMemoryStrategy
@@ -56,7 +56,7 @@ class InMemoryStrategy implements CachingStrategyInterface
      * Returns the string located at the given index from the cache.
      *
      * @param int $sharedStringIndex Index of the shared string in the sharedStrings.xml file
-     * @throws \Box\Spout\Reader\Exception\SharedStringNotFoundException If no shared string found for the given index
+     * @throws \Rocky114\Excel\Reader\Exception\SharedStringNotFoundException If no shared string found for the given index
      * @return string The shared string at the given index
      */
     public function getStringAtIndex($sharedStringIndex)

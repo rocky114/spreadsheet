@@ -1,6 +1,6 @@
 <?php
 
-namespace Box\Spout\Writer\Exception;
+namespace Rocky114\Excel\Writer\Exception;
 
 /**
  * Class SheetNotFoundException

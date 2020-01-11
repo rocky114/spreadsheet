@@ -1,9 +1,9 @@
 <?php
 
-namespace Box\Spout\Reader\ODS\Helper;
+namespace Rocky114\Excel\Reader\ODS\Helper;
 
-use Box\Spout\Reader\Exception\XMLProcessingException;
-use Box\Spout\Reader\ODS\Creator\InternalEntityFactory;
+use Rocky114\Excel\Reader\Exception\XMLProcessingException;
+use Rocky114\Excel\Reader\ODS\Creator\InternalEntityFactory;
 
 /**
  * Class SettingsHelper

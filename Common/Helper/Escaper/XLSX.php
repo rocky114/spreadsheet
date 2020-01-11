@@ -1,6 +1,6 @@
 <?php
 
-namespace Box\Spout\Common\Helper\Escaper;
+namespace Rocky114\Excel\Common\Helper\Escaper;
 
 /**
  * Class XLSX

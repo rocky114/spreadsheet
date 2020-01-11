@@ -1,8 +1,8 @@
 <?php
 
-namespace Box\Spout\Reader\Exception;
+namespace Rocky114\Excel\Reader\Exception;
 
-use Box\Spout\Common\Exception\SpoutException;
+use Rocky114\Excel\Common\Exception\SpoutException;
 
 /**
  * Class ReaderException

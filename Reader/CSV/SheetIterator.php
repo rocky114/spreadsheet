@@ -1,8 +1,8 @@
 <?php
 
-namespace Box\Spout\Reader\CSV;
+namespace Rocky114\Excel\Reader\CSV;
 
-use Box\Spout\Reader\IteratorInterface;
+use Rocky114\Excel\Reader\IteratorInterface;
 
 /**
  * Class SheetIterator
@@ -10,7 +10,7 @@ use Box\Spout\Reader\IteratorInterface;
  */
 class SheetIterator implements IteratorInterface
 {
-    /** @var \Box\Spout\Reader\CSV\Sheet The CSV unique "sheet" */
+    /** @var \Rocky114\Excel\Reader\CSV\Sheet The CSV unique "sheet" */
     protected $sheet;
 
     /** @var bool Whether the unique "sheet" has already been read */
@@ -61,7 +61,7 @@ class SheetIterator implements IteratorInterface
      * Return the current element
      * @see http://php.net/manual/en/iterator.current.php
      *
-     * @return \Box\Spout\Reader\CSV\Sheet
+     * @return \Rocky114\Excel\Reader\CSV\Sheet
      */
     public function current()
     {

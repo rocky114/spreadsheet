@@ -1,8 +1,8 @@
 <?php
 
-namespace Box\Spout\Writer\Common\Manager;
+namespace Rocky114\Excel\Writer\Common\Manager;
 
-use Box\Spout\Common\Entity\Row;
+use Rocky114\Excel\Common\Entity\Row;
 
 class RowManager
 {

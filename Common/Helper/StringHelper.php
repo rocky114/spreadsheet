@@ -1,6 +1,6 @@
 <?php
 
-namespace Box\Spout\Common\Helper;
+namespace Rocky114\Excel\Common\Helper;
 
 /**
  * Class StringHelper

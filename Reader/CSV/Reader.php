@@ -1,11 +1,11 @@
 <?php
 
-namespace Box\Spout\Reader\CSV;
+namespace Rocky114\Excel\Reader\CSV;
 
-use Box\Spout\Common\Exception\IOException;
-use Box\Spout\Reader\Common\Entity\Options;
-use Box\Spout\Reader\CSV\Creator\InternalEntityFactory;
-use Box\Spout\Reader\ReaderAbstract;
+use Rocky114\Excel\Common\Exception\IOException;
+use Rocky114\Excel\Reader\Common\Entity\Options;
+use Rocky114\Excel\Reader\CSV\Creator\InternalEntityFactory;
+use Rocky114\Excel\Reader\ReaderAbstract;
 
 /**
  * Class Reader
@@ -79,7 +79,7 @@ class Reader extends ReaderAbstract
      * If setEncoding() was not called, it assumes that the file is encoded in UTF-8.
      *
      * @param  string $filePath Path of the CSV file to be read
-     * @throws \Box\Spout\Common\Exception\IOException
+     * @throws \Rocky114\Excel\Common\Exception\IOException
      * @return void
      */
     protected function openReader($filePath)

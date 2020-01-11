@@ -1,8 +1,8 @@
 <?php
 
-namespace Box\Spout\Common\Entity;
+namespace Rocky114\Excel\Common\Entity;
 
-use Box\Spout\Common\Entity\Style\Style;
+use Rocky114\Excel\Common\Entity\Style\Style;
 
 class Row
 {

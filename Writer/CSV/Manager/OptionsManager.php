@@ -1,9 +1,9 @@
 <?php
 
-namespace Box\Spout\Writer\CSV\Manager;
+namespace Rocky114\Excel\Writer\CSV\Manager;
 
-use Box\Spout\Common\Manager\OptionsManagerAbstract;
-use Box\Spout\Writer\Common\Entity\Options;
+use Rocky114\Excel\Common\Manager\OptionsManagerAbstract;
+use Rocky114\Excel\Writer\Common\Entity\Options;
 
 /**
  * Class OptionsManager

@@ -1,8 +1,8 @@
 <?php
 
-namespace Box\Spout\Reader\Common;
+namespace Rocky114\Excel\Reader\Common;
 
-use Box\Spout\Reader\Wrapper\XMLReader;
+use Rocky114\Excel\Reader\Wrapper\XMLReader;
 
 /**
  * Class XMLProcessor
@@ -22,14 +22,14 @@ class XMLProcessor
     const PROCESSING_CONTINUE = 1;
     const PROCESSING_STOP = 2;
 
-    /** @var \Box\Spout\Reader\Wrapper\XMLReader The XMLReader object that will help read sheet's XML data */
+    /** @var \Rocky114\Excel\Reader\Wrapper\XMLReader The XMLReader object that will help read sheet's XML data */
     protected $xmlReader;
 
     /** @var array Registered callbacks */
     private $callbacks = [];
 
     /**
-     * @param \Box\Spout\Reader\Wrapper\XMLReader $xmlReader XMLReader object
+     * @param \Rocky114\Excel\Reader\Wrapper\XMLReader $xmlReader XMLReader object
      */
     public function __construct($xmlReader)
     {
@@ -86,7 +86,7 @@ class XMLProcessor
      * Resumes the reading of the XML file where it was left off.
      * Stops whenever a callback indicates that reading should stop or at the end of the file.
      *
-     * @throws \Box\Spout\Reader\Exception\XMLProcessingException
+     * @throws \Rocky114\Excel\Reader\Exception\XMLProcessingException
      * @return void
      */
     public function readUntilStopped()

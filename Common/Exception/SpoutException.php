@@ -1,6 +1,6 @@
 <?php
 
-namespace Box\Spout\Common\Exception;
+namespace Rocky114\Excel\Common\Exception;
 
 /**
  * Class SpoutException

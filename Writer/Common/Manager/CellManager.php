@@ -1,10 +1,10 @@
 <?php
 
-namespace Box\Spout\Writer\Common\Manager;
+namespace Rocky114\Excel\Writer\Common\Manager;
 
-use Box\Spout\Common\Entity\Cell;
-use Box\Spout\Common\Entity\Style\Style;
-use Box\Spout\Writer\Common\Manager\Style\StyleMerger;
+use Rocky114\Excel\Common\Entity\Cell;
+use Rocky114\Excel\Common\Entity\Style\Style;
+use Rocky114\Excel\Writer\Common\Manager\Style\StyleMerger;
 
 class CellManager
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Box\Spout\Common\Manager;
+namespace Rocky114\Excel\Common\Manager;
 
 /**
  * Interface OptionsManagerInterface

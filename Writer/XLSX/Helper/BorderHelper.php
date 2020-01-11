@@ -1,9 +1,9 @@
 <?php
 
-namespace Box\Spout\Writer\XLSX\Helper;
+namespace Rocky114\Excel\Writer\XLSX\Helper;
 
-use Box\Spout\Common\Entity\Style\Border;
-use Box\Spout\Common\Entity\Style\BorderPart;
+use Rocky114\Excel\Common\Entity\Style\Border;
+use Rocky114\Excel\Common\Entity\Style\BorderPart;
 
 class BorderHelper
 {

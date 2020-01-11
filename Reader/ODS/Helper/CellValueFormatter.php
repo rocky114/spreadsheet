@@ -1,8 +1,8 @@
 <?php
 
-namespace Box\Spout\Reader\ODS\Helper;
+namespace Rocky114\Excel\Reader\ODS\Helper;
 
-use Box\Spout\Reader\Exception\InvalidValueException;
+use Rocky114\Excel\Reader\Exception\InvalidValueException;
 
 /**
  * Class CellValueFormatter
@@ -40,7 +40,7 @@ class CellValueFormatter
     /** @var bool Whether date/time values should be returned as PHP objects or be formatted as strings */
     protected $shouldFormatDates;
 
-    /** @var \Box\Spout\Common\Helper\Escaper\ODS Used to unescape XML data */
+    /** @var \Rocky114\Excel\Common\Helper\Escaper\ODS Used to unescape XML data */
     protected $escaper;
 
     /** @var array List of XML nodes representing whitespaces and their corresponding value */
@@ -52,7 +52,7 @@ class CellValueFormatter
 
     /**
      * @param bool $shouldFormatDates Whether date/time values should be returned as PHP objects or be formatted as strings
-     * @param \Box\Spout\Common\Helper\Escaper\ODS $escaper Used to unescape XML data
+     * @param \Rocky114\Excel\Common\Helper\Escaper\ODS $escaper Used to unescape XML data
      */
     public function __construct($shouldFormatDates, $escaper)
     {

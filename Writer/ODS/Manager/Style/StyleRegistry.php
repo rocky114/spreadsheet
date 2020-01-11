@@ -1,14 +1,14 @@
 <?php
 
-namespace Box\Spout\Writer\ODS\Manager\Style;
+namespace Rocky114\Excel\Writer\ODS\Manager\Style;
 
-use Box\Spout\Common\Entity\Style\Style;
+use Rocky114\Excel\Common\Entity\Style\Style;
 
 /**
  * Class StyleRegistry
  * Registry for all used styles
  */
-class StyleRegistry extends \Box\Spout\Writer\Common\Manager\Style\StyleRegistry
+class StyleRegistry extends \Rocky114\Excel\Writer\Common\Manager\Style\StyleRegistry
 {
     /** @var array [FONT_NAME] => [] Map whose keys contain all the fonts used */
     protected $usedFontsSet = [];

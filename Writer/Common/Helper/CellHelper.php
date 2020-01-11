@@ -1,6 +1,6 @@
 <?php
 
-namespace Box\Spout\Writer\Common\Helper;
+namespace Rocky114\Excel\Writer\Common\Helper;
 
 /**
  * Class CellHelper

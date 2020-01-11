@@ -1,19 +1,19 @@
 <?php
 
-namespace Box\Spout\Reader\XLSX;
+namespace Rocky114\Excel\Reader\XLSX;
 
-use Box\Spout\Common\Entity\Cell;
-use Box\Spout\Common\Entity\Row;
-use Box\Spout\Common\Exception\IOException;
-use Box\Spout\Reader\Common\Manager\RowManager;
-use Box\Spout\Reader\Common\XMLProcessor;
-use Box\Spout\Reader\Exception\InvalidValueException;
-use Box\Spout\Reader\Exception\XMLProcessingException;
-use Box\Spout\Reader\IteratorInterface;
-use Box\Spout\Reader\Wrapper\XMLReader;
-use Box\Spout\Reader\XLSX\Creator\InternalEntityFactory;
-use Box\Spout\Reader\XLSX\Helper\CellHelper;
-use Box\Spout\Reader\XLSX\Helper\CellValueFormatter;
+use Rocky114\Excel\Common\Entity\Cell;
+use Rocky114\Excel\Common\Entity\Row;
+use Rocky114\Excel\Common\Exception\IOException;
+use Rocky114\Excel\Reader\Common\Manager\RowManager;
+use Rocky114\Excel\Reader\Common\XMLProcessor;
+use Rocky114\Excel\Reader\Exception\InvalidValueException;
+use Rocky114\Excel\Reader\Exception\XMLProcessingException;
+use Rocky114\Excel\Reader\IteratorInterface;
+use Rocky114\Excel\Reader\Wrapper\XMLReader;
+use Rocky114\Excel\Reader\XLSX\Creator\InternalEntityFactory;
+use Rocky114\Excel\Reader\XLSX\Helper\CellHelper;
+use Rocky114\Excel\Reader\XLSX\Helper\CellValueFormatter;
 
 /**
  * Class RowIterator
@@ -38,19 +38,19 @@ class RowIterator implements IteratorInterface
     /** @var string $sheetDataXMLFilePath Path of the sheet data XML file as in [Content_Types].xml */
     protected $sheetDataXMLFilePath;
 
-    /** @var \Box\Spout\Reader\Wrapper\XMLReader The XMLReader object that will help read sheet's XML data */
+    /** @var \Rocky114\Excel\Reader\Wrapper\XMLReader The XMLReader object that will help read sheet's XML data */
     protected $xmlReader;
 
-    /** @var \Box\Spout\Reader\Common\XMLProcessor Helper Object to process XML nodes */
+    /** @var \Rocky114\Excel\Reader\Common\XMLProcessor Helper Object to process XML nodes */
     protected $xmlProcessor;
 
     /** @var Helper\CellValueFormatter Helper to format cell values */
     protected $cellValueFormatter;
 
-    /** @var \Box\Spout\Reader\Common\Manager\RowManager Manages rows */
+    /** @var \Rocky114\Excel\Reader\Common\Manager\RowManager Manages rows */
     protected $rowManager;
 
-    /** @var \Box\Spout\Reader\XLSX\Creator\InternalEntityFactory Factory to create entities */
+    /** @var \Rocky114\Excel\Reader\XLSX\Creator\InternalEntityFactory Factory to create entities */
     protected $entityFactory;
 
     /**
@@ -136,7 +136,7 @@ class RowIterator implements IteratorInterface
      * The XMLReader is configured to be safe from billion laughs attack.
      * @see http://php.net/manual/en/iterator.rewind.php
      *
-     * @throws \Box\Spout\Common\Exception\IOException If the sheet data XML cannot be read
+     * @throws \Rocky114\Excel\Common\Exception\IOException If the sheet data XML cannot be read
      * @return void
      */
     public function rewind()
@@ -172,8 +172,8 @@ class RowIterator implements IteratorInterface
      * Move forward to next element. Reads data describing the next unprocessed row.
      * @see http://php.net/manual/en/iterator.next.php
      *
-     * @throws \Box\Spout\Reader\Exception\SharedStringNotFoundException If a shared string was not found
-     * @throws \Box\Spout\Common\Exception\IOException If unable to read the sheet data XML
+     * @throws \Rocky114\Excel\Reader\Exception\SharedStringNotFoundException If a shared string was not found
+     * @throws \Rocky114\Excel\Common\Exception\IOException If unable to read the sheet data XML
      * @return void
      */
     public function next()
@@ -209,8 +209,8 @@ class RowIterator implements IteratorInterface
     }
 
     /**
-     * @throws \Box\Spout\Reader\Exception\SharedStringNotFoundException If a shared string was not found
-     * @throws \Box\Spout\Common\Exception\IOException If unable to read the sheet data XML
+     * @throws \Rocky114\Excel\Reader\Exception\SharedStringNotFoundException If a shared string was not found
+     * @throws \Rocky114\Excel\Common\Exception\IOException If unable to read the sheet data XML
      * @return void
      */
     protected function readDataForNextRow()
@@ -227,7 +227,7 @@ class RowIterator implements IteratorInterface
     }
 
     /**
-     * @param \Box\Spout\Reader\Wrapper\XMLReader $xmlReader XMLReader object, positioned on a "<dimension>" starting node
+     * @param \Rocky114\Excel\Reader\Wrapper\XMLReader $xmlReader XMLReader object, positioned on a "<dimension>" starting node
      * @return int A return code that indicates what action should the processor take next
      */
     protected function processDimensionStartingNode($xmlReader)
@@ -242,7 +242,7 @@ class RowIterator implements IteratorInterface
     }
 
     /**
-     * @param \Box\Spout\Reader\Wrapper\XMLReader $xmlReader XMLReader object, positioned on a "<row>" starting node
+     * @param \Rocky114\Excel\Reader\Wrapper\XMLReader $xmlReader XMLReader object, positioned on a "<row>" starting node
      * @return int A return code that indicates what action should the processor take next
      */
     protected function processRowStartingNode($xmlReader)
@@ -268,7 +268,7 @@ class RowIterator implements IteratorInterface
     }
 
     /**
-     * @param \Box\Spout\Reader\Wrapper\XMLReader $xmlReader XMLReader object, positioned on a "<cell>" starting node
+     * @param \Rocky114\Excel\Reader\Wrapper\XMLReader $xmlReader XMLReader object, positioned on a "<cell>" starting node
      * @return int A return code that indicates what action should the processor take next
      */
     protected function processCellStartingNode($xmlReader)
@@ -320,8 +320,8 @@ class RowIterator implements IteratorInterface
     }
 
     /**
-     * @param \Box\Spout\Reader\Wrapper\XMLReader $xmlReader XMLReader object, positioned on a "<row>" node
-     * @throws \Box\Spout\Common\Exception\InvalidArgumentException When the given cell index is invalid
+     * @param \Rocky114\Excel\Reader\Wrapper\XMLReader $xmlReader XMLReader object, positioned on a "<row>" node
+     * @throws \Rocky114\Excel\Common\Exception\InvalidArgumentException When the given cell index is invalid
      * @return int Row index
      */
     protected function getRowIndex($xmlReader)
@@ -335,8 +335,8 @@ class RowIterator implements IteratorInterface
     }
 
     /**
-     * @param \Box\Spout\Reader\Wrapper\XMLReader $xmlReader XMLReader object, positioned on a "<c>" node
-     * @throws \Box\Spout\Common\Exception\InvalidArgumentException When the given cell index is invalid
+     * @param \Rocky114\Excel\Reader\Wrapper\XMLReader $xmlReader XMLReader object, positioned on a "<c>" node
+     * @throws \Rocky114\Excel\Common\Exception\InvalidArgumentException When the given cell index is invalid
      * @return int Column index
      */
     protected function getColumnIndex($xmlReader)

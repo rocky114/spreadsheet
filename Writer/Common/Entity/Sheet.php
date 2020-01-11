@@ -1,8 +1,8 @@
 <?php
 
-namespace Box\Spout\Writer\Common\Entity;
+namespace Rocky114\Excel\Writer\Common\Entity;
 
-use Box\Spout\Writer\Common\Manager\SheetManager;
+use Rocky114\Excel\Writer\Common\Manager\SheetManager;
 
 /**
  * Class Sheet
@@ -76,7 +76,7 @@ class Sheet
      *  - it should be unique
      *
      * @param string $name Name of the sheet
-     * @throws \Box\Spout\Writer\Exception\InvalidSheetNameException If the sheet's name is invalid.
+     * @throws \Rocky114\Excel\Writer\Exception\InvalidSheetNameException If the sheet's name is invalid.
      * @return Sheet
      */
     public function setName($name)

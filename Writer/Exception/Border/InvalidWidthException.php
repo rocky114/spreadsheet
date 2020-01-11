@@ -1,9 +1,9 @@
 <?php
 
-namespace Box\Spout\Writer\Exception\Border;
+namespace Rocky114\Excel\Writer\Exception\Border;
 
-use Box\Spout\Common\Entity\Style\BorderPart;
-use Box\Spout\Writer\Exception\WriterException;
+use Rocky114\Excel\Common\Entity\Style\BorderPart;
+use Rocky114\Excel\Writer\Exception\WriterException;
 
 class InvalidWidthException extends WriterException
 {

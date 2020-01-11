@@ -1,8 +1,8 @@
 <?php
 
-namespace Box\Spout\Writer\Exception;
+namespace Rocky114\Excel\Writer\Exception;
 
-use Box\Spout\Common\Exception\SpoutException;
+use Rocky114\Excel\Common\Exception\SpoutException;
 
 /**
  * Class WriterException

@@ -1,6 +1,6 @@
 <?php
 
-namespace Box\Spout\Reader\Exception;
+namespace Rocky114\Excel\Reader\Exception;
 
 /**
  * Class SharedStringNotFoundException

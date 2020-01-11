@@ -1,8 +1,8 @@
 <?php
 
-namespace Box\Spout\Writer\Common\Manager\Style;
+namespace Rocky114\Excel\Writer\Common\Manager\Style;
 
-use Box\Spout\Common\Entity\Style\Style;
+use Rocky114\Excel\Common\Entity\Style\Style;
 
 /**
  * Class StyleMerger

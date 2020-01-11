@@ -1,9 +1,9 @@
 <?php
 
-namespace Box\Spout\Reader\XLSX\Manager;
+namespace Rocky114\Excel\Reader\XLSX\Manager;
 
-use Box\Spout\Common\Manager\OptionsManagerAbstract;
-use Box\Spout\Reader\Common\Entity\Options;
+use Rocky114\Excel\Common\Manager\OptionsManagerAbstract;
+use Rocky114\Excel\Reader\Common\Entity\Options;
 
 /**
  * Class OptionsManager

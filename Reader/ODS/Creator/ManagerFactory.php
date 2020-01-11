@@ -1,8 +1,8 @@
 <?php
 
-namespace Box\Spout\Reader\ODS\Creator;
+namespace Rocky114\Excel\Reader\ODS\Creator;
 
-use Box\Spout\Reader\Common\Manager\RowManager;
+use Rocky114\Excel\Reader\Common\Manager\RowManager;
 
 /**
  * Class ManagerFactory

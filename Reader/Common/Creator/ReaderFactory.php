@@ -1,25 +1,25 @@
 <?php
 
-namespace Box\Spout\Reader\Common\Creator;
+namespace Rocky114\Excel\Reader\Common\Creator;
 
-use Box\Spout\Common\Creator\HelperFactory;
-use Box\Spout\Common\Exception\UnsupportedTypeException;
-use Box\Spout\Common\Type;
-use Box\Spout\Reader\CSV\Creator\InternalEntityFactory as CSVInternalEntityFactory;
-use Box\Spout\Reader\CSV\Manager\OptionsManager as CSVOptionsManager;
-use Box\Spout\Reader\CSV\Reader as CSVReader;
-use Box\Spout\Reader\ODS\Creator\HelperFactory as ODSHelperFactory;
-use Box\Spout\Reader\ODS\Creator\InternalEntityFactory as ODSInternalEntityFactory;
-use Box\Spout\Reader\ODS\Creator\ManagerFactory as ODSManagerFactory;
-use Box\Spout\Reader\ODS\Manager\OptionsManager as ODSOptionsManager;
-use Box\Spout\Reader\ODS\Reader as ODSReader;
-use Box\Spout\Reader\ReaderInterface;
-use Box\Spout\Reader\XLSX\Creator\HelperFactory as XLSXHelperFactory;
-use Box\Spout\Reader\XLSX\Creator\InternalEntityFactory as XLSXInternalEntityFactory;
-use Box\Spout\Reader\XLSX\Creator\ManagerFactory as XLSXManagerFactory;
-use Box\Spout\Reader\XLSX\Manager\OptionsManager as XLSXOptionsManager;
-use Box\Spout\Reader\XLSX\Manager\SharedStringsCaching\CachingStrategyFactory;
-use Box\Spout\Reader\XLSX\Reader as XLSXReader;
+use Rocky114\Excel\Common\Creator\HelperFactory;
+use Rocky114\Excel\Common\Exception\UnsupportedTypeException;
+use Rocky114\Excel\Common\Type;
+use Rocky114\Excel\Reader\CSV\Creator\InternalEntityFactory as CSVInternalEntityFactory;
+use Rocky114\Excel\Reader\CSV\Manager\OptionsManager as CSVOptionsManager;
+use Rocky114\Excel\Reader\CSV\Reader as CSVReader;
+use Rocky114\Excel\Reader\ODS\Creator\HelperFactory as ODSHelperFactory;
+use Rocky114\Excel\Reader\ODS\Creator\InternalEntityFactory as ODSInternalEntityFactory;
+use Rocky114\Excel\Reader\ODS\Creator\ManagerFactory as ODSManagerFactory;
+use Rocky114\Excel\Reader\ODS\Manager\OptionsManager as ODSOptionsManager;
+use Rocky114\Excel\Reader\ODS\Reader as ODSReader;
+use Rocky114\Excel\Reader\ReaderInterface;
+use Rocky114\Excel\Reader\XLSX\Creator\HelperFactory as XLSXHelperFactory;
+use Rocky114\Excel\Reader\XLSX\Creator\InternalEntityFactory as XLSXInternalEntityFactory;
+use Rocky114\Excel\Reader\XLSX\Creator\ManagerFactory as XLSXManagerFactory;
+use Rocky114\Excel\Reader\XLSX\Manager\OptionsManager as XLSXOptionsManager;
+use Rocky114\Excel\Reader\XLSX\Manager\SharedStringsCaching\CachingStrategyFactory;
+use Rocky114\Excel\Reader\XLSX\Reader as XLSXReader;
 
 /**
  * Class ReaderFactory
@@ -32,7 +32,7 @@ class ReaderFactory
      * Creates a reader by file extension
      *
      * @param string $path The path to the spreadsheet file. Supported extensions are .csv,.ods and .xlsx
-     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
+     * @throws \Rocky114\Excel\Common\Exception\UnsupportedTypeException
      * @return ReaderInterface
      */
     public static function createFromFile(string $path)
@@ -46,7 +46,7 @@ class ReaderFactory
      * This creates an instance of the appropriate reader, given the type of the file to be read
      *
      * @param  string $readerType Type of the reader to instantiate
-     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
+     * @throws \Rocky114\Excel\Common\Exception\UnsupportedTypeException
      * @return ReaderInterface
      */
     public static function createFromType($readerType)

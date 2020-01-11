@@ -1,23 +1,23 @@
 <?php
 
-namespace Box\Spout\Writer\XLSX\Manager;
+namespace Rocky114\Excel\Writer\XLSX\Manager;
 
-use Box\Spout\Common\Entity\Cell;
-use Box\Spout\Common\Entity\Row;
-use Box\Spout\Common\Entity\Style\Style;
-use Box\Spout\Common\Exception\InvalidArgumentException;
-use Box\Spout\Common\Exception\IOException;
-use Box\Spout\Common\Helper\Escaper\XLSX as XLSXEscaper;
-use Box\Spout\Common\Helper\StringHelper;
-use Box\Spout\Common\Manager\OptionsManagerInterface;
-use Box\Spout\Writer\Common\Creator\InternalEntityFactory;
-use Box\Spout\Writer\Common\Entity\Options;
-use Box\Spout\Writer\Common\Entity\Worksheet;
-use Box\Spout\Writer\Common\Helper\CellHelper;
-use Box\Spout\Writer\Common\Manager\RowManager;
-use Box\Spout\Writer\Common\Manager\Style\StyleMerger;
-use Box\Spout\Writer\Common\Manager\WorksheetManagerInterface;
-use Box\Spout\Writer\XLSX\Manager\Style\StyleManager;
+use Rocky114\Excel\Common\Entity\Cell;
+use Rocky114\Excel\Common\Entity\Row;
+use Rocky114\Excel\Common\Entity\Style\Style;
+use Rocky114\Excel\Common\Exception\InvalidArgumentException;
+use Rocky114\Excel\Common\Exception\IOException;
+use Rocky114\Excel\Common\Helper\Escaper\XLSX as XLSXEscaper;
+use Rocky114\Excel\Common\Helper\StringHelper;
+use Rocky114\Excel\Common\Manager\OptionsManagerInterface;
+use Rocky114\Excel\Writer\Common\Creator\InternalEntityFactory;
+use Rocky114\Excel\Writer\Common\Entity\Options;
+use Rocky114\Excel\Writer\Common\Entity\Worksheet;
+use Rocky114\Excel\Writer\Common\Helper\CellHelper;
+use Rocky114\Excel\Writer\Common\Manager\RowManager;
+use Rocky114\Excel\Writer\Common\Manager\Style\StyleMerger;
+use Rocky114\Excel\Writer\Common\Manager\WorksheetManagerInterface;
+use Rocky114\Excel\Writer\XLSX\Manager\Style\StyleManager;
 
 /**
  * Class WorksheetManager

@@ -1,8 +1,8 @@
 <?php
 
-namespace Box\Spout\Writer\Common\Helper;
+namespace Rocky114\Excel\Writer\Common\Helper;
 
-use Box\Spout\Writer\Common\Creator\InternalEntityFactory;
+use Rocky114\Excel\Writer\Common\Creator\InternalEntityFactory;
 
 /**
  * Class ZipHelper

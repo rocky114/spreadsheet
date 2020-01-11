@@ -1,13 +1,13 @@
 <?php
 
-namespace Box\Spout\Reader\ODS;
+namespace Rocky114\Excel\Reader\ODS;
 
-use Box\Spout\Common\Exception\IOException;
-use Box\Spout\Reader\Exception\XMLProcessingException;
-use Box\Spout\Reader\IteratorInterface;
-use Box\Spout\Reader\ODS\Creator\InternalEntityFactory;
-use Box\Spout\Reader\ODS\Helper\SettingsHelper;
-use Box\Spout\Reader\Wrapper\XMLReader;
+use Rocky114\Excel\Common\Exception\IOException;
+use Rocky114\Excel\Reader\Exception\XMLProcessingException;
+use Rocky114\Excel\Reader\IteratorInterface;
+use Rocky114\Excel\Reader\ODS\Creator\InternalEntityFactory;
+use Rocky114\Excel\Reader\ODS\Helper\SettingsHelper;
+use Rocky114\Excel\Reader\Wrapper\XMLReader;
 
 /**
  * Class SheetIterator
@@ -31,7 +31,7 @@ class SheetIterator implements IteratorInterface
     /** @var string $filePath Path of the file to be read */
     protected $filePath;
 
-    /** @var \Box\Spout\Common\Manager\OptionsManagerInterface Reader's options manager */
+    /** @var \Rocky114\Excel\Common\Manager\OptionsManagerInterface Reader's options manager */
     protected $optionsManager;
 
     /** @var InternalEntityFactory $entityFactory Factory to create entities */
@@ -40,7 +40,7 @@ class SheetIterator implements IteratorInterface
     /** @var XMLReader The XMLReader object that will help read sheet's XML data */
     protected $xmlReader;
 
-    /** @var \Box\Spout\Common\Helper\Escaper\ODS Used to unescape XML data */
+    /** @var \Rocky114\Excel\Common\Helper\Escaper\ODS Used to unescape XML data */
     protected $escaper;
 
     /** @var bool Whether there are still at least a sheet to be read */
@@ -57,8 +57,8 @@ class SheetIterator implements IteratorInterface
 
     /**
      * @param string $filePath Path of the file to be read
-     * @param \Box\Spout\Common\Manager\OptionsManagerInterface $optionsManager
-     * @param \Box\Spout\Common\Helper\Escaper\ODS $escaper Used to unescape XML data
+     * @param \Rocky114\Excel\Common\Manager\OptionsManagerInterface $optionsManager
+     * @param \Rocky114\Excel\Common\Helper\Escaper\ODS $escaper Used to unescape XML data
      * @param SettingsHelper $settingsHelper Helper to get data from "settings.xml"
      * @param InternalEntityFactory $entityFactory Factory to create entities
      */
@@ -76,7 +76,7 @@ class SheetIterator implements IteratorInterface
      * Rewind the Iterator to the first element
      * @see http://php.net/manual/en/iterator.rewind.php
      *
-     * @throws \Box\Spout\Common\Exception\IOException If unable to open the XML file containing sheets' data
+     * @throws \Rocky114\Excel\Common\Exception\IOException If unable to open the XML file containing sheets' data
      * @return void
      */
     public function rewind()
@@ -155,7 +155,7 @@ class SheetIterator implements IteratorInterface
      * Return the current element
      * @see http://php.net/manual/en/iterator.current.php
      *
-     * @return \Box\Spout\Reader\ODS\Sheet
+     * @return \Rocky114\Excel\Reader\ODS\Sheet
      */
     public function current()
     {

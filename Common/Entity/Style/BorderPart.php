@@ -1,10 +1,10 @@
 <?php
 
-namespace Box\Spout\Common\Entity\Style;
+namespace Rocky114\Excel\Common\Entity\Style;
 
-use Box\Spout\Writer\Exception\Border\InvalidNameException;
-use Box\Spout\Writer\Exception\Border\InvalidStyleException;
-use Box\Spout\Writer\Exception\Border\InvalidWidthException;
+use Rocky114\Excel\Writer\Exception\Border\InvalidNameException;
+use Rocky114\Excel\Writer\Exception\Border\InvalidStyleException;
+use Rocky114\Excel\Writer\Exception\Border\InvalidWidthException;
 
 /**
  * Class BorderPart

@@ -1,15 +1,15 @@
 <?php
 
-namespace Box\Spout\Reader\XLSX;
+namespace Rocky114\Excel\Reader\XLSX;
 
-use Box\Spout\Common\Exception\IOException;
-use Box\Spout\Common\Helper\GlobalFunctionsHelper;
-use Box\Spout\Common\Manager\OptionsManagerInterface;
-use Box\Spout\Reader\Common\Creator\InternalEntityFactoryInterface;
-use Box\Spout\Reader\Common\Entity\Options;
-use Box\Spout\Reader\ReaderAbstract;
-use Box\Spout\Reader\XLSX\Creator\InternalEntityFactory;
-use Box\Spout\Reader\XLSX\Creator\ManagerFactory;
+use Rocky114\Excel\Common\Exception\IOException;
+use Rocky114\Excel\Common\Helper\GlobalFunctionsHelper;
+use Rocky114\Excel\Common\Manager\OptionsManagerInterface;
+use Rocky114\Excel\Reader\Common\Creator\InternalEntityFactoryInterface;
+use Rocky114\Excel\Reader\Common\Entity\Options;
+use Rocky114\Excel\Reader\ReaderAbstract;
+use Rocky114\Excel\Reader\XLSX\Creator\InternalEntityFactory;
+use Rocky114\Excel\Reader\XLSX\Creator\ManagerFactory;
 
 /**
  * Class Reader
@@ -23,7 +23,7 @@ class Reader extends ReaderAbstract
     /** @var \ZipArchive */
     protected $zip;
 
-    /** @var \Box\Spout\Reader\XLSX\Manager\SharedStringsManager Manages shared strings */
+    /** @var \Rocky114\Excel\Reader\XLSX\Manager\SharedStringsManager Manages shared strings */
     protected $sharedStringsManager;
 
     /** @var SheetIterator To iterator over the XLSX sheets */
@@ -72,8 +72,8 @@ class Reader extends ReaderAbstract
      * and fetches all the available sheets.
      *
      * @param  string $filePath Path of the file to be read
-     * @throws \Box\Spout\Common\Exception\IOException If the file at the given path or its content cannot be read
-     * @throws \Box\Spout\Reader\Exception\NoSheetsFoundException If there are no sheets in the file
+     * @throws \Rocky114\Excel\Common\Exception\IOException If the file at the given path or its content cannot be read
+     * @throws \Rocky114\Excel\Reader\Exception\NoSheetsFoundException If there are no sheets in the file
      * @return void
      */
     protected function openReader($filePath)

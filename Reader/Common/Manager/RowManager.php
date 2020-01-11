@@ -1,9 +1,9 @@
 <?php
 
-namespace Box\Spout\Reader\Common\Manager;
+namespace Rocky114\Excel\Reader\Common\Manager;
 
-use Box\Spout\Common\Entity\Row;
-use Box\Spout\Reader\Common\Creator\InternalEntityFactoryInterface;
+use Rocky114\Excel\Common\Entity\Row;
+use Rocky114\Excel\Reader\Common\Creator\InternalEntityFactoryInterface;
 
 /**
  * Class RowManager

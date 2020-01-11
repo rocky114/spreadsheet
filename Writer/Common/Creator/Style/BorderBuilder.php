@@ -1,10 +1,10 @@
 <?php
 
-namespace Box\Spout\Writer\Common\Creator\Style;
+namespace Rocky114\Excel\Writer\Common\Creator\Style;
 
-use Box\Spout\Common\Entity\Style\Border;
-use Box\Spout\Common\Entity\Style\BorderPart;
-use Box\Spout\Common\Entity\Style\Color;
+use Rocky114\Excel\Common\Entity\Style\Border;
+use Rocky114\Excel\Common\Entity\Style\BorderPart;
+use Rocky114\Excel\Common\Entity\Style\Color;
 
 /**
  * Class BorderBuilder

@@ -1,9 +1,9 @@
 <?php
 
-namespace Box\Spout\Reader\Common\Creator;
+namespace Rocky114\Excel\Reader\Common\Creator;
 
-use Box\Spout\Common\Entity\Cell;
-use Box\Spout\Common\Entity\Row;
+use Rocky114\Excel\Common\Entity\Cell;
+use Rocky114\Excel\Common\Entity\Row;
 
 /**
  * Interface EntityFactoryInterface

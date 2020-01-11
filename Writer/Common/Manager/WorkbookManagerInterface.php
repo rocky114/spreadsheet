@@ -1,14 +1,14 @@
 <?php
 
-namespace Box\Spout\Writer\Common\Manager;
+namespace Rocky114\Excel\Writer\Common\Manager;
 
-use Box\Spout\Common\Entity\Row;
-use Box\Spout\Common\Exception\IOException;
-use Box\Spout\Writer\Common\Entity\Sheet;
-use Box\Spout\Writer\Common\Entity\Workbook;
-use Box\Spout\Writer\Common\Entity\Worksheet;
-use Box\Spout\Writer\Exception\SheetNotFoundException;
-use Box\Spout\Writer\Exception\WriterException;
+use Rocky114\Excel\Common\Entity\Row;
+use Rocky114\Excel\Common\Exception\IOException;
+use Rocky114\Excel\Writer\Common\Entity\Sheet;
+use Rocky114\Excel\Writer\Common\Entity\Workbook;
+use Rocky114\Excel\Writer\Common\Entity\Worksheet;
+use Rocky114\Excel\Writer\Exception\SheetNotFoundException;
+use Rocky114\Excel\Writer\Exception\WriterException;
 
 /**
  * Interface WorkbookManagerInterface

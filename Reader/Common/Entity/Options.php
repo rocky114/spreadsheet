@@ -1,6 +1,6 @@
 <?php
 
-namespace Box\Spout\Reader\Common\Entity;
+namespace Rocky114\Excel\Reader\Common\Entity;
 
 /**
  * Class Options

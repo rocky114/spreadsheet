@@ -1,6 +1,6 @@
 <?php
 
-namespace Box\Spout\Common;
+namespace Rocky114\Excel\Common;
 
 /**
  * Class Type

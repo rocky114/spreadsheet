@@ -1,6 +1,6 @@
 <?php
 
-namespace Box\Spout\Common\Entity\Style;
+namespace Rocky114\Excel\Common\Entity\Style;
 
 /**
  * Class Border

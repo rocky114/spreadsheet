@@ -1,18 +1,18 @@
 <?php
 
-namespace Box\Spout\Writer;
+namespace Rocky114\Excel\Writer;
 
-use Box\Spout\Common\Creator\HelperFactory;
-use Box\Spout\Common\Entity\Row;
-use Box\Spout\Common\Entity\Style\Style;
-use Box\Spout\Common\Exception\InvalidArgumentException;
-use Box\Spout\Common\Exception\IOException;
-use Box\Spout\Common\Exception\SpoutException;
-use Box\Spout\Common\Helper\GlobalFunctionsHelper;
-use Box\Spout\Common\Manager\OptionsManagerInterface;
-use Box\Spout\Writer\Common\Entity\Options;
-use Box\Spout\Writer\Exception\WriterAlreadyOpenedException;
-use Box\Spout\Writer\Exception\WriterNotOpenedException;
+use Rocky114\Excel\Common\Creator\HelperFactory;
+use Rocky114\Excel\Common\Entity\Row;
+use Rocky114\Excel\Common\Entity\Style\Style;
+use Rocky114\Excel\Common\Exception\InvalidArgumentException;
+use Rocky114\Excel\Common\Exception\IOException;
+use Rocky114\Excel\Common\Exception\SpoutException;
+use Rocky114\Excel\Common\Helper\GlobalFunctionsHelper;
+use Rocky114\Excel\Common\Manager\OptionsManagerInterface;
+use Rocky114\Excel\Writer\Common\Entity\Options;
+use Rocky114\Excel\Writer\Exception\WriterAlreadyOpenedException;
+use Rocky114\Excel\Writer\Exception\WriterNotOpenedException;
 
 /**
  * Class WriterAbstract

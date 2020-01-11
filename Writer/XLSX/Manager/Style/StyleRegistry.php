@@ -1,14 +1,14 @@
 <?php
 
-namespace Box\Spout\Writer\XLSX\Manager\Style;
+namespace Rocky114\Excel\Writer\XLSX\Manager\Style;
 
-use Box\Spout\Common\Entity\Style\Style;
+use Rocky114\Excel\Common\Entity\Style\Style;
 
 /**
  * Class StyleRegistry
  * Registry for all used styles
  */
-class StyleRegistry extends \Box\Spout\Writer\Common\Manager\Style\StyleRegistry
+class StyleRegistry extends \Rocky114\Excel\Writer\Common\Manager\Style\StyleRegistry
 {
     /**
      * @see https://msdn.microsoft.com/en-us/library/ff529597(v=office.12).aspx
