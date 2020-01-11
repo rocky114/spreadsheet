@@ -52,7 +52,6 @@ class WriterFactory
         switch ($writerType) {
             case Type::CSV: return self::createCSVWriter();
             case Type::XLSX: return self::createXLSXWriter();
-            case Type::ODS: return self::createODSWriter();
             default:
                 throw new UnsupportedTypeException('No writers supporting the given type: ' . $writerType);
         }

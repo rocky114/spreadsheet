@@ -68,20 +68,6 @@ class WriterEntityFactory
     }
 
     /**
-     * This creates an instance of a ODS writer
-     *
-     * @return \Rocky114\Excel\Writer\ODS\Writer
-     */
-    public static function createODSWriter()
-    {
-        try {
-            return WriterFactory::createFromType(Type::ODS);
-        } catch (UnsupportedTypeException $e) {
-            // should never happen
-        }
-    }
-
-    /**
      * @param Cell[] $cells
      * @param Style|null $rowStyle
      * @return Row
