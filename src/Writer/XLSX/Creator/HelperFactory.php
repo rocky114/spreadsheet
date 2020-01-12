@@ -2,19 +2,20 @@
 
 namespace Rocky114\Excel\Writer\XLSX\Creator;
 
-use Rocky114\Excel\Common\Helper\Escaper;
+use Rocky114\Excel\Common\Helper\Escaper\XLSX;
 use Rocky114\Excel\Common\Helper\StringHelper;
 use Rocky114\Excel\Common\Manager\OptionsManagerInterface;
 use Rocky114\Excel\Writer\Common\Creator\InternalEntityFactory;
 use Rocky114\Excel\Writer\Common\Entity\Options;
 use Rocky114\Excel\Writer\Common\Helper\ZipHelper;
 use Rocky114\Excel\Writer\XLSX\Helper\FileSystemHelper;
+use Rocky114\Excel\Common\Creator\HelperFactory as CommonHelpFactory;
 
 /**
  * Class HelperFactory
  * Factory for helpers needed by the XLSX Writer
  */
-class HelperFactory extends \Rocky114\Excel\Common\Creator\HelperFactory
+class HelperFactory extends CommonHelpFactory
 {
     /**
      * @param OptionsManagerInterface $optionsManager
@@ -40,11 +41,11 @@ class HelperFactory extends \Rocky114\Excel\Common\Creator\HelperFactory
     }
 
     /**
-     * @return Escaper\XLSX
+     * @return Rocky114\Excel\Common\Helper\Escaper\XLSX
      */
     public function createStringsEscaper()
     {
-        return new Escaper\XLSX();
+        return new XLSX();
     }
 
     /**

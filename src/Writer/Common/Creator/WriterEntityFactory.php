@@ -66,6 +66,7 @@ class WriterEntityFactory
      * @param Cell[] $cells
      * @param Style|null $rowStyle
      * @return Row
+     * 
      */
     public static function createRow(array $cells = [], Style $rowStyle = null)
     {
