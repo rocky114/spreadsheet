@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Rocky114\\Excel\\": "src"
+            "Rocky114\\Excel\\": "excel/src"
         }
     },
     "minimum-stability": "dev",
