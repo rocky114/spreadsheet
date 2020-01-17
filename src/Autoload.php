@@ -6,16 +6,18 @@ class Autoload
 {
     public function load($name)
     {
-        $realpath = $this->addNamespace();
+        $filePath = $this->getFullFilePath($name);
 
-        include $realpath.$name;
+        include "$filePath";
     }
 
-    public function addNamespace($prefix = 'Rocky114\Excel', $dir = __DIR__)
+    public function getFullFilePath($filename = null)
     {
-        $dir = '';
+        $prefix = 'Rocky114\Excel';
 
-        return $dir;
+        $filename = str_replace($prefix, '', $filename);
+
+        return __DIR__.$filename.'.php';
     }
 }
 
