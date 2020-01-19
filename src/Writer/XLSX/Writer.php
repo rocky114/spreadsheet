@@ -52,8 +52,6 @@ class Writer
 
     public function closeWriter()
     {
-        $this->zipHelper->
+        $this->zipHelper->writeToZipArchive($this->workbook);
     }
-
-
 }
