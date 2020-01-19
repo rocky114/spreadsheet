@@ -6,7 +6,7 @@ class Style
 {
     const FONT_SIZE = 11;
     const FONT_COLOR = Color::BLACK;
-    const FONT_NAME = 'Arial';
+    const FONT_NAME = 'Calibri';
 
     public function __construct()
     {

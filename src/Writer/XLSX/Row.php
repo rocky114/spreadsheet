@@ -1,6 +1,6 @@
 <?php
 
-namespace Rocky114\Excel\Writer\Common;
+namespace Rocky114\Excel\Writer\XLSX;
 
 class Row
 {
@@ -10,7 +10,7 @@ class Row
 
     protected $type;
 
-    public function __construct(array $cells, $type, $style)
+    public function __construct(array $cells, $style)
     {
 
     }
