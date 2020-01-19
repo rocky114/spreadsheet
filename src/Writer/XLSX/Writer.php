@@ -2,7 +2,9 @@
 
 namespace Rocky114\Excel\Writer\XLSX;
 
-use Rocky114\Excel\Common\Helper;
+use Rocky114\Excel\Common\FunctionHelper;
+use Rocky114\Excel\Common\ZipHelper;
+use Rocky114\Excel\Writer\XLSX\Workbook;
 
 class Writer
 {
@@ -11,12 +13,16 @@ class Writer
     protected $fileHandle;
 
     protected $functionHelper;
+    protected $zipHelper;
+    protected $workbook;
 
     protected $outputFilename;
 
-    public function __construct(Helper $helper)
+    public function __construct(FunctionHelper $functionHelper, ZipHelper $zipHelper, Workbook $workbook)
     {
-        $this->functionHelper = $helper;
+        $this->functionHelper = $functionHelper;
+        $this->zipHelper = $zipHelper;
+        $this->workbook = $workbook;
     }
 
     public function openToFile($filename, $dir)
@@ -43,4 +49,11 @@ class Writer
 
         return $this;
     }
+
+    public function closeWriter()
+    {
+        $this->zipHelper->
+    }
+
+
 }

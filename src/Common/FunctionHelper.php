@@ -2,7 +2,7 @@
 
 namespace Rocky114\Excel\Common;
 
-class Helper
+class FunctionHelper
 {
     public function __construct()
     {

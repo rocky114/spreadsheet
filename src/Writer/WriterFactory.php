@@ -7,7 +7,7 @@ use Rocky114\Excel\Writer\XLSX\Row;
 use Rocky114\Excel\Writer\XLSX\Writer as XLSXWriter;
 use Rocky114\Excel\Writer\CSV\Writer as CSVWriter;
 
-use Rocky114\Excel\Common\Helper;
+use Rocky114\Excel\Common\FunctionHelper;
 
 class WriterFactory
 {
@@ -18,7 +18,7 @@ class WriterFactory
 
     public static function createXLSXWriter()
     {
-        $helper = new Helper();
+        $helper = new FunctionHelper();
         return new XLSXWriter($helper);
     }
 
