@@ -11,7 +11,7 @@ class ZipHelper
 
     protected $zipFilePath;
 
-    public function __construct($filename, $dir = null)
+    public function __construct($filename = null, $dir = null)
     {
         if ($dir === null) {
             $dir = sys_get_temp_dir();

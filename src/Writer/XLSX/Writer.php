@@ -12,15 +12,13 @@ class Writer
 
     protected $fileHandle;
 
-    protected $functionHelper;
     protected $zipHelper;
     protected $workbook;
 
     protected $outputFilename;
 
-    public function __construct(FunctionHelper $functionHelper, ZipHelper $zipHelper, Workbook $workbook)
+    public function __construct(ZipHelper $zipHelper = null, Workbook $workbook = null)
     {
-        $this->functionHelper = $functionHelper;
         $this->zipHelper = $zipHelper;
         $this->workbook = $workbook;
     }
@@ -32,13 +30,13 @@ class Writer
 
     public function openToBrowser($filename)
     {
-        if (!$this->functionHelper->isXLSXFile($filename)) {
+        if (FunctionHelper::isXLSXFile($filename)) {
             throw new \Exception('filename extension error');
         }
 
         $this->outputFilename = $filename;
 
-        $this->functionHelper->flushBuffer();
+        functionHelper::flushBuffer();
 
         $this->fileHandle = fopen('php://output', 'w');
 
@@ -48,6 +46,16 @@ class Writer
         header('Pragma: public');
 
         return $this;
+    }
+
+    public function addRow()
+    {
+
+    }
+
+    public function addRows()
+    {
+
     }
 
     public function closeWriter()
