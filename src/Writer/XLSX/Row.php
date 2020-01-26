@@ -6,11 +6,9 @@ class Row
 {
     protected $cells = [];
 
-    protected $style;
-
     protected $type;
 
-    public function __construct(array $cells, $style)
+    public function __construct(array $cells)
     {
 
     }
@@ -40,13 +38,6 @@ class Row
     public function setType($type)
     {
         $this->type = $type;
-
-        return $this;
-    }
-
-    public function setStyle($style)
-    {
-        $this->style = $style;
 
         return $this;
     }

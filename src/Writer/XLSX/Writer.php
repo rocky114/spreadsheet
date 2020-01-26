@@ -5,6 +5,8 @@ namespace Rocky114\Excel\Writer\XLSX;
 use Rocky114\Excel\Common\FunctionHelper;
 use Rocky114\Excel\Common\ZipHelper;
 use Rocky114\Excel\Writer\XLSX\Workbook;
+use Rocky114\Excel\Writer\XLSX\Type;
+use Rocky114\Excel\Writer\XLSX\Style\Style;
 
 class Writer
 {
@@ -17,10 +19,12 @@ class Writer
 
     protected $outputFilename;
 
-    public function __construct(ZipHelper $zipHelper = null, Workbook $workbook = null)
+    protected $columnType;
+
+    public function __construct()
     {
-        $this->zipHelper = $zipHelper;
-        $this->workbook = $workbook;
+        $this->zipHelper = new ZipHelper();
+        $this->workbook = new Workbook();
     }
 
     public function openToFile($filename, $dir)
@@ -58,8 +62,36 @@ class Writer
 
     }
 
-    public function closeWriter()
+    public function addSheet()
+    {
+
+    }
+
+    public function close()
     {
         $this->zipHelper->writeToZipArchive($this->workbook);
+    }
+
+    public function setTempFolder($dir = null)
+    {
+        $dir = $dir === null ? sys_get_temp_dir() : $dir;
+
+        return $this;
+    }
+
+    public function setColumnType(Type $type)
+    {
+        $this->columnType = $type;
+        return $this;
+    }
+
+    public function getCurrentSheet()
+    {
+
+    }
+
+    public function setCurrentSheet()
+    {
+
     }
 }

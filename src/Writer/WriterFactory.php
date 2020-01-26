@@ -18,26 +18,6 @@ class WriterFactory
 
     public static function createXLSXWriter()
     {
-        $zipHandle = new ZipHelper();
-        return new XLSXWriter($zipHandle);
-    }
-
-    public static function createRow(array $cells = [], $style)
-    {
-        return new Row($cells, $style);
-    }
-
-    public static function createRowFromArray(array $cells, $style)
-    {
-        $items = array_map(function ($item) {
-            return new Cell($item);
-        }, $cells);
-
-        return new Row($items, $style);
-    }
-
-    public static function createCell($value, $style)
-    {
-        return new Cell($value, $style);
+        return new XLSXWriter();
     }
 }
