@@ -15,7 +15,7 @@ class Autoload
     {
         $prefix = 'Rocky114\Excel';
 
-        $filename = str_replace($prefix, '', $filename);
+        $filename = str_replace([$prefix, '\\'], ['', '/'], $filename);
 
         return __DIR__.$filename.'.php';
     }

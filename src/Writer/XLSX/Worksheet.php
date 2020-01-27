@@ -19,14 +19,4 @@ class Worksheet
     {
         return $this->filePath;
     }
-
-    public function getCurrentSheet()
-    {
-
-    }
-
-    public function addNewSheet()
-    {
-        
-    }
 }

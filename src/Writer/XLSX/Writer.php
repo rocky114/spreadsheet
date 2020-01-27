@@ -4,8 +4,6 @@ namespace Rocky114\Excel\Writer\XLSX;
 
 use Rocky114\Excel\Common\FunctionHelper;
 use Rocky114\Excel\Common\ZipHelper;
-use Rocky114\Excel\Writer\XLSX\Workbook;
-use Rocky114\Excel\Writer\XLSX\Type;
 use Rocky114\Excel\Writer\XLSX\Style\Style;
 
 class Writer
@@ -21,10 +19,18 @@ class Writer
 
     protected $columnType;
 
-    public function __construct()
+    protected $tempFolder;
+
+    protected $style;
+
+    public function __construct(array $config = [])
     {
+        $this->tempFolder = isset($config['temp_folder']) ? $config['temp_folder'] : sys_get_temp_dir();
+
         $this->zipHelper = new ZipHelper();
         $this->workbook = new Workbook();
+
+        $this->style = new Style;
     }
 
     public function openToFile($filename, $dir)
@@ -44,7 +50,7 @@ class Writer
 
         $this->fileHandle = fopen('php://output', 'w');
 
-        header('Content-Type: ' . self::$headerContentType);
+        header('Content-Type: ' . 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="' . $this->outputFilename . '"');
         header('Cache-Control: max-age=0');
         header('Pragma: public');
@@ -67,21 +73,10 @@ class Writer
 
     }
 
-    public function close()
-    {
-        $this->zipHelper->writeToZipArchive($this->workbook);
-    }
-
-    public function setTempFolder($dir = null)
-    {
-        $dir = $dir === null ? sys_get_temp_dir() : $dir;
-
-        return $this;
-    }
-
-    public function setColumnType(Type $type)
+    public function setColumnType(Type $type, Sheet $sheet = null)
     {
         $this->columnType = $type;
+
         return $this;
     }
 
@@ -93,5 +88,15 @@ class Writer
     public function setCurrentSheet()
     {
 
+    }
+
+    public function setStyle()
+    {
+
+    }
+
+    public function close()
+    {
+        $this->zipHelper->writeToZipArchive($this->workbook);
     }
 }
