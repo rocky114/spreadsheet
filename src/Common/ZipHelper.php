@@ -11,20 +11,18 @@ class ZipHelper
 
     protected $zipFilePath;
 
-    public function __construct($filename = null, $dir = null)
+    protected $workbook;
+
+    public function __construct(Workbook $workbook)
     {
-        if ($dir === null) {
-            $dir = sys_get_temp_dir();
-        }
-
-        $this->zipFilePath = $dir . $filename;
-
-        $this->zipHandle = new ZipArchive();
-        $this->zipHandle->open($this->zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+        $this->workbook = $workbook;
     }
 
-    public function writeToZipArchive(Workbook $workbook)
+    public function writeToZipArchive()
     {
+        $this->zipHandle = new ZipArchive();
+        $this->zipHandle->open($this->zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
         $this->zipHandle->addEmptyDir('docProps');
         $this->zipHandle->addFromString('docProps/app.xml', '');
         $this->zipHandle->addFromString('docProps/core.xml', '');
@@ -33,7 +31,7 @@ class ZipHelper
         $this->zipHandle->addFromString('_rels/.rels', '');
 
         $this->zipHandle->addEmptyDir('xl/worksheets/');
-        foreach ($workbook as $worksheet) {
+        foreach ($this->workbook->getWorksheets() as $worksheet) {
             $this->zipHandle->addFile($worksheet->filePath, 'xl/worksheets/' . $worksheet->sheetname);
         }
 

@@ -23,14 +23,15 @@ class Writer
 
     protected $style;
 
+    protected $debug;
+
     public function __construct(array $config = [])
     {
         $this->tempFolder = isset($config['temp_folder']) ? $config['temp_folder'] : sys_get_temp_dir();
+        $this->style = isset($config['style']) ? $config['style'] : new Style;
+        $this->debug = isset($config['debug']) ? $config['debug'] : false;
 
-        $this->zipHelper = new ZipHelper();
         $this->workbook = new Workbook();
-
-        $this->style = new Style;
     }
 
     public function openToFile($filename, $dir)
@@ -97,6 +98,7 @@ class Writer
 
     public function close()
     {
-        $this->zipHelper->writeToZipArchive($this->workbook);
+        $this->zipHelper = new ZipHelper($this->workbook);
+        $this->zipHelper->writeToZipArchive();
     }
 }
