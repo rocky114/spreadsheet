@@ -16,8 +16,8 @@ class WriterFactory
         return new CSVWriter();
     }
 
-    public static function createXLSXWriter()
+    public static function createXLSXWriter(array $config = [])
     {
-        return new XLSXWriter();
+        return new XLSXWriter($config);
     }
 }

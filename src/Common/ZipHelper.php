@@ -21,7 +21,7 @@ class ZipHelper
     public function writeToZipArchive()
     {
         $this->zipHandle = new ZipArchive();
-        $this->zipHandle->open($this->zipFilePath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+        $this->zipHandle->open($this->workbook->getFilePath(), ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
         $this->zipHandle->addEmptyDir('docProps');
         $this->zipHandle->addFromString('docProps/app.xml', '');

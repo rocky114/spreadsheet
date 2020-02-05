@@ -6,8 +6,11 @@ class Workbook
 {
     protected $worksheets;
 
+    protected $workbookName;
+
     public function __construct()
     {
+        $this->workbookName = uniqid('excel', true);
     }
 
     public function createAppXml()
@@ -82,5 +85,10 @@ HTML;
     public function getWorksheets()
     {
         return [];
+    }
+
+    public function getFilePath()
+    {
+        return '';
     }
 }

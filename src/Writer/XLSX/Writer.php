@@ -15,23 +15,22 @@ class Writer
     protected $zipHelper;
     protected $workbook;
 
-    protected $outputFilename;
-
     protected $columnType;
 
-    protected $tempFolder;
-
-    protected $style;
-
-    protected $debug;
+    protected $options = [];
 
     public function __construct(array $config = [])
     {
-        $this->tempFolder = isset($config['temp_folder']) ? $config['temp_folder'] : sys_get_temp_dir();
-        $this->style = isset($config['style']) ? $config['style'] : new Style;
-        $this->debug = isset($config['debug']) ? $config['debug'] : false;
+        $this->options = [
+            'temp_folder' => sys_get_temp_dir(),
+            'style'       => new Style(),
+            'debug'       => false,
+            'filename'    => 'excel.xlsx'
+        ];
 
-        $this->workbook = new Workbook();
+        $this->options = array_merge($this->options, $config);
+
+        $this->workbook = new Workbook($this->options);
     }
 
     public function openToFile($filename, $dir)
@@ -39,20 +38,14 @@ class Writer
 
     }
 
-    public function openToBrowser($filename)
+    public function openToBrowser()
     {
-        if (FunctionHelper::isXLSXFile($filename)) {
-            throw new \Exception('filename extension error');
-        }
-
-        $this->outputFilename = $filename;
-
         functionHelper::flushBuffer();
 
         $this->fileHandle = fopen('php://output', 'w');
 
         header('Content-Type: ' . 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="' . $this->outputFilename . '"');
+        header('Content-Disposition: attachment; filename="' . $this->options['filename'] . '"');
         header('Cache-Control: max-age=0');
         header('Pragma: public');
 
