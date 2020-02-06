@@ -2,9 +2,7 @@
 
 namespace Rocky114\Excel\Common;
 
-use SplFileObject;
-
-class FileHelper extends SplFileObject
+class FileHelper
 {
     protected $buffer;
 
@@ -12,27 +10,38 @@ class FileHelper extends SplFileObject
 
     protected $currentNumber = 0;
 
-    public function __construct($filename = null)
+    protected $fileHandle;
+
+    public function __construct($filename = null, $mode = 'w')
     {
-        parent::__construct($filename, 'w');
+        if (false === $this->fileHandle = fopen($filename, $mode)) {
+            throw new \Exception('Cannot open file '.$filename);
+        }
     }
 
-    public function setBuffer($content = '')
+    public function write($content = '')
     {
         $this->buffer .= $content;
 
         $this->currentNumber++;
 
         if ($this->currentNumber === 10) {
-            $this->fwrite($this->buffer);
-
-            $this->clearBuffer();
+            $this->clearBuffer($this->buffer);
         }
     }
 
-    public function clearBuffer()
+    public function clearBuffer(&$content)
     {
+        if (false === fwrite($this->fileHandle, $content)) {
+            throw new \Exception('Cannot write content.');
+        }
+
         $this->buffer = '';
         $this->currentNumber = 0;
+    }
+
+    public function __destruct()
+    {
+        fclose($this->fileHandle);
     }
 }

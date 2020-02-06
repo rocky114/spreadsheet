@@ -29,4 +29,13 @@ class FunctionHelper
     {
         return uniqid(php_uname('n').getmypid(), true);
     }
+
+    public static function isUTF8Code($string)
+    {
+        if (function_exists('mb_check_encoding')) {
+            return mb_check_encoding($string, 'UTF-8') ? true : false;
+        }
+
+        return preg_match("//u", $string) ? true : false;
+    }
 }
