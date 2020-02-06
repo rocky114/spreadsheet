@@ -10,6 +10,10 @@ class Worksheet
 
     private $fileHandle;
 
+    private $sheetName;
+
+    private $filename;
+
     public function __construct($filePath, Sheet $sheet)
     {
         $this->filePath = $filePath;

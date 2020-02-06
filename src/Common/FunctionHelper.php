@@ -25,8 +25,8 @@ class FunctionHelper
         return 'csv' === pathinfo($filename, PATHINFO_EXTENSION);
     }
 
-    public static function uniqueName()
+    public static function createUniqueId()
     {
-        return uniqid(php_uname('n').'-'.getmypid().'-', true);
+        return uniqid(php_uname('n').getmypid(), true);
     }
 }
