@@ -12,8 +12,12 @@ class Workbook
 
     protected $workbookId;
 
+    protected $config = [];
+
     public function __construct(array $config = [])
     {
+        $this->config = $config;
+
         $this->workbookId = FunctionHelper::createUniqueId('.xlsx');
     }
 
@@ -28,7 +32,7 @@ class Workbook
             throw new \Exception("sheet $name exists");
         }
 
-        $this->worksheets[] = new Worksheet($name);
+        $this->worksheets[$name] = new Worksheet($name, $this->config);
 
         return $this;
     }
@@ -41,6 +45,15 @@ class Workbook
     public function setCurrentSheet($sheet)
     {
         $this->currentSheet = $sheet;
+    }
+
+    public function getWorksheetByName($name)
+    {
+        if (!isset($this->worksheets[$name])) {
+            throw new \Exception("sheet $name not exists");
+        }
+
+        return $this->worksheets[$name];
     }
 
     public function createAppXml()

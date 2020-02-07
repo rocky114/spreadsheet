@@ -2,6 +2,7 @@
 
 namespace Rocky114\Excel\Writer\XLSX;
 
+use Rocky114\Excel\Common\FileHelper;
 use Rocky114\Excel\Common\FunctionHelper;
 
 class Worksheet
@@ -10,18 +11,30 @@ class Worksheet
 
     protected $filename;
 
-    public function __construct($name)
+    protected $fileHandle;
+
+    public function __construct($sheetName, $config = [])
     {
-        $this->sheetName = $name;
+        $this->sheetName = $sheetName;
         $this->filename = FunctionHelper::createUniqueId();
+
+        $filePath = realpath(trim($config['temp_folder'], '/')) . DIRECTORY_SEPARATOR . $sheetName;
+        $this->fileHandle = new FileHelper($filePath);
     }
 
-    public function addRow()
+    public function addRow(array $row = [])
     {
 
     }
 
-    public function addRows()
+    public function addRows(array $rows = [])
+    {
+        foreach ($rows as $row) {
+            $this->addRow($row);
+        }
+    }
+
+    public function setStyle()
     {
 
     }

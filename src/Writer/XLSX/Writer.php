@@ -19,7 +19,6 @@ class Writer
     {
         $this->options = [
             'temp_folder' => sys_get_temp_dir(),
-            'style'       => new Style(),
             'debug'       => false,
             'filename'    => 'excel.xlsx'
         ];
