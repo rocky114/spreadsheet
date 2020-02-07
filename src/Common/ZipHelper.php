@@ -32,7 +32,7 @@ class ZipHelper
 
         $this->zipHandle->addEmptyDir('xl/worksheets/');
         foreach ($this->workbook->getWorksheets() as $worksheet) {
-            $this->zipHandle->addFile($worksheet->filePath, 'xl/worksheets/' . $worksheet->sheetname);
+            $this->zipHandle->addFile($worksheet->filePath, 'xl/worksheets/' . $worksheet->getSheetName());
         }
 
         $this->zipHandle->addFromString('xl/workbook.xml', '');

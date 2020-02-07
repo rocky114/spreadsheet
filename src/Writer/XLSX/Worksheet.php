@@ -2,25 +2,32 @@
 
 namespace Rocky114\Excel\Writer\XLSX;
 
-use Rocky114\Excel\Writer\XLSX\Sheet;
+use Rocky114\Excel\Common\FunctionHelper;
 
 class Worksheet
 {
-    private $filePath;
-
-    private $fileHandle;
-
     private $sheetName;
 
-    private $filename;
+    protected $filename;
 
-    public function __construct($filePath, Sheet $sheet)
+    public function __construct($name)
     {
-        $this->filePath = $filePath;
+        $this->sheetName = $name;
+        $this->filename = FunctionHelper::createUniqueId();
     }
 
-    public function getFilePath()
+    public function addRow()
     {
-        return $this->filePath;
+
+    }
+
+    public function addRows()
+    {
+
+    }
+
+    public function getSheetName()
+    {
+        return $this->sheetName;
     }
 }

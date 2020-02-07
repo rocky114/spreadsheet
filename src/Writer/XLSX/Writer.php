@@ -8,14 +8,10 @@ use Rocky114\Excel\Writer\XLSX\Style\Style;
 
 class Writer
 {
-    protected static $headerContentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-
     protected $fileHandle;
 
     protected $zipHelper;
     protected $workbook;
-
-    protected $columnType;
 
     protected $options = [];
 
@@ -40,7 +36,9 @@ class Writer
 
     public function openToBrowser()
     {
-        functionHelper::flushBuffer();
+        if (ob_get_length() > 0) {
+            ob_end_clean();
+        }
 
         $this->fileHandle = fopen('php://output', 'w');
 
@@ -52,41 +50,9 @@ class Writer
         return $this;
     }
 
-    public function addRow()
+    public function getWorkbook()
     {
-
-    }
-
-    public function addRows()
-    {
-
-    }
-
-    public function addSheet()
-    {
-
-    }
-
-    public function setColumnType(Type $type, Sheet $sheet = null)
-    {
-        $this->columnType = $type;
-
-        return $this;
-    }
-
-    public function getCurrentSheet()
-    {
-
-    }
-
-    public function setCurrentSheet()
-    {
-
-    }
-
-    public function setStyle()
-    {
-
+        return $this->workbook;
     }
 
     public function close()

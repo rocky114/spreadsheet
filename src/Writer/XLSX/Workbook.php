@@ -4,13 +4,34 @@ namespace Rocky114\Excel\Writer\XLSX;
 
 class Workbook
 {
-    protected $worksheets;
+    protected $worksheets = [];
 
-    protected $workbookName;
+    protected $currentSheet;
 
-    public function __construct()
+    public function __construct(array $config = [])
     {
-        $this->workbookName = uniqid('excel', true);
+
+    }
+
+    public function addNewSheet($name)
+    {
+        if (isset($this->worksheets[$name])) {
+            throw new \Exception("sheet $name exists");
+        }
+
+        $this->worksheets[] = new Worksheet($name);
+
+        return $this;
+    }
+
+    public function getCurrentSheet()
+    {
+        return $this->currentSheet;
+    }
+
+    public function setCurrentSheet($sheet)
+    {
+        $this->currentSheet = $sheet;
     }
 
     public function createAppXml()
@@ -82,9 +103,12 @@ HTML;
         return $html;
     }
 
+    /**
+     * @return array
+     */
     public function getWorksheets()
     {
-        return [];
+
     }
 
     public function getFilePath()
