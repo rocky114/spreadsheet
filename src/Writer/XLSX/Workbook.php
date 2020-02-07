@@ -2,15 +2,24 @@
 
 namespace Rocky114\Excel\Writer\XLSX;
 
+use Rocky114\Excel\Common\FunctionHelper;
+
 class Workbook
 {
     protected $worksheets = [];
 
     protected $currentSheet;
 
+    protected $workbookId;
+
     public function __construct(array $config = [])
     {
+        $this->workbookId = FunctionHelper::createUniqueId('.xlsx');
+    }
 
+    public function getWorkbookId()
+    {
+        return $this->workbookId;
     }
 
     public function addNewSheet($name)
@@ -108,7 +117,7 @@ HTML;
      */
     public function getWorksheets()
     {
-
+        return $this->worksheets;
     }
 
     public function getFilePath()
