@@ -13,6 +13,10 @@ class Worksheet
 
     protected $fileHandle;
 
+    protected $styleHandle;
+
+    protected $typeHandle;
+
     public function __construct($sheetName, $config = [])
     {
         $this->sheetName = $sheetName;
@@ -24,7 +28,11 @@ class Worksheet
 
     public function addRow(array $row = [])
     {
+        $content = '';
 
+        $this->fileHandle->write($content);
+
+        return $this;
     }
 
     public function addRows(array $rows = [])
@@ -32,11 +40,22 @@ class Worksheet
         foreach ($rows as $row) {
             $this->addRow($row);
         }
+
+        return $this;
     }
 
-    public function setStyle()
+    public function getStyle()
     {
+        $this->styleHandle = new Style\Style();
 
+        return $this->styleHandle;
+    }
+
+    public function setColumnType($types = [])
+    {
+        $this->typeHandle = new Type($types);
+
+        return $this;
     }
 
     public function getSheetName()

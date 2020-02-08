@@ -16,7 +16,7 @@ class Type
 
     const TYPE_DATE = 5;
 
-    protected $columnTypes = [];
+    protected $columns = [];
 
     public function __construct($types = [])
     {
@@ -25,7 +25,7 @@ class Type
 
     public function getColumnType($index)
     {
-        return $this->columnTypes[$index];
+        return $this->columns[$index];
     }
 
     public function setColumnType($types)
@@ -46,7 +46,7 @@ class Type
                     break;
             }
 
-            $this->columnTypes[$key] = $type;
+            $this->columns[$key] = $type;
         }
 
         return $this;
