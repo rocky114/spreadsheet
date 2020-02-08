@@ -7,9 +7,13 @@ use Rocky114\Excel\Common\FunctionHelper;
 
 class Worksheet
 {
-    private $sheetName;
+    public $id;
 
-    protected $filename;
+    public $name;
+
+    public $filename;
+
+    public $filePath;
 
     protected $fileHandle;
 
@@ -17,13 +21,14 @@ class Worksheet
 
     protected $typeHandle;
 
-    public function __construct($sheetName, $config = [])
+    public function __construct($id, $name, $config = [])
     {
-        $this->sheetName = $sheetName;
-        $this->filename = FunctionHelper::createUniqueId();
+        $this->id = $id;
+        $this->name = $name;
+        $this->filename = FunctionHelper::createUniqueId('.xml');
 
-        $filePath = realpath(trim($config['temp_folder'], '/')) . DIRECTORY_SEPARATOR . $sheetName;
-        $this->fileHandle = new FileHelper($filePath);
+        $this->filePath = realpath(trim($config['temp_folder'], '/')) . DIRECTORY_SEPARATOR . $name;
+        $this->fileHandle = new FileHelper($this->filePath);
     }
 
     public function addRow(array $row = [])
@@ -58,8 +63,13 @@ class Worksheet
         return $this;
     }
 
-    public function getSheetName()
+    public function getId()
     {
-        return $this->sheetName;
+        return $this->id;
+    }
+
+    public function getName()
+    {
+        return $this->name;
     }
 }

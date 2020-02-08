@@ -32,7 +32,8 @@ class Workbook
             throw new \Exception("sheet $name exists");
         }
 
-        $this->worksheets[$name] = new Worksheet($name, $this->config);
+        $sheetId = count($this->worksheets);
+        $this->worksheets[$name] = new Worksheet($sheetId, $name, $this->config);
 
         return $this;
     }
@@ -86,7 +87,22 @@ STRING;
 
     public function createWorkbookXml()
     {
+        $html = <<<HTML
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+    <sheets>
+HTML;
 
+        foreach ($this->worksheets as $index => $worksheet) {
+            $html .= '<sheet name="' . $worksheet->name . '" sheetId="' . $worksheet->getId() . '" r:id="rIdSheet' . $worksheet->getId() . '"/>';
+        }
+
+        $html .= <<<HTML
+    </sheets>
+</workbook>
+HTML;
+
+        return $html;
     }
 
     public function createContentTypeXml()
