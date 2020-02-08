@@ -6,33 +6,21 @@ class Cell
 {
     protected $value;
 
-    protected $style;
+    protected $type;
 
-    public function __construct($vale, $style = null)
+    public function __construct(Type $type)
     {
-
+        $this->type = $type;
     }
 
-    public function getValue()
+    public function getCellXml()
     {
         return $this->value;
     }
 
-    public function setValue($value)
+    public function setCellXml($value)
     {
         $this->value = $value;
-
-        return $this;
-    }
-
-    public function getStyle()
-    {
-        return $this->style;
-    }
-
-    public function setStyle($style)
-    {
-        $this->style = $style;
 
         return $this;
     }
