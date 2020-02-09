@@ -4,7 +4,6 @@ namespace Rocky114\Excel\Writer\XLSX;
 
 use Rocky114\Excel\Common\FileHelper;
 use Rocky114\Excel\Common\FunctionHelper;
-//use Rocky114\Excel\Writer\XLSX\Cell;
 
 class Worksheet
 {
@@ -24,10 +23,9 @@ class Worksheet
 
     protected $cellHandle;
 
-    const SHEET_XML_FILE_HEADER = <<<HTML
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
-HTML;
+    protected $rowHandle;
+
+    protected $lastWrittenRowIndex = 0;
 
     public function __construct($id, $name, $config = [])
     {
@@ -40,14 +38,22 @@ HTML;
 
         $this->cellHandle = new Cell($this->typeHandle);
 
+        $this->rowHandle = new Row($this->typeHandle);
+
         $this->startSheet();
     }
 
     public function addRow(array $row = [])
     {
-        $content = '';
+        $this->lastWrittenRowIndex++;
 
-        $this->fileHandle->write($content);
+        $rowXML = '<row r="'.$this->lastWrittenRowIndex.'">';
+
+        $rowXML .= $this->rowHandle->setCells($this->lastWrittenRowIndex, $row)->getRowXML();
+
+        $rowXML .= '</row>';
+
+        $this->fileHandle->write($rowXML);
 
         return $this;
     }
@@ -70,8 +76,24 @@ HTML;
 
     protected function startSheet()
     {
-        $this->fileHandle->write(self::SHEET_XML_FILE_HEADER);
-        $this->fileHandle->write('<sheetData>');
+        $html = <<<HTML
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+    <sheetData>
+HTML;
+
+        $this->fileHandle->write($html);
+    }
+
+    protected function closeSheet()
+    {
+        $html = <<<HTML
+    </sheetData>
+</worksheet>
+HTML;
+
+        $this->fileHandle->write($html);
+        $this->fileHandle->close();
     }
 
     public function getId()

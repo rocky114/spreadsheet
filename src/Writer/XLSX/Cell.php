@@ -18,7 +18,7 @@ class Cell
         return $this->value;
     }
 
-    public function setCellXml($value)
+    public function setCellXml($index, $value)
     {
         $this->value = $value;
 

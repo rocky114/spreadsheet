@@ -19,7 +19,7 @@ class FileHelper
         }
     }
 
-    public function write($content = '')
+    public function write(&$content = '')
     {
         $this->buffer .= $content;
 
@@ -40,8 +40,12 @@ class FileHelper
         $this->currentNumber = 0;
     }
 
-    public function __destruct()
+    public function close()
     {
         fclose($this->fileHandle);
+    }
+
+    public function __destruct()
+    {
     }
 }
