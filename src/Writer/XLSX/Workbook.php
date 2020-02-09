@@ -33,7 +33,7 @@ class Workbook
         }
 
         $sheetId = count($this->worksheets);
-        $this->worksheets[$name] = new Worksheet($sheetId, $name, $this->config);
+        $this->worksheets[$name] = new Worksheet($sheetId, $name, $this);
 
         return $this;
     }
@@ -165,6 +165,15 @@ HTML;
 
     public function getFilePath()
     {
+        return '';
+    }
+
+    public function __get($name)
+    {
+        if (isset($this->config[$name])) {
+            return $this->config;
+        }
+
         return '';
     }
 }

@@ -27,13 +27,17 @@ class Worksheet
 
     protected $lastWrittenRowIndex = 0;
 
-    public function __construct($id, $name, $config = [])
+    protected $workbook;
+
+    public function __construct($id, $name, Workbook $workbook)
     {
         $this->id = $id;
         $this->name = $name;
+        $this->workbook = $workbook;
+
         $this->filename = FunctionHelper::createUniqueId('.xml');
 
-        $this->filePath = realpath(trim($config['temp_folder'], '/')) . DIRECTORY_SEPARATOR . $name;
+        $this->filePath = realpath(trim($workbook->temp_folder, '/')) . DIRECTORY_SEPARATOR . $name;
         $this->fileHandle = new FileHelper($this->filePath);
 
         $this->cellHandle = new Cell($this->typeHandle);
@@ -108,7 +112,7 @@ HTML;
 
     public function getStyle()
     {
-        $this->styleHandle = new Style\Style();
+        $this->styleHandle = new Style($this->workbook->temp_folder);
 
         return $this->styleHandle;
     }
