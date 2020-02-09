@@ -4,7 +4,7 @@ namespace Rocky114\Excel\Writer\XLSX;
 
 class Row
 {
-    protected $type;
+    protected $typeHandle;
 
     protected $rowXML = '';
 
@@ -14,7 +14,7 @@ class Row
 
     public function __construct(Type $type = null)
     {
-
+        $this->typeHandle = $type;
     }
 
     public function setCells($rowIndex, $cells)
@@ -37,10 +37,26 @@ class Row
         return $this->rowXML;
     }
 
-    protected function getCellXML($columnIndex, $cellValue)
+    protected function getCellXML($columnIndex, $cellValue = '')
     {
-        $cellXML = '<c r="'.$this->getColumnHeader($columnIndex).$this->currentRowIndex.'" t="inlineStr">';
-        $cellXML .= "<v>$cellValue</v></c>";
+        $cellXML = '<c r="'.$this->getColumnHeader($columnIndex).$this->currentRowIndex.'"';
+
+        $type = $this->typeHandle->getColumnType($columnIndex);
+        switch ($type) {
+            case 'string':
+                $cellXML .= ' t="inlineStr"><is><t>'.$cellValue.'</t></is>';
+                break;
+            case 'number':
+                $cellXML .= ' t="n"><v>'.$cellValue.'</v>';
+                break;
+            case 'boolean':
+                $cellXML .= ' t="b"><v>'.$cellValue.'</v>';
+                break;
+            default:
+                throw new \Exception('unsupported type'.$type);
+        }
+
+        $cellXML .= '</c>';
 
         return $cellXML;
     }
