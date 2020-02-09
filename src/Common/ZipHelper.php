@@ -36,6 +36,7 @@ class ZipHelper
         }
 
         $this->zipHandle->addFromString('xl/workbook.xml', '');
+        $this->zipHandle->addFromString('xl/styles.xml', $this->workbook->createStyleXml());
         $this->zipHandle->addFromString('[Content_Types].xml', $this->workbook->createContentTypeXml());
         $this->zipHandle->addEmptyDir('xl/_rels/');
         $this->zipHandle->addFromString('xl/_rels/workbook.xml.rels', '');

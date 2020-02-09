@@ -53,7 +53,7 @@ class Row
                 $cellXML .= ' t="b"><v>'.$cellValue.'</v>';
                 break;
             default:
-                throw new \Exception('unsupported type'.$type);
+                throw new \Exception($cellValue.' is unknown type');
         }
 
         $cellXML .= '</c>';
