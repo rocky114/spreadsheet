@@ -10,6 +10,8 @@ class Row
 
     protected $columnHeader = [];
 
+    protected $currentRowIndex;
+
     public function __construct(Type $type = null)
     {
 
@@ -17,6 +19,16 @@ class Row
 
     public function setCells($rowIndex, $cells)
     {
+        $this->currentRowIndex = $rowIndex;
+
+        $this->rowXML = '<row r="'.$this->currentRowIndex.'">';
+
+        foreach ($cells as $index => $cell) {
+            $this->rowXML .= $this->getCellXML($index, $cell);
+        }
+
+        $this->rowXML .= '</row>';
+
         return $this;
     }
 
@@ -25,14 +37,15 @@ class Row
         return $this->rowXML;
     }
 
-    protected function getCellXML($rowIndex, $cellNumber, $cellValue)
+    protected function getCellXML($columnIndex, $cellValue)
     {
-        $cellXML = '';
+        $cellXML = '<c r="'.$this->getColumnHeader($columnIndex).$this->currentRowIndex.'" t="inlineStr">';
+        $cellXML .= "<v>$cellValue</v></c>";
 
         return $cellXML;
     }
 
-    public function getColumnIndexMap($index)
+    public function getColumnHeader($index)
     {
         if (!isset($this->columnHeader[$index])) {
             $chars = '';
