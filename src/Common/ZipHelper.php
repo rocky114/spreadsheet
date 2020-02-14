@@ -35,11 +35,11 @@ class ZipHelper
             $this->zipHandle->addFile($worksheet->filePath, 'xl/worksheets/' . $worksheet->sheetName);
         }
 
-        $this->zipHandle->addFromString('xl/workbook.xml', '');
+        $this->zipHandle->addFromString('xl/workbook.xml', $this->workbook->createWorkbookXml());
         $this->zipHandle->addFromString('xl/styles.xml', $this->workbook->createStyleXml());
         $this->zipHandle->addFromString('[Content_Types].xml', $this->workbook->createContentTypeXml());
         $this->zipHandle->addEmptyDir('xl/_rels/');
-        $this->zipHandle->addFromString('xl/_rels/workbook.xml.rels', '');
+        $this->zipHandle->addFromString('xl/_rels/workbook.xml.rels', $this->workbook->createWorkbookRelXml());
 
         $this->zipHandle->close();
     }
