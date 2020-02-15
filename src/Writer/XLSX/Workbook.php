@@ -183,17 +183,12 @@ HTML;
         return $this->worksheets;
     }
 
-    public function getFilePath()
-    {
-        return '';
-    }
-
     public function __get($name)
     {
         if (isset($this->config[$name])) {
             return $this->config;
         }
 
-        return '';
+        throw new \Exception('undefined index'.$name);
     }
 }
