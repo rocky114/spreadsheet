@@ -12,10 +12,14 @@ class FileHelper
 
     protected $fileHandle;
 
-    public function __construct($filename = null, $mode = 'w')
+    protected $filePath;
+
+    public function __construct($filePath = null, $mode = 'w')
     {
-        if (false === $this->fileHandle = fopen($filename, $mode)) {
-            throw new \Exception('Cannot open file '.$filename);
+        $this->filePath = $filePath;
+
+        if (false === $this->fileHandle = fopen($filePath, $mode)) {
+            throw new \Exception('Cannot open file '.$filePath);
         }
     }
 
@@ -43,6 +47,11 @@ class FileHelper
     public function close()
     {
         fclose($this->fileHandle);
+    }
+
+    public function getFilePath()
+    {
+        return $this->filePath;
     }
 
     public function __destruct()

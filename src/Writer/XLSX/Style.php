@@ -14,12 +14,21 @@ class Style
 
     public $name;
 
-    public function __construct($tempFolder)
+    public function __construct(Workbook $workbook)
     {
         $this->name = 'styles.xml';
         $this->filename = FunctionHelper::createUniqueId('.xml');
 
-        $this->filePath = realpath(trim($tempFolder, '/')) . DIRECTORY_SEPARATOR . $this->name;
-        $this->fileHandle = new FileHelper($this->filePath);
+        $this->fileHandle = new FileHelper($workbook->temp_folder . $this->name);
+    }
+
+    public function writeStylesXML()
+    {
+
+    }
+
+    public function getStyleXML()
+    {
+
     }
 }

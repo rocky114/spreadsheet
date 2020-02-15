@@ -24,6 +24,7 @@ class Writer
         ];
 
         $this->options = array_merge($this->options, $config);
+        $this->options['temp_folder'] = realpath(trim($this->options['temp_folder'], '/')) . DIRECTORY_SEPARATOR;
 
         $this->workbook = new Workbook($this->options);
     }

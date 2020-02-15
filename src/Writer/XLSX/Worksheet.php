@@ -37,7 +37,7 @@ class Worksheet
 
         $this->filename = FunctionHelper::createUniqueId('.xml');
 
-        $this->filePath = realpath(trim($workbook->temp_folder, '/')) . DIRECTORY_SEPARATOR . $name;
+        $this->filePath = $workbook->temp_folder. $name;
         $this->fileHandle = new FileHelper($this->filePath);
 
         $this->cellHandle = new Cell($this->typeHandle);
@@ -110,9 +110,14 @@ HTML;
         return $this->name;
     }
 
+    /**
+     * @return Style
+     */
     public function getStyle()
     {
-        $this->styleHandle = new Style($this->workbook->temp_folder);
+        if ($this->styleHandle === null) {
+            $this->styleHandle = new Style($this->workbook);
+        }
 
         return $this->styleHandle;
     }
