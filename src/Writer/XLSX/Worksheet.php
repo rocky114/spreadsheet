@@ -29,6 +29,8 @@ class Worksheet
 
     protected $workbook;
 
+    protected $columnNumber = 0;
+
     public function __construct($id, $name, Workbook $workbook)
     {
         $this->id = $id;
@@ -40,11 +42,21 @@ class Worksheet
         $this->filePath = $workbook->temp_folder. $name;
         $this->fileHandle = new FileHelper($this->filePath);
 
-        $this->cellHandle = new Cell($this->typeHandle);
-
-        $this->rowHandle = new Row($this->typeHandle);
+        $this->rowHandle = new Row();
 
         $this->startSheet();
+    }
+
+    public function addHeader(array $header, $formats = [])
+    {
+        $this->columnNumber = count($header);
+
+        if (!empty($formats)) {
+            $this->typeHandle = new Type(array_values($formats));
+            $this->rowHandle->setTypeHandle($this->typeHandle);
+        }
+
+        return $this;
     }
 
     public function addRow(array $row = [])
@@ -73,7 +85,8 @@ class Worksheet
 
     public function setColumnType($types = [])
     {
-        $this->typeHandle = new Type($types);
+        $this->typeHandle = new Type(array_values($types));
+        $this->rowHandle->setTypeHandle($this->typeHandle);
 
         return $this;
     }

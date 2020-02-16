@@ -12,7 +12,11 @@ class Row
 
     protected $currentRowIndex;
 
-    public function __construct(Type $type = null)
+    public function __construct()
+    {
+    }
+
+    public function setTypeHandle(Type $type)
     {
         $this->typeHandle = $type;
     }

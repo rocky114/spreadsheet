@@ -168,6 +168,7 @@ HTML;
         foreach ($this->getWorksheets() as $worksheet) {
             $worksheet->getStyle()->getStyleXML();
         }
+
         $html .= <<<HTML
 </styleSheet>
 HTML;
