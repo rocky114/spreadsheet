@@ -45,7 +45,12 @@ class Row
     {
         $cellXML = '<c r="'.$this->getColumnHeader($columnIndex).$this->currentRowIndex.'"';
 
-        $type = $this->typeHandle->getColumnType($columnIndex);
+        if ($this->currentRowIndex === 1) {
+            $type = 'string';
+        } else {
+            $type = $this->typeHandle->getColumnType($columnIndex);
+        }
+
         switch ($type) {
             case 'string':
                 $cellXML .= ' t="inlineStr"><is><t>'.$cellValue.'</t></is>';

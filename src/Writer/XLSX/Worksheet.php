@@ -56,6 +56,8 @@ class Worksheet
             $this->rowHandle->setTypeHandle($this->typeHandle);
         }
 
+        $this->addRow($header);
+
         return $this;
     }
 
@@ -63,11 +65,7 @@ class Worksheet
     {
         $this->lastWrittenRowIndex++;
 
-        $rowXML = '<row r="'.$this->lastWrittenRowIndex.'">';
-
-        $rowXML .= $this->rowHandle->setCells($this->lastWrittenRowIndex, $row)->getRowXML();
-
-        $rowXML .= '</row>';
+        $rowXML = $this->rowHandle->setCells($this->lastWrittenRowIndex, $row)->getRowXML();
 
         $this->fileHandle->write($rowXML);
 

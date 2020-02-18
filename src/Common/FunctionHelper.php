@@ -27,4 +27,11 @@ class FunctionHelper
 
         return preg_match("//u", $string) ? true : false;
     }
+
+    public static function isInvalidSheetName($name)
+    {
+        $invalidChars = ['\\', '/', '?', '*', ':', '[', ']'];
+
+        return (str_replace($invalidChars, '', $name) !== $name);
+    }
 }

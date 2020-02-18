@@ -29,7 +29,11 @@ class Workbook
     public function addNewSheet($name)
     {
         if (isset($this->worksheets[$name])) {
-            throw new \Exception("sheet $name exists");
+            throw new \Exception("$name already exists");
+        }
+
+        if (FunctionHelper::isInvalidSheetName($name)) {
+            throw new \Exception("sheet name should not contain these characters: \\ / ? * : [ or ]");
         }
 
         $sheetId = count($this->worksheets);
