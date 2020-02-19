@@ -52,7 +52,7 @@ class Worksheet
         $this->columnNumber = count($header);
 
         if (!empty($formats)) {
-            $this->typeHandle = new Type(array_values($formats));
+            $this->typeHandle = new Type($formats);
             $this->rowHandle->setTypeHandle($this->typeHandle);
         }
 

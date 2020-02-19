@@ -28,10 +28,23 @@ class FunctionHelper
         return preg_match("//u", $string) ? true : false;
     }
 
-    public static function isInvalidSheetName($name)
+    public static function getColumnHeader($index)
     {
-        $invalidChars = ['\\', '/', '?', '*', ':', '[', ']'];
+        static $columnHeader = [];
 
-        return (str_replace($invalidChars, '', $name) !== $name);
+        if (!isset($columnHeader[$index])) {
+            $chars = '';
+            $aAsciiNumber = ord('A');
+
+            do {
+                $chars = chr($index % 26 + $aAsciiNumber) . $chars;
+
+                $index = intval($index / 26);
+            } while ($index > 0);
+
+            $columnHeader[$index] = $chars;
+        }
+
+        return $columnHeader[$index];
     }
 }

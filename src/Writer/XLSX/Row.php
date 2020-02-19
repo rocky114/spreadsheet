@@ -2,6 +2,8 @@
 
 namespace Rocky114\Excel\Writer\XLSX;
 
+use Rocky114\Excel\Common\FunctionHelper;
+
 class Row
 {
     protected $typeHandle;
@@ -43,7 +45,7 @@ class Row
 
     protected function getCellXML($columnIndex, $cellValue = '')
     {
-        $cellXML = '<c r="'.$this->getColumnHeader($columnIndex).$this->currentRowIndex.'"';
+        $cellXML = '<c r="'.FunctionHelper::getColumnHeader($columnIndex).$this->currentRowIndex.'"';
 
         if ($this->currentRowIndex === 1) {
             $type = 'string';

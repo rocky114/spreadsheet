@@ -32,7 +32,7 @@ class Workbook
             throw new \Exception("$name already exists");
         }
 
-        if (FunctionHelper::isInvalidSheetName($name)) {
+        if ($this->isInvalidSheetName($name)) {
             throw new \Exception("sheet name should not contain these characters: \\ / ? * : [ or ]");
         }
 
@@ -40,6 +40,13 @@ class Workbook
         $this->worksheets[$name] = new Worksheet($sheetId, $name, $this);
 
         return $this;
+    }
+
+    public function isInvalidSheetName($name)
+    {
+        $invalidChars = ['\\', '/', '?', '*', ':', '[', ']'];
+
+        return (str_replace($invalidChars, '', $name) !== $name);
     }
 
     public function getCurrentSheet()
