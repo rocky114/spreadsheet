@@ -15,15 +15,9 @@ class Row
 
     protected $currentRowIndex;
 
-    public function __construct()
-    {
-    }
-
-    public function setTypeHandle(Style $style)
+    public function __construct(Style $style)
     {
         $this->styleHandle = $style;
-
-        return $this;
     }
 
     public function setCells($rowIndex, $cells)
@@ -56,7 +50,7 @@ class Row
         } else if ($cellValue === null || $cellValue === '') {
             $type = 'null';
         } else {
-            $type = $this->getStyleHandle()->getTypeHandle()->getCellValueType($columnIndex);
+            $type = $this->styleHandle->getType()->getCellValueType($columnIndex);
         }
 
         switch ($type) {
@@ -79,13 +73,5 @@ class Row
         $cellXML .= '</c>';
 
         return $cellXML;
-    }
-
-    /**
-     * @return \Rocky114\Excel\Writer\XLSX\Style;
-     */
-    public function getStyleHandle()
-    {
-        return $this->styleHandle;
     }
 }

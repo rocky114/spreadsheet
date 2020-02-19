@@ -14,9 +14,9 @@ class FunctionHelper
         return 'csv' === pathinfo($filename, PATHINFO_EXTENSION);
     }
 
-    public static function createUniqueId($suffix = '')
+    public static function createUniqueId($suffix = '', $prefix = '')
     {
-        return uniqid(php_uname('n').getmypid(), true).$suffix;
+        return $prefix.uniqid(php_uname('n').getmypid(), true).$suffix;
     }
 
     public static function isUTF8Code($string)

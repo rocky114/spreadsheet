@@ -5,43 +5,46 @@ namespace Rocky114\Excel\Writer\XLSX;
 use Rocky114\Excel\Common\FileHelper;
 use Rocky114\Excel\Common\FunctionHelper;
 use Rocky114\Excel\Writer\XLSX\Style\Color;
+use Rocky114\Excel\Writer\XLSX\Style\Font;
 
 class Style
 {
-    const FONT_SIZE = 11;
-    const FONT_COLOR = Color::BLACK;
-    const FONT_NAME = 'Calibri';
+    protected $typeHandle;
+    protected $fontHandle;
 
-    public $name;
-
-    public $typeHandle;
+    protected $filename;
 
     public function __construct(Workbook $workbook)
     {
-        $this->name = 'styles.xml';
         $this->filename = FunctionHelper::createUniqueId('.xml');
-
-        $this->fileHandle = new FileHelper($workbook->temp_folder . $this->name);
+        $this->fileHandle = new FileHelper($workbook->temp_folder . $this->filename);
 
         $this->typeHandle = new Type();
+        $this->fontHandle = new Font();
     }
 
-    public function writeStylesXML()
+    /**
+     * @return string
+     */
+    public function getStyleFilePath()
     {
-
-    }
-
-    public function getStyleXML()
-    {
-
+        return $this->fileHandle->getFilePath();
     }
 
     /**
      * @return \Rocky114\Excel\Writer\XLSX\Type
      */
-    public function getTypeHandle()
+    public function getType()
     {
         return $this->typeHandle;
+    }
+
+    /**
+     * @return \Rocky114\Excel\Writer\XLSX\Style\Font
+     */
+    public function getFont()
+    {
+        return $this->fontHandle;
     }
 
     public function createNumberFormatXML()

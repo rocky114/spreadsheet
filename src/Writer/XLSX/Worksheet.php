@@ -42,7 +42,9 @@ class Worksheet
         $this->filePath = $workbook->temp_folder . $name;
         $this->fileHandle = new FileHelper($this->filePath);
 
-        $this->rowHandle = new Row();
+        $this->styleHandle = new Style($this->workbook);
+
+        $this->rowHandle = new Row($this->styleHandle);
 
         $this->startSheet();
     }
@@ -52,10 +54,7 @@ class Worksheet
         $this->columnNumber = count($header);
 
         if (!empty($formats)) {
-            $this->styleHandle = new Style($this->workbook);
-            $this->styleHandle->getTypeHandle()->setNumberFormat($formats);
-
-            $this->rowHandle->setTypeHandle($this->styleHandle);
+            $this->styleHandle->getType()->setNumberFormat($formats);
         }
 
         $this->addRow($header);
@@ -79,14 +78,6 @@ class Worksheet
         foreach ($rows as $row) {
             $this->addRow($row);
         }
-
-        return $this;
-    }
-
-    public function setColumnType($types = [])
-    {
-        $this->typeHandle = new Type(array_values($types));
-        $this->rowHandle->setTypeHandle($this->typeHandle);
 
         return $this;
     }
