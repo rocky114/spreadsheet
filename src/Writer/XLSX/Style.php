@@ -4,7 +4,6 @@ namespace Rocky114\Excel\Writer\XLSX;
 
 use Rocky114\Excel\Common\FileHelper;
 use Rocky114\Excel\Common\FunctionHelper;
-use Rocky114\Excel\Writer\XLSX\Style\Color;
 use Rocky114\Excel\Writer\XLSX\Style\Font;
 
 class Style
@@ -14,13 +13,27 @@ class Style
 
     protected $filename;
 
+    protected $coordinates = [];
+
+    protected $currentCoordinate;
+
     public function __construct(Workbook $workbook)
     {
         $this->filename = FunctionHelper::createUniqueId('.xml');
         $this->fileHandle = new FileHelper($workbook->temp_folder . $this->filename);
 
         $this->typeHandle = new Type();
-        $this->fontHandle = new Font();
+    }
+
+    /**
+     * @param $coordinate
+     * @return $this
+     */
+    public function setCoordinate($coordinate)
+    {
+        $this->currentCoordinate = $coordinate;
+
+        return $this;
     }
 
     /**
@@ -44,7 +57,14 @@ class Style
      */
     public function getFont()
     {
-        return $this->fontHandle;
+        if (isset($this->coordinates[$this->currentCoordinate]['font'])) {
+            return $this->coordinates[$this->currentCoordinate]['font'];
+        }
+
+        $fontHandle = new Font($this->currentCoordinate);
+        $this->coordinates[$this->currentCoordinate]['font'] = $fontHandle;
+
+        return $fontHandle;
     }
 
     public function createNumberFormatXML()
@@ -58,5 +78,40 @@ class Style
         $formatXML .= '</numFmts>';
 
         return $formatXML;
+    }
+
+    public function createFontXML()
+    {
+        $fontXML = '<fonts count="4">';
+
+        $this->fontHandle->setBold();
+
+        $fontXML .= '</fonts>';
+
+        return $fontXML;
+    }
+
+    public function createFillXML()
+    {
+
+    }
+
+    public function createBorderXML()
+    {
+
+    }
+
+    public function createStyleXML()
+    {
+        $html = <<<HTML
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+HTML;
+
+        $html .= <<<HTML
+</styleSheet>
+HTML;
+
+        return $html;
     }
 }

@@ -115,14 +115,11 @@ HTML;
     }
 
     /**
-     * @return Style
+     * @param $coordinate
+     * @return \Rocky114\Excel\Writer\XLSX\Style
      */
-    public function getStyle()
+    public function getStyle($coordinate)
     {
-        if ($this->styleHandle === null) {
-            $this->styleHandle = new Style($this->workbook);
-        }
-
-        return $this->styleHandle;
+        return $this->styleHandle->setCoordinate($coordinate);
     }
 }

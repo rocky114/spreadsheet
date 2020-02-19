@@ -4,18 +4,6 @@ namespace Rocky114\Excel\Writer\XLSX;
 
 class Type
 {
-    const TYPE_NUMERIC = 0;
-
-    const TYPE_STRING = 1;
-
-    const TYPE_FORMULA = 2;
-
-    const TYPE_EMPTY = 3;
-
-    const TYPE_BOOLEAN = 4;
-
-    const TYPE_DATE = 5;
-
     protected $numberFormats = [];
 
     protected $numberFormatCode = [

@@ -8,9 +8,11 @@ class Font
     protected $size = 11;
     protected $bold = false;
 
-    public function __construct()
-    {
+    protected $coordinate;
 
+    public function __construct($coordinate)
+    {
+        $this->coordinate = $coordinate;
     }
 
     public function setSize(int $size)
@@ -25,5 +27,27 @@ class Font
         $this->bold = $boolean;
 
         return $this;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    public function getBold()
+    {
+        return $this->bold;
     }
 }

@@ -172,19 +172,9 @@ HTML;
 
     public function createStyleXml()
     {
-        $html = <<<HTML
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
-HTML;
         foreach ($this->getWorksheets() as $worksheet) {
-            $worksheet->getStyle()->getStyleXML();
+            $worksheet->getStyle()->createStyleXML();
         }
-
-        $html .= <<<HTML
-</styleSheet>
-HTML;
-
-        return $html;
     }
 
     /**
