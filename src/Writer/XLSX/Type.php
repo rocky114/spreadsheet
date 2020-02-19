@@ -72,6 +72,17 @@ class Type
         return $this->numberFormats;
     }
 
+    public function getCellValueType($name)
+    {
+        $format = $this->getNumberFormat($name);
+
+        if (in_array($format['code'], ['0', '0.00', '#,##0', '#,##0.00'], true)) {
+            return 'number';
+        }
+
+        return 'string';
+    }
+
     public function setNumberFormat(array $formats)
     {
         foreach ($formats as $key => $code) {
@@ -90,18 +101,5 @@ class Type
         }
 
         return $this;
-    }
-
-    public function createNumberFormatXML()
-    {
-        $formatXML = '<numFmts count="' . count($this->numberFormats) . '">';
-
-        foreach ($this->getNumberFormats() as $format) {
-            $formatXML .= '<numFmt numFmtId="' . $format['id'] . '" formatCode="' . $format['code'] . '" />';
-        }
-
-        $formatXML .= '</numFmts>';
-
-        return $formatXML;
     }
 }

@@ -3,10 +3,11 @@
 namespace Rocky114\Excel\Writer\XLSX;
 
 use Rocky114\Excel\Common\FunctionHelper;
+use Rocky114\Excel\Writer\XLSX\Style;
 
 class Row
 {
-    protected $typeHandle;
+    protected $styleHandle;
 
     protected $rowXML = '';
 
@@ -18,16 +19,18 @@ class Row
     {
     }
 
-    public function setTypeHandle(Type $type)
+    public function setTypeHandle(Style $style)
     {
-        $this->typeHandle = $type;
+        $this->styleHandle = $style;
+
+        return $this;
     }
 
     public function setCells($rowIndex, $cells)
     {
         $this->currentRowIndex = $rowIndex;
 
-        $this->rowXML = '<row r="'.$this->currentRowIndex.'">';
+        $this->rowXML = '<row r="' . $this->currentRowIndex . '">';
 
         foreach ($cells as $index => $cell) {
             $this->rowXML .= $this->getCellXML($index, $cell);
@@ -45,26 +48,32 @@ class Row
 
     protected function getCellXML($columnIndex, $cellValue = '')
     {
-        $cellXML = '<c r="'.FunctionHelper::getColumnHeader($columnIndex).$this->currentRowIndex.'"';
+        $columnHeader = FunctionHelper::getColumnHeader($columnIndex);
+        $cellXML = '<c r="' . $columnHeader . $this->currentRowIndex . '"';
 
         if ($this->currentRowIndex === 1) {
             $type = 'string';
+        } else if ($cellValue === null || $cellValue === '') {
+            $type = 'null';
         } else {
-            $type = $this->typeHandle->getColumnType($columnIndex);
+            $type = $this->getStyleHandle()->getTypeHandle()->getCellValueType($columnIndex);
         }
 
         switch ($type) {
             case 'string':
-                $cellXML .= ' t="inlineStr"><is><t>'.$cellValue.'</t></is>';
+                $cellXML .= ' t="inlineStr"><is><t>' . $cellValue . '</t></is>';
                 break;
             case 'number':
-                $cellXML .= ' t="n"><v>'.$cellValue.'</v>';
+                $cellXML .= ' t="n"><v>' . $cellValue . '</v>';
                 break;
             case 'boolean':
-                $cellXML .= ' t="b"><v>'.$cellValue.'</v>';
+                $cellXML .= ' t="b"><v>' . $cellValue . '</v>';
+                break;
+            case 'null':
+                $cellXML .= '/>';
                 break;
             default:
-                throw new \Exception($cellValue.' is unknown type');
+                throw new \Exception($cellValue . ' is unknown type');
         }
 
         $cellXML .= '</c>';
@@ -72,21 +81,11 @@ class Row
         return $cellXML;
     }
 
-    public function getColumnHeader($index)
+    /**
+     * @return \Rocky114\Excel\Writer\XLSX\Style;
+     */
+    public function getStyleHandle()
     {
-        if (!isset($this->columnHeader[$index])) {
-            $chars = '';
-            $aAsciiNumber = ord('A');
-
-            do {
-                $chars = chr($index % 26 + $aAsciiNumber) . $chars;
-
-                $index = intval($index / 26);
-            } while ($index > 0);
-
-            $this->columnHeader[$index] = $chars;
-        }
-
-        return $this->columnHeader[$index];
+        return $this->styleHandle;
     }
 }

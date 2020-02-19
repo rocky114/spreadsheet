@@ -39,7 +39,7 @@ class Worksheet
 
         $this->filename = FunctionHelper::createUniqueId('.xml');
 
-        $this->filePath = $workbook->temp_folder. $name;
+        $this->filePath = $workbook->temp_folder . $name;
         $this->fileHandle = new FileHelper($this->filePath);
 
         $this->rowHandle = new Row();
@@ -52,8 +52,10 @@ class Worksheet
         $this->columnNumber = count($header);
 
         if (!empty($formats)) {
-            $this->typeHandle = new Type($formats);
-            $this->rowHandle->setTypeHandle($this->typeHandle);
+            $this->styleHandle = new Style($this->workbook);
+            $this->styleHandle->getTypeHandle()->setNumberFormat($formats);
+
+            $this->rowHandle->setTypeHandle($this->styleHandle);
         }
 
         $this->addRow($header);
