@@ -2,6 +2,7 @@
 
 namespace Rocky114\Excel\Writer\XLSX;
 
+use Rocky114\Excel\Common\FileHelper;
 use Rocky114\Excel\Common\FunctionHelper;
 
 class Workbook
@@ -157,7 +158,7 @@ HTML;
     {
         $worksheetHtml = '';
         foreach ($this->worksheets as $index => $worksheet) {
-            $worksheetHtml .= '<Relationship Id="rId'.($index + 2).'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/'.$worksheet->sheetname.'.xml"/>';
+            $worksheetHtml .= '<Relationship Id="rId' . ($index + 2) . '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/' . $worksheet->sheetname . '.xml"/>';
         }
 
         $html = <<<HTML
@@ -172,9 +173,26 @@ HTML;
 
     public function createStyleXml()
     {
+        $html = <<<HTML
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+HTML;
+
         foreach ($this->getWorksheets() as $worksheet) {
-            $worksheet->getStyle()->createStyleXML();
+            $html .= $worksheet->getStyle()->getStyleXML();
         }
+
+        $html .= <<<HTML
+</styleSheet>
+HTML;
+
+        $filename = FunctionHelper::createUniqueId('.xml');
+
+        $fileHandle = new FileHelper($this->temp_folder . $filename);
+        $fileHandle->write($html);
+        $fileHandle->close();
+
+        return $fileHandle->getFilePath();
     }
 
     /**
@@ -191,6 +209,6 @@ HTML;
             return $this->config;
         }
 
-        throw new \Exception('undefined index'.$name);
+        throw new \Exception('undefined index' . $name);
     }
 }

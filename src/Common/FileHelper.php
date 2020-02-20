@@ -19,7 +19,7 @@ class FileHelper
         $this->filePath = $filePath;
 
         if (false === $this->fileHandle = fopen($filePath, $mode)) {
-            throw new \Exception('Cannot open file '.$filePath);
+            throw new \Exception('Cannot open file ' . $filePath);
         }
     }
 
@@ -30,13 +30,13 @@ class FileHelper
         $this->currentNumber++;
 
         if ($this->currentNumber === 10) {
-            $this->clearBuffer($this->buffer);
+            $this->clearBuffer();
         }
     }
 
-    public function clearBuffer(&$content)
+    public function clearBuffer()
     {
-        if (false === fwrite($this->fileHandle, $content)) {
+        if (false === fwrite($this->fileHandle, $this->buffer)) {
             throw new \Exception('Cannot write content.');
         }
 
@@ -46,6 +46,10 @@ class FileHelper
 
     public function close()
     {
+        if ($this->currentNumber > 0) {
+            $this->clearBuffer();
+        }
+
         fclose($this->fileHandle);
     }
 

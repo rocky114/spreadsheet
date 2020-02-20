@@ -17,11 +17,8 @@ class Style
 
     protected $currentCoordinate;
 
-    public function __construct(Workbook $workbook)
+    public function __construct()
     {
-        $this->filename = FunctionHelper::createUniqueId('.xml');
-        $this->fileHandle = new FileHelper($workbook->temp_folder . $this->filename);
-
         $this->typeHandle = new Type();
     }
 
@@ -34,14 +31,6 @@ class Style
         $this->currentCoordinate = $coordinate;
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStyleFilePath()
-    {
-        return $this->fileHandle->getFilePath();
     }
 
     /**
@@ -82,9 +71,9 @@ class Style
 
     public function createFontXML()
     {
-        $fontXML = '<fonts count="4">';
+        $fontXML = '<fonts count="' . count($this->coordinates) . '">';
 
-        $this->fontHandle->setBold();
+        //$this->fontHandle->setBold();
 
         $fontXML .= '</fonts>';
 
@@ -93,24 +82,20 @@ class Style
 
     public function createFillXML()
     {
-
+        return '';
     }
 
     public function createBorderXML()
     {
-
+        return '';
     }
 
-    public function createStyleXML()
+    public function getStyleXML()
     {
-        $html = <<<HTML
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
-HTML;
-
-        $html .= <<<HTML
-</styleSheet>
-HTML;
+        $html = $this->createNumberFormatXML();
+        $html .= $this->createFontXML();
+        $html .= $this->createBorderXML();
+        $html .= $this->createFillXML();
 
         return $html;
     }
