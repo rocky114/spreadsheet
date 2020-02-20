@@ -13,6 +13,8 @@ class Workbook
 
     protected $workbookId;
 
+    protected $styleHandle;
+
     protected $config = [];
 
     public function __construct(array $config = [])
@@ -20,6 +22,8 @@ class Workbook
         $this->config = $config;
 
         $this->workbookId = FunctionHelper::createUniqueId('.xlsx');
+
+        $this->styleHandle = new Style();
     }
 
     public function getWorkbookId()
@@ -37,8 +41,8 @@ class Workbook
             throw new \Exception("sheet name should not contain these characters: \\ / ? * : [ or ]");
         }
 
-        $sheetId = count($this->worksheets);
-        $this->worksheets[$name] = new Worksheet($sheetId, $name, $this);
+        $sheetId = count($this->worksheets) + 1;
+        $this->worksheets[$name] = $this->currentSheet = new Worksheet($sheetId, $name, $this, $this->styleHandle);
 
         return $this;
     }
@@ -50,6 +54,9 @@ class Workbook
         return (str_replace($invalidChars, '', $name) !== $name);
     }
 
+    /**
+     * @return \Rocky114\Excel\Writer\XLSX\Worksheet
+     */
     public function getCurrentSheet()
     {
         return $this->currentSheet;

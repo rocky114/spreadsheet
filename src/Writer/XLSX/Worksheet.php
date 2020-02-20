@@ -31,18 +31,16 @@ class Worksheet
 
     protected $columnNumber = 0;
 
-    public function __construct($id, $name, Workbook $workbook)
+    public function __construct($id, $name, Workbook $workbook, Style $style)
     {
         $this->id = $id;
         $this->name = $name;
         $this->workbook = $workbook;
+        $this->styleHandle = $style;
 
         $this->filename = FunctionHelper::createUniqueId('.xml');
-
         $this->filePath = $workbook->temp_folder . $name;
         $this->fileHandle = new FileHelper($this->filePath);
-
-        $this->styleHandle = new Style($this->workbook);
 
         $this->rowHandle = new Row($this->styleHandle);
 
@@ -69,15 +67,6 @@ class Worksheet
         $rowXML = $this->rowHandle->setCells($this->lastWrittenRowIndex, $row)->getRowXML();
 
         $this->fileHandle->write($rowXML);
-
-        return $this;
-    }
-
-    public function addRows(array $rows = [])
-    {
-        foreach ($rows as $row) {
-            $this->addRow($row);
-        }
 
         return $this;
     }

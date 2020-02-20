@@ -29,6 +29,30 @@ class Writer
         $this->workbook = new Workbook($this->options);
     }
 
+    public function addNewSheet($name)
+    {
+        $this->workbook->addNewSheet($name);
+    }
+
+    public function addHeader(array $header, array $formats = [])
+    {
+        $this->workbook->getCurrentSheet()->addHeader($header, $formats);
+    }
+
+    public function addRow(array $row = [])
+    {
+        $this->workbook->getCurrentSheet()->addRow($row);
+    }
+
+    public function addRows(array $rows = [])
+    {
+        foreach ($rows as $row) {
+            $this->addRow($row);
+        }
+
+        return $this;
+    }
+
     public function openToFile($filename, $dir)
     {
 

@@ -8,6 +8,8 @@ use Rocky114\Excel\Writer\XLSX\Style\Font;
 
 class Style
 {
+    protected $currentId;
+
     protected $typeHandle;
     protected $fontHandle;
 
@@ -20,6 +22,11 @@ class Style
     public function __construct()
     {
         $this->typeHandle = new Type();
+    }
+
+    public function setCurrentId($id)
+    {
+        $this->currentId = $id;
     }
 
     /**
