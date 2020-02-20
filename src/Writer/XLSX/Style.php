@@ -106,4 +106,9 @@ class Style
 
         return $html;
     }
+
+    public function getStyleId($coordinateId, $sheetId)
+    {
+        return $this->coordinates[$coordinateId.$sheetId]['index'];
+    }
 }

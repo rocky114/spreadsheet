@@ -52,7 +52,7 @@ class Worksheet
         $this->columnNumber = count($header);
 
         if (!empty($formats)) {
-            $this->styleHandle->getType()->setNumberFormat($formats);
+            $this->styleHandle->getType()->setNumberFormat($formats, $this->id);
         }
 
         $this->addRow($header);

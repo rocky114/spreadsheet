@@ -4,6 +4,7 @@ namespace Rocky114\Excel\Writer\XLSX;
 
 class Type
 {
+    protected $sheetId;
     protected $numberFormats = [];
 
     protected $numberFormatCode = [
@@ -36,8 +37,8 @@ class Type
 
     public function getNumberFormat($name)
     {
-        if (isset($this->numberFormats[$name])) {
-            return $this->numberFormats[$name];
+        if (isset($this->numberFormats[$name.$this->sheetId])) {
+            return $this->numberFormats[$name.$this->sheetId];
         }
 
         return [
@@ -71,8 +72,10 @@ class Type
         return 'string';
     }
 
-    public function setNumberFormat(array $formats)
+    public function setNumberFormat(array $formats, $sheetId = 1)
     {
+        $this->sheetId = $sheetId;
+
         foreach ($formats as $key => $code) {
             if (isset($this->numberFormatCodeMap[$code])) {
                 $code = $this->numberFormatCodeMap[$code];
@@ -81,7 +84,7 @@ class Type
             if (isset($this->numberFormatCode[$code])) {
                 $numberFormatId = $this->numberFormatCode[$code];
 
-                $this->numberFormats[$key] = [
+                $this->numberFormats[$key.$this->sheetId] = [
                     'code' => $code,
                     'id'   => $numberFormatId
                 ];
