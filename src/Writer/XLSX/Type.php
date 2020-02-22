@@ -4,7 +4,6 @@ namespace Rocky114\Excel\Writer\XLSX;
 
 class Type
 {
-    protected $sheetId;
     protected $numberFormats = [];
 
     protected $numberFormatCode = [
@@ -32,38 +31,43 @@ class Type
 
     public function __construct(array $formats = [])
     {
-        $this->setNumberFormat($formats);
     }
 
-    public function getNumberFormat($name)
+    public function getNumberFormat($coordinate, int $sheetId)
     {
-        if (isset($this->numberFormats[$name.$this->sheetId])) {
-            return $this->numberFormats[$name.$this->sheetId];
+        if (isset($this->numberFormats[$coordinate . $sheetId])) {
+            return $this->numberFormats[$coordinate . $sheetId];
         }
 
-        return [
-            'code' => 'General',
-            'id'   => 0
+        $defaultFormat = [
+            'general' => [
+                'code' => 'General',
+                'id'   => 0
+            ]
         ];
+
+        return $defaultFormat;
     }
 
     public function getNumberFormats()
     {
+        $defaultFormat = [
+            'general' => [
+                'code' => 'General',
+                'id'   => 0
+            ]
+        ];
+
         if (empty($this->numberFormats)) {
-            return [
-                [
-                    'code' => 'General',
-                    'id'   => 0
-                ]
-            ];
+            return $defaultFormat;
         }
 
-        return $this->numberFormats;
+        return array_merge($defaultFormat, $this->numberFormats);
     }
 
-    public function getCellValueType($name)
+    public function getCellValueType($coordinate, int $sheetId)
     {
-        $format = $this->getNumberFormat($name);
+        $format = $this->getNumberFormat($coordinate, $sheetId);
 
         if (in_array($format['code'], ['0', '0.00', '#,##0', '#,##0.00'], true)) {
             return 'number';
@@ -72,23 +76,23 @@ class Type
         return 'string';
     }
 
-    public function setNumberFormat(array $formats, $sheetId = 1)
+    public function setNumberFormat(array $formats, int $sheetId)
     {
-        $this->sheetId = $sheetId;
-
-        foreach ($formats as $key => $code) {
+        foreach ($formats as $coordinate => $code) {
             if (isset($this->numberFormatCodeMap[$code])) {
                 $code = $this->numberFormatCodeMap[$code];
             }
 
-            if (isset($this->numberFormatCode[$code])) {
-                $numberFormatId = $this->numberFormatCode[$code];
-
-                $this->numberFormats[$key.$this->sheetId] = [
-                    'code' => $code,
-                    'id'   => $numberFormatId
-                ];
+            if (!isset($this->numberFormatCode[$code])) {
+                throw new \Exception('Invalid cell format');
             }
+
+            $numberFormatId = $this->numberFormatCode[$code];
+
+            $this->numberFormats[$coordinate . $sheetId] = [
+                'code' => $code,
+                'id'   => $numberFormatId
+            ];
         }
 
         return $this;

@@ -22,6 +22,7 @@ class Style
     public function __construct()
     {
         $this->typeHandle = new Type();
+        $this->fontHandle = new Font();
     }
 
     public function setCurrentId($id)
@@ -107,8 +108,34 @@ class Style
         return $html;
     }
 
-    public function getStyleId($coordinateId, $sheetId)
+    public function getStyleId($coordinate, $sheetId)
     {
-        return $this->coordinates[$coordinateId.$sheetId]['index'];
+        if (empty($this->coordinates)) {
+            $numberFormats = $this->typeHandle->getNumberFormats();
+            $fontId = $this->fontHandle->getFontId();
+
+            $id = 0;
+            foreach ($numberFormats as $key => $format) {
+                $this->coordinates[$key] = [
+                    'number_format_id' => $format['id'],
+                    'font_id'          => $fontId,
+                    'id'               => $id,
+                ];
+
+                $id++;
+            }
+        }
+
+        $key = $coordinate . $sheetId;
+        if (isset($this->coordinates[$key])) {
+            return $this->coordinates[$key]['index'];
+        }
+
+        $key = substr($coordinate, 0, 1) . $sheetId;
+        if (isset($this->coordinates[$key])) {
+            return $this->coordinates[$key]['index'];
+        }
+
+        return 0;
     }
 }

@@ -8,46 +8,69 @@ class Font
     protected $size = 11;
     protected $bold = false;
 
-    protected $coordinate;
+    protected $currentIndex = 0;
 
-    public function __construct($coordinate)
+    protected $fontFormats = [
+        [
+            'name'  => 'Calibri',
+            'size'  => 11,
+            'bold'  => false,
+            'index' => 0
+        ]
+    ];
+
+    public function __construct()
     {
-        $this->coordinate = $coordinate;
     }
 
-    public function setSize(int $size)
+    public function setSize(int $size, string $coordinate, int $sheetId)
     {
-        $this->size = $size;
+        if (!isset($this->fontFormats[$coordinate . $sheetId])) {
+            $this->currentIndex++;
+        }
+
+        $this->fontFormats[$coordinate . $sheetId]['size'] = $size;
+        $this->fontFormats[$coordinate . $sheetId]['index'] = $this->currentIndex;
 
         return $this;
     }
 
-    public function setBold(bool $boolean)
+    public function setBold(bool $boolean, string $coordinate, int $sheetId)
     {
-        $this->bold = $boolean;
+        if (!isset($this->fontFormats[$coordinate . $sheetId])) {
+            $this->currentIndex++;
+        }
+
+        $this->fontFormats[$coordinate . $sheetId]['bold'] = $boolean;
+        $this->fontFormats[$coordinate . $sheetId]['index'] = $this->currentIndex;
 
         return $this;
     }
 
-    public function setName($name)
+    public function setName($name, string $coordinate, int $sheetId)
     {
-        $this->name = $name;
+        if (!isset($this->fontFormats[$coordinate . $sheetId])) {
+            $this->currentIndex++;
+        }
+
+        $this->fontFormats[$coordinate . $sheetId]['name'] = $name;
+        $this->fontFormats[$coordinate . $sheetId]['index'] = $this->currentIndex;
 
         return $this;
     }
 
-    public function getName()
+    public function getFontFormats()
     {
-        return $this->name;
+        return $this->fontFormats;
     }
 
-    public function getSize()
+    public function getFontId(string $coordinate = null, int $sheetId = null)
     {
-        return $this->size;
-    }
+        $key = $coordinate . $sheetId;
+        if (isset($this->fontFormats[$key])) {
+            return $this->fontFormats[$key]['index'];
+        }
 
-    public function getBold()
-    {
-        return $this->bold;
+        return 0;
     }
 }

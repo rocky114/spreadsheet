@@ -19,8 +19,6 @@ class Worksheet
 
     protected $typeHandle;
 
-    protected $cellHandle;
-
     protected $rowHandle;
 
     protected $lastWrittenRowIndex = 0;
@@ -39,7 +37,7 @@ class Worksheet
         $this->filePath = $workbook->temp_folder . $name;
         $this->fileHandle = new FileHelper($this->filePath);
 
-        $this->rowHandle = new Row($this->workbook->getStyle());
+        $this->rowHandle = new Row($this->workbook->getStyle(), $this->id);
 
         $this->startSheet();
     }
@@ -102,6 +100,7 @@ HTML;
 
     /**
      * @param $coordinate
+     *
      * @return \Rocky114\Excel\Writer\XLSX\Style
      */
     public function getStyle($coordinate)

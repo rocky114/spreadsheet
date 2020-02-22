@@ -15,9 +15,12 @@ class Row
 
     protected $currentRowIndex;
 
-    public function __construct(Style $style)
+    protected $sheetId;
+
+    public function __construct(Style $style, int $sheetId)
     {
         $this->styleHandle = $style;
+        $this->sheetId = $sheetId;
     }
 
     public function setCells($rowIndex, $cells)
@@ -42,15 +45,17 @@ class Row
 
     protected function getCellXML($columnIndex, $cellValue = '')
     {
-        $columnHeader = FunctionHelper::getColumnHeader($columnIndex);
-        $cellXML = '<c r="' . $columnHeader . $this->currentRowIndex . '"';
+        $coordinate = FunctionHelper::getColumnHeader($columnIndex);
+        $styleId = $this->styleHandle->getStyleId($coordinate, $this->sheetId);
+
+        $cellXML = '<c r="' . $coordinate . $this->currentRowIndex . '" s="'.$styleId.'"';
 
         if ($this->currentRowIndex === 1) {
             $type = 'string';
         } else if ($cellValue === null || $cellValue === '') {
             $type = 'null';
         } else {
-            $type = $this->styleHandle->getType()->getCellValueType($columnIndex);
+            $type = $this->styleHandle->getType()->getCellValueType($columnIndex, $this->sheetId);
         }
 
         switch ($type) {
