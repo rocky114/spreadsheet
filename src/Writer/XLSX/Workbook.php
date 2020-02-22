@@ -42,7 +42,7 @@ class Workbook
         }
 
         $sheetId = count($this->worksheets) + 1;
-        $this->worksheets[$name] = $this->currentSheet = new Worksheet($sheetId, $name, $this, $this->styleHandle);
+        $this->worksheets[$name] = $this->currentSheet = new Worksheet($sheetId, $name, $this);
 
         return $this;
     }
@@ -208,6 +208,14 @@ HTML;
     public function getWorksheets()
     {
         return $this->worksheets;
+    }
+
+    /**
+     * @return \Rocky114\Excel\Writer\XLSX\Style
+     */
+    public function getStyle()
+    {
+        return $this->styleHandle;
     }
 
     public function __get($name)

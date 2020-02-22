@@ -17,8 +17,6 @@ class Worksheet
 
     protected $fileHandle;
 
-    protected $styleHandle;
-
     protected $typeHandle;
 
     protected $cellHandle;
@@ -31,18 +29,17 @@ class Worksheet
 
     protected $columnNumber = 0;
 
-    public function __construct($id, $name, Workbook $workbook, Style $style)
+    public function __construct($id, $name, Workbook $workbook)
     {
         $this->id = $id;
         $this->name = $name;
         $this->workbook = $workbook;
-        $this->styleHandle = $style;
 
         $this->filename = FunctionHelper::createUniqueId('.xml');
         $this->filePath = $workbook->temp_folder . $name;
         $this->fileHandle = new FileHelper($this->filePath);
 
-        $this->rowHandle = new Row($this->styleHandle);
+        $this->rowHandle = new Row($this->workbook->getStyle());
 
         $this->startSheet();
     }
@@ -52,7 +49,7 @@ class Worksheet
         $this->columnNumber = count($header);
 
         if (!empty($formats)) {
-            $this->styleHandle->getType()->setNumberFormat($formats, $this->id);
+            $this->workbook->getStyle()->getType()->setNumberFormat($formats, $this->id);
         }
 
         $this->addRow($header);
@@ -109,6 +106,6 @@ HTML;
      */
     public function getStyle($coordinate)
     {
-        return $this->styleHandle->setCoordinate($coordinate);
+        return $this->workbook->getStyle()->setCoordinate($coordinate);
     }
 }
