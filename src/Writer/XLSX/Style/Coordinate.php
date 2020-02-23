@@ -8,16 +8,20 @@ trait Coordinate
     protected $currentSheetId;
 
     /**
-     * @param $coordinate
+     * @param string $coordinate
      * @return $this
      */
-    public function setCoordinate(int $coordinate)
+    public function setCoordinate(string $coordinate)
     {
         $this->currentCoordinate = $coordinate;
 
         return $this;
     }
 
+    /**
+     * @param int $sheetId
+     * @return $this
+     */
     public function setSheetId(int $sheetId)
     {
         $this->currentSheetId = $sheetId;

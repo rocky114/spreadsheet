@@ -86,7 +86,14 @@ class Style
     {
         $fontXML = '<fonts count="' . count($this->coordinates) . '">';
 
-        //$this->fontHandle->setBold();
+        foreach ($this->fontHandle->getFontFormats() as $format) {
+            $fontXML .= <<<HTML
+                <font>
+                    <name val="{$format['name']}"/>
+                    <sz val="{$format['size']}">
+                </font>;
+HTML;
+        }
 
         $fontXML .= '</fonts>';
 
