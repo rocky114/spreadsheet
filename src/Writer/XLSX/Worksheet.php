@@ -27,6 +27,8 @@ class Worksheet
 
     protected $columnNumber = 0;
 
+    protected $closed = false;
+
     public function __construct($id, $name, Workbook $workbook)
     {
         $this->id = $id;
@@ -79,15 +81,19 @@ HTML;
         $this->fileHandle->write($html);
     }
 
-    protected function closeSheet()
+    public function closeSheet()
     {
-        $html = <<<HTML
+        if (!$this->closed) {
+            $html = <<<HTML
     </sheetData>
 </worksheet>
 HTML;
 
-        $this->fileHandle->write($html);
-        $this->fileHandle->close();
+            $this->fileHandle->write($html);
+            $this->fileHandle->close();
+
+            $this->closed = true;
+        }
     }
 
     public function getId()

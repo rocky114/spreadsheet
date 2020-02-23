@@ -30,6 +30,7 @@ class FunctionHelper
 
     public static function getColumnHeader($index)
     {
+        $key = $index;
         static $columnHeader = [];
 
         if (!isset($columnHeader[$index])) {
@@ -42,9 +43,9 @@ class FunctionHelper
                 $index = intval($index / 26);
             } while ($index > 0);
 
-            $columnHeader[$index] = $chars;
+            $columnHeader[$key] = $chars;
         }
 
-        return $columnHeader[$index];
+        return $columnHeader[$key];
     }
 }

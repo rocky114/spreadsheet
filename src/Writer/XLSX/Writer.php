@@ -69,6 +69,10 @@ class Writer
 
     public function close()
     {
+        foreach ($this->workbook->getWorksheets() as $worksheet) {
+            $worksheet->closeSheet();
+        }
+
         $this->zipHelper = new ZipHelper($this->workbook);
         $this->zipHelper->writeToZipArchive();
     }
