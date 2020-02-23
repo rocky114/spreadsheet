@@ -55,7 +55,7 @@ class Row
         } else if ($cellValue === null || $cellValue === '') {
             $type = 'null';
         } else {
-            $type = $this->styleHandle->getType()->getCellValueType($columnIndex, $this->sheetId);
+            $type = $this->styleHandle->getType()->getCellValueType($columnIndex);
         }
 
         switch ($type) {

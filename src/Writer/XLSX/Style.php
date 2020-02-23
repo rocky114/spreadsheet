@@ -26,11 +26,6 @@ class Style
         $this->fontHandle = new Font();
     }
 
-    public function setCurrentId($id)
-    {
-        $this->currentId = $id;
-    }
-
     /**
      * @param $coordinate
      * @return $this
@@ -45,6 +40,8 @@ class Style
     public function setSheetId(int $sheetId)
     {
         $this->currentSheetId = $sheetId;
+        $this->typeHandle->setSheetId($sheetId);
+        $this->fontHandle->setSheetId($sheetId);
 
         return $this;
     }
