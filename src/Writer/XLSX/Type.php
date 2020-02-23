@@ -2,9 +2,18 @@
 
 namespace Rocky114\Excel\Writer\XLSX;
 
+use Rocky114\Excel\Writer\XLSX\Style\Coordinate;
+
 class Type
 {
-    protected $numberFormats = [];
+    use Coordinate;
+
+    protected $numberFormats = [
+        'general' => [
+            'id'   => 0,
+            'code' => 'General'
+        ]
+    ];
 
     protected $numberFormatCode = [
         'General'             => 0,
@@ -33,50 +42,35 @@ class Type
     {
     }
 
-    public function getNumberFormat($coordinate, int $sheetId)
+    public function getNumberFormatId($coordinate)
     {
-        if (isset($this->numberFormats[$coordinate . $sheetId])) {
-            return $this->numberFormats[$coordinate . $sheetId];
+        $key = $coordinate . $this->currentSheetId;
+        if (isset($this->numberFormats[$key])) {
+            return $this->numberFormats[$key]['id'];
         }
 
-        $defaultFormat = [
-            'general' => [
-                'code' => 'General',
-                'id'   => 0
-            ]
-        ];
-
-        return $defaultFormat;
+        return 0;
     }
 
     public function getNumberFormats()
     {
-        $defaultFormat = [
-            'general' => [
-                'code' => 'General',
-                'id'   => 0
-            ]
-        ];
-
-        if (empty($this->numberFormats)) {
-            return $defaultFormat;
-        }
-
-        return array_merge($defaultFormat, $this->numberFormats);
+        return $this->numberFormats;
     }
 
-    public function getCellValueType($coordinate, int $sheetId)
+    public function getCellValueType($coordinate)
     {
-        $format = $this->getNumberFormat($coordinate, $sheetId);
+        if (isset($this->numberFormats[$coordinate . $this->currentSheetId])) {
+            $format = $this->numberFormats[$coordinate . $this->currentSheetId];
 
-        if (in_array($format['code'], ['0', '0.00', '#,##0', '#,##0.00'], true)) {
-            return 'number';
+            if (in_array($format['code'], ['0', '0.00', '#,##0', '#,##0.00'], true)) {
+                return 'number';
+            }
         }
 
         return 'string';
     }
 
-    public function setNumberFormat(array $formats, int $sheetId)
+    public function setNumberFormats(array $formats)
     {
         foreach ($formats as $coordinate => $code) {
             if (isset($this->numberFormatCodeMap[$code])) {
@@ -89,7 +83,7 @@ class Type
 
             $numberFormatId = $this->numberFormatCode[$code];
 
-            $this->numberFormats[$coordinate . $sheetId] = [
+            $this->numberFormats[$coordinate . $this->currentSheetId] = [
                 'code' => $code,
                 'id'   => $numberFormatId
             ];

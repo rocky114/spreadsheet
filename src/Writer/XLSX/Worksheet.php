@@ -47,7 +47,7 @@ class Worksheet
         $this->columnNumber = count($header);
 
         if (!empty($formats)) {
-            $this->workbook->getStyle()->getType()->setNumberFormat($formats, $this->id);
+            $this->workbook->getStyle()->getType()->setNumberFormats($formats, $this->id);
         }
 
         $this->addRow($header);
@@ -105,6 +105,6 @@ HTML;
      */
     public function getStyle($coordinate)
     {
-        return $this->workbook->getStyle()->setCoordinate($coordinate);
+        return $this->workbook->getStyle()->setCoordinate($coordinate)->setSheetId($this->id);
     }
 }

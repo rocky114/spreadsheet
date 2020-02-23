@@ -18,6 +18,7 @@ class Style
     protected $coordinates = [];
 
     protected $currentCoordinate;
+    protected $currentSheetId;
 
     public function __construct()
     {
@@ -34,9 +35,16 @@ class Style
      * @param $coordinate
      * @return $this
      */
-    public function setCoordinate($coordinate)
+    public function setCoordinate(string $coordinate)
     {
         $this->currentCoordinate = $coordinate;
+
+        return $this;
+    }
+
+    public function setSheetId(int $sheetId)
+    {
+        $this->currentSheetId = $sheetId;
 
         return $this;
     }
@@ -46,6 +54,8 @@ class Style
      */
     public function getType()
     {
+        $this->typeHandle->setCoordinate($this->currentCoordinate)->setSheetId($this->currentSheetId);
+
         return $this->typeHandle;
     }
 
@@ -54,14 +64,9 @@ class Style
      */
     public function getFont()
     {
-        if (isset($this->coordinates[$this->currentCoordinate]['font'])) {
-            return $this->coordinates[$this->currentCoordinate]['font'];
-        }
+        $this->fontHandle->setCoordinate($this->currentCoordinate)->setSheetId($this->currentSheetId);
 
-        $fontHandle = new Font($this->currentCoordinate);
-        $this->coordinates[$this->currentCoordinate]['font'] = $fontHandle;
-
-        return $fontHandle;
+        return $this->fontHandle;
     }
 
     public function createNumberFormatXML()
