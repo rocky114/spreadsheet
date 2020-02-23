@@ -128,7 +128,7 @@ HTML;
     {
         $worksheetHtml = '';
         foreach ($this->worksheets as $worksheet) {
-            $worksheetHtml .= '<Override ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml" PartName="/xl/worksheets/' . $worksheet->sheetname . '.xml"/>';
+            $worksheetHtml .= '<Override ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml" PartName="/xl/worksheets/' . $worksheet->name . '.xml"/>';
         }
 
         $html = <<<HTML
@@ -164,14 +164,14 @@ HTML;
     public function createWorkbookRelXml()
     {
         $worksheetHtml = '';
-        foreach ($this->worksheets as $index => $worksheet) {
-            $worksheetHtml .= '<Relationship Id="rId' . ($index + 2) . '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/' . $worksheet->sheetname . '.xml"/>';
+        foreach ($this->worksheets as $key => $worksheet) {
+            $worksheetHtml .= '<Relationship Id="rId' . $key . '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/' . $worksheet->name . '.xml"/>';
         }
 
         $html = <<<HTML
 <?xml version="1.0" encoding="UTF-8"?>
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
-    <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
+    <Relationship Id="style" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
     $worksheetHtml
 </Relationships>
 HTML;
@@ -184,11 +184,7 @@ HTML;
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
 HTML;
-
-        foreach ($this->getWorksheets() as $worksheet) {
-            $html .= $worksheet->getStyle()->getStyleXML();
-        }
-
+        $html .= $this->styleHandle->getStyleXML();
         $html .= <<<HTML
 </styleSheet>
 HTML;
@@ -221,7 +217,7 @@ HTML;
     public function __get($name)
     {
         if (isset($this->config[$name])) {
-            return $this->config;
+            return $this->config[$name];
         }
 
         throw new \Exception('undefined index' . $name);

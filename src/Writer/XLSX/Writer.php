@@ -24,7 +24,7 @@ class Writer
         ];
 
         $this->options = array_merge($this->options, $config);
-        $this->options['temp_folder'] = realpath(trim($this->options['temp_folder'], '/')) . DIRECTORY_SEPARATOR;
+        $this->options['temp_folder'] = realpath(rtrim($this->options['temp_folder'], '/')) . DIRECTORY_SEPARATOR;
 
         $this->workbook = new Workbook($this->options);
     }
@@ -32,16 +32,22 @@ class Writer
     public function addNewSheet($name)
     {
         $this->workbook->addNewSheet($name);
+
+        return $this;
     }
 
     public function addHeader(array $header, array $formats = [])
     {
         $this->workbook->getCurrentSheet()->addHeader($header, $formats);
+
+        return $this;
     }
 
     public function addRow(array $row = [])
     {
         $this->workbook->getCurrentSheet()->addRow($row);
+
+        return $this;
     }
 
     public function addRows(array $rows = [])
@@ -53,13 +59,29 @@ class Writer
         return $this;
     }
 
-    public function openToFile($filename, $dir)
+    /**
+     * @return \Rocky114\Excel\Writer\XLSX\Workbook
+     */
+    public function getWorkbook()
     {
-
+        return $this->workbook;
     }
 
-    public function openToBrowser()
+    public function close()
     {
+        $this->zipHelper = new ZipHelper($this->workbook);
+        $this->zipHelper->writeToZipArchive();
+    }
+
+    public function save()
+    {
+        $this->close();
+    }
+
+    public function download()
+    {
+        $this->close();
+
         if (ob_get_length() > 0) {
             ob_end_clean();
         }
@@ -70,18 +92,5 @@ class Writer
         header('Content-Disposition: attachment; filename="' . $this->options['filename'] . '"');
         header('Cache-Control: max-age=0');
         header('Pragma: public');
-
-        return $this;
-    }
-
-    public function getWorkbook()
-    {
-        return $this->workbook;
-    }
-
-    public function close()
-    {
-        $this->zipHelper = new ZipHelper($this->workbook);
-        $this->zipHelper->writeToZipArchive();
     }
 }

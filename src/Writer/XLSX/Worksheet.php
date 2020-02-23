@@ -34,7 +34,7 @@ class Worksheet
         $this->workbook = $workbook;
 
         $this->filename = FunctionHelper::createUniqueId('.xml');
-        $this->filePath = $workbook->temp_folder . $name;
+        $this->filePath = $workbook->temp_folder . $this->filename;
         $this->fileHandle = new FileHelper($this->filePath);
 
         $this->rowHandle = new Row($this->workbook->getStyle(), $this->id);

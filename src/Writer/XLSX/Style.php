@@ -33,6 +33,8 @@ class Style
     public function setCoordinate(string $coordinate)
     {
         $this->currentCoordinate = $coordinate;
+        $this->typeHandle->setCoordinate($coordinate);
+        $this->fontHandle->setCoordinate($coordinate);
 
         return $this;
     }
@@ -51,8 +53,6 @@ class Style
      */
     public function getType()
     {
-        $this->typeHandle->setCoordinate($this->currentCoordinate)->setSheetId($this->currentSheetId);
-
         return $this->typeHandle;
     }
 
@@ -61,8 +61,6 @@ class Style
      */
     public function getFont()
     {
-        $this->fontHandle->setCoordinate($this->currentCoordinate)->setSheetId($this->currentSheetId);
-
         return $this->fontHandle;
     }
 

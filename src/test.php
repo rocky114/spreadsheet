@@ -2,6 +2,15 @@
 
 include "Autoload.php";
 
-//use Rocky114\Excel\Writer\Common\Creator\WriterEntityFactory;
+function dd($data)
+{
+    echo '<pre>';
+    var_dump($data);
+    die;
+}
 
-//WriterEntityFactory::createCell(1);
+$writer = \Rocky114\Excel\Writer\WriterFactory::createXLSXWriter();
+
+$writer->addNewSheet('sheet');
+
+$writer->addHeader(['name', 'id'])->addRow(['xinzhu', 1])->save();
