@@ -97,12 +97,32 @@ HTML;
 
     public function createFillXML()
     {
-        return '';
+        $fillXML = <<<HTML
+            <fills count="1">
+                <fill>
+                    <patternFill patternType="none"/>
+                </fill>
+            </fills>
+HTML;
+
+        return $fillXML;
     }
 
     public function createBorderXML()
     {
-        return '';
+        $borderXML = <<<HTML
+            <borders count="1">
+            <border diagonalDown="false" diagonalUp="false">
+                <left/>
+                <right/>
+                <top/>
+                <bottom/>
+                <diagonal/>
+            </border>
+          </borders>
+HTML;
+
+        return $borderXML;
     }
 
     public function getStyleXML()
@@ -111,6 +131,16 @@ HTML;
         $html .= $this->createFontXML();
         $html .= $this->createBorderXML();
         $html .= $this->createFillXML();
+
+        $html .= '<cellXfs count="'.count($this->coordinates).'">';
+        foreach ($this->coordinates as $coordinate) {
+            $html .= '<xf applyAlignment="false" applyBorder="false" applyFont="true" applyProtection="false" borderId="0" fillId="0" fontId="'.$coordinate['font_id'].'" numFmtId="'.$coordinate['number_format_id'].'" xfId="0">';
+            $html .= '<alignment horizontal="general" vertical="bottom" textRotation="0" wrapText="false" indent="0" shrinkToFit="false"/>';
+            $html .= '<protection locked="true" hidden="false"/>';
+            $html .= '</xf>';
+        }
+
+        $html .= '</cellXfs>';
 
         return $html;
     }

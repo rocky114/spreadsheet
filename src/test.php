@@ -4,12 +4,11 @@ include "Autoload.php";
 
 function dd($data)
 {
-    echo '<pre>';
-    var_dump($data);
+    echo $data;
     die;
 }
 
-$writer = \Rocky114\Excel\Writer\WriterFactory::createXLSXWriter();
+$writer = \Rocky114\Excel\Writer\WriterFactory::createXLSXWriter(['temp_folder' => '/Users/huangdongcheng/excel/storage']);
 
 $writer->addNewSheet('sheet');
 
