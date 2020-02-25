@@ -85,8 +85,8 @@ class Style
             $fontXML .= <<<HTML
                 <font>
                     <name val="{$format['name']}"/>
-                    <sz val="{$format['size']}">
-                </font>;
+                    <sz val="{$format['size']}"/>
+                </font>
 HTML;
         }
 

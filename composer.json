@@ -14,7 +14,8 @@
     "require": {
         "php": ">=7.1.0",
         "ext-zip": "*",
-        "ext-xmlreader" : "*"
+        "ext-xmlreader" : "*",
+        "box/spout": "^3.1"
     },
     "autoload": {
         "psr-4": {
