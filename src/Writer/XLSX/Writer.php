@@ -20,7 +20,7 @@ class Writer
         $this->options = [
             'temp_folder' => sys_get_temp_dir(),
             'debug'       => false,
-            'filename'    => 'excel.xlsx'
+            'filename'    => date("Y-m-d").'.xlsx'
         ];
 
         $this->options = array_merge($this->options, $config);
@@ -75,6 +75,10 @@ class Writer
 
         $this->zipHelper = new ZipHelper($this->workbook);
         $this->zipHelper->writeToZipArchive();
+
+        foreach ($this->workbook->getWorksheets() as $worksheet) {
+            unlink($worksheet->filePath);
+        }
     }
 
     public function save()
@@ -93,7 +97,7 @@ class Writer
         $this->fileHandle = fopen('php://output', 'w');
 
         header('Content-Type: ' . 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="' . $this->options['filename'] . '"');
+        header('Content-Disposition: attachment; filename="' . $this->workbook->filename . '"');
         header('Cache-Control: max-age=0');
         header('Pragma: public');
     }

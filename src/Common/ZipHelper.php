@@ -21,7 +21,7 @@ class ZipHelper
     public function writeToZipArchive()
     {
         $this->zipHandle = new ZipArchive();
-        $this->zipHandle->open($this->workbook->temp_folder.$this->workbook->getWorkbookId(), ZipArchive::CREATE | ZipArchive::OVERWRITE);
+        $this->zipHandle->open($this->workbook->temp_folder.$this->workbook->filename, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
         $this->zipHandle->addEmptyDir('docProps');
         $this->zipHandle->addFromString('docProps/app.xml', $this->workbook->createAppXml());
@@ -32,7 +32,7 @@ class ZipHelper
 
         $this->zipHandle->addEmptyDir('xl/worksheets/');
         foreach ($this->workbook->getWorksheets() as $worksheet) {
-            $this->zipHandle->addFile($worksheet->filePath, 'xl/worksheets/' . $worksheet->name);
+            $this->zipHandle->addFile($worksheet->filePath, 'xl/worksheets/' . $worksheet->name.'.xml');
         }
 
         $this->zipHandle->addFromString('xl/workbook.xml', $this->workbook->createWorkbookXml());

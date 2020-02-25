@@ -10,6 +10,6 @@ function dd($data)
 
 $writer = \Rocky114\Excel\Writer\WriterFactory::createXLSXWriter(['temp_folder' => '/Users/huangdongcheng/excel/storage']);
 
-$writer->addNewSheet('sheet');
+$writer->addNewSheet('sheet1');
 
 $writer->addHeader(['name', 'id'])->addRow(['xinzhu', 1])->save();
