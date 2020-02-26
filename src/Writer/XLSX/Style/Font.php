@@ -12,7 +12,7 @@ class Font
         'general' => [
             'id'   => 0,
             'name' => 'Calibri',
-            'size' => 11,
+            'size' => 12,
             'bold' => false,
         ]
     ];
