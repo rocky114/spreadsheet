@@ -39,7 +39,23 @@ function spoutExcel()
     $rowFromValues = WriterEntityFactory::createRowFromArray($values);
     $writer->addRow($rowFromValues);
 
+    $values = ['rocky', 2];
+    $rowFromValues = WriterEntityFactory::createRowFromArray($values);
+    $writer->addRow($rowFromValues);
+
     $writer->close();
+
+    $data = array(
+        array('year','month','amount'),
+        array('2003','1','220'),
+        array('2003','2','153.5'),
+    );
+
+    $writer = new XLSXWriter();
+    $writer->setTempDir('/Users/huangdongcheng/excel/storage');
+    $writer->writeSheet($data);
+    $writer->writeToFile('output.xlsx');
 }
 
+//spoutExcel();
 

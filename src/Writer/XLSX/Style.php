@@ -112,14 +112,10 @@ HTML;
     {
         $borderXML = <<<HTML
             <borders count="1">
-            <border diagonalDown="false" diagonalUp="false">
-                <left/>
-                <right/>
-                <top/>
-                <bottom/>
-                <diagonal/>
-            </border>
-          </borders>
+                <border diagonalDown="false" diagonalUp="false">
+                    <left/><right/><top/><bottom/><diagonal/>
+                </border>
+            </borders>
 HTML;
 
         return $borderXML;
@@ -129,8 +125,8 @@ HTML;
     {
         $html = $this->createNumberFormatXML();
         $html .= $this->createFontXML();
-        $html .= $this->createBorderXML();
         $html .= $this->createFillXML();
+        $html .= $this->createBorderXML();
 
         $html .= '<cellXfs count="'.count($this->coordinates).'">';
         foreach ($this->coordinates as $coordinate) {

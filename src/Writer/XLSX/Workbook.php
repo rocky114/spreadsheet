@@ -112,14 +112,11 @@ STRING;
     <sheets>
 HTML;
 
-        foreach ($this->worksheets as $index => $worksheet) {
-            $html .= '<sheet name="' . $worksheet->name . '" sheetId="' . $worksheet->getId() . '" r:id="rIdSheet' . $worksheet->getId() . '"/>';
+        foreach ($this->worksheets as $key => $worksheet) {
+            $html .= '<sheet name="' . $worksheet->name . '" sheetId="' . $worksheet->getId() . '" r:id="rId' . $worksheet->getId() . '" state="visible"/>';
         }
 
-        $html .= <<<HTML
-    </sheets>
-</workbook>
-HTML;
+        $html .= '</sheets></workbook>';
 
         return $html;
     }
@@ -165,7 +162,7 @@ HTML;
     {
         $worksheetHtml = '';
         foreach ($this->worksheets as $key => $worksheet) {
-            $worksheetHtml .= '<Relationship Id="rId' . $key . '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/' . $worksheet->name . '.xml"/>';
+            $worksheetHtml .= '<Relationship Id="rId' . $worksheet->getId() . '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/' . $worksheet->name . '.xml"/>';
         }
 
         $html = <<<HTML
