@@ -29,8 +29,8 @@ class Row
 
         $this->rowXML = '<row r="' . $this->currentRowIndex . '">';
 
-        foreach ($cells as $index => $cell) {
-            $this->rowXML .= $this->getCellXML($index, $cell);
+        foreach ($cells as $columnIndex => $cell) {
+            $this->rowXML .= $this->getCellXML($columnIndex, $cell);
         }
 
         $this->rowXML .= '</row>';
@@ -43,19 +43,27 @@ class Row
         return $this->rowXML;
     }
 
-    protected function getCellXML($columnIndex, $cellValue = '')
+    protected function getCellXML(int $columnIndex, string &$cellValue = '')
     {
         $coordinate = FunctionHelper::getColumnHeader($columnIndex);
         $styleId = $this->styleHandle->getStyleId($coordinate, $this->sheetId);
 
-        $cellXML = '<c r="' . $coordinate . $this->currentRowIndex . '" s="'.$styleId.'"';
+        $cellXML = '<c r="' . $coordinate . $this->currentRowIndex . '" s="' . $styleId . '"';
 
         if ($this->currentRowIndex === 1) {
             $type = 'string';
-        } else if ($cellValue === null || $cellValue === '') {
-            $type = 'null';
         } else {
-            $type = $this->styleHandle->getType()->getCellValueType($columnIndex);
+            $type = $this->styleHandle->getType()->getCellValueType($coordinate);
+
+            if ($type === null) {
+                if ($cellValue === null || $cellValue === '') {
+                    $type = 'null';
+                } else if (is_numeric($cellValue)) {
+                    $type = 'number';
+                } else {
+                    $type = 'string';
+                }
+            }
         }
 
         switch ($type) {

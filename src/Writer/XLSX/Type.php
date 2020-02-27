@@ -65,9 +65,11 @@ class Type
             if (in_array($format['code'], ['0', '0.00', '#,##0', '#,##0.00'], true)) {
                 return 'number';
             }
+
+            return 'string';
         }
 
-        return 'string';
+        return null;
     }
 
     public function setNumberFormats(array $formats)
