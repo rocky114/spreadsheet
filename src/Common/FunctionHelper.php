@@ -14,6 +14,11 @@ class FunctionHelper
         return 'csv' === pathinfo($filename, PATHINFO_EXTENSION);
     }
 
+    /**
+     * @param string $suffix
+     * @param string $prefix
+     * @return string
+     */
     public static function createUniqueId($suffix = '', $prefix = '')
     {
         return $prefix.uniqid(php_uname('n').getmypid(), true).$suffix;
@@ -28,7 +33,11 @@ class FunctionHelper
         return preg_match("//u", $string) ? true : false;
     }
 
-    public static function getColumnHeader($index)
+    /**
+     * @param int $index
+     * @return string
+     */
+    public static function getColumnHeader(int $index)
     {
         $key = $index;
         static $columnHeader = [];
