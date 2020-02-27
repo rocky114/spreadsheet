@@ -46,7 +46,7 @@ class Row
     protected function getCellXML(int $columnIndex, string &$cellValue = '')
     {
         $coordinate = FunctionHelper::getColumnHeader($columnIndex);
-        $styleId = $this->styleHandle->getStyleId($coordinate, $this->sheetId);
+        $styleId = $this->styleHandle->getStyleId($coordinate);
 
         $cellXML = '<c r="' . $coordinate . $this->currentRowIndex . '" s="' . $styleId . '"';
 

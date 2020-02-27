@@ -4,6 +4,8 @@ namespace Rocky114\Excel\Writer\XLSX;
 
 use Rocky114\Excel\Common\FileHelper;
 use Rocky114\Excel\Common\FunctionHelper;
+use Rocky114\Excel\Writer\XLSX\Style\Border;
+use Rocky114\Excel\Writer\XLSX\Style\Fill;
 use Rocky114\Excel\Writer\XLSX\Style\Font;
 
 class Style
@@ -12,6 +14,8 @@ class Style
 
     protected $typeHandle;
     protected $fontHandle;
+    protected $fillHandle;
+    protected $borderHandle;
 
     protected $filename;
 
@@ -24,6 +28,8 @@ class Style
     {
         $this->typeHandle = new Type();
         $this->fontHandle = new Font();
+        $this->fillHandle = new Fill();
+        $this->borderHandle = new Border();
     }
 
     /**
@@ -35,6 +41,8 @@ class Style
         $this->currentCoordinate = $coordinate;
         $this->typeHandle->setCoordinate($coordinate);
         $this->fontHandle->setCoordinate($coordinate);
+        $this->fillHandle->setCoordinate($coordinate);
+        $this->borderHandle->setCoordinate($coordinate);
 
         return $this;
     }
@@ -44,6 +52,8 @@ class Style
         $this->currentSheetId = $sheetId;
         $this->typeHandle->setSheetId($sheetId);
         $this->fontHandle->setSheetId($sheetId);
+        $this->fillHandle->setSheetId($sheetId);
+        $this->borderHandle->setSheetId($sheetId);
 
         return $this;
     }
@@ -64,6 +74,22 @@ class Style
         return $this->fontHandle;
     }
 
+    /**
+     * @return \Rocky114\Excel\Writer\XLSX\Style\Fill
+     */
+    public function getFill()
+    {
+        return $this->fillHandle;
+    }
+
+    /**
+     * @return \Rocky114\Excel\Writer\XLSX\Style\Border
+     */
+    public function getBorder()
+    {
+        return $this->borderHandle;
+    }
+
     public function createNumberFormatXML()
     {
         $formatXML = '<numFmts count="' . count($this->typeHandle->getNumberFormats()) . '">';
@@ -79,7 +105,7 @@ class Style
 
     public function createFontXML()
     {
-        $fontXML = '<fonts count="' . count($this->coordinates) . '">';
+        $fontXML = '<fonts count="' . count($this->fontHandle->getFontFormats()) . '">';
 
         foreach ($this->fontHandle->getFontFormats() as $format) {
             $fontXML .= <<<HTML
@@ -97,13 +123,24 @@ HTML;
 
     public function createFillXML()
     {
-        $fillXML = <<<HTML
-            <fills count="1">
-                <fill>
-                    <patternFill patternType="none"/>
-                </fill>
-            </fills>
-HTML;
+        $fillXML = '<fills count="' . count($this->fillHandle->getFillFormats()) . '">';
+
+        foreach ($this->fillHandle->getFillFormats() as $format) {
+            $fillXML .= '<fill>';
+            if ($format['pattern_type'] === 'none') {
+                $fillXML .= '<patternFill patternType="none"/>';
+            } else {
+                $fillXML .= '<patternFill patternType="' . $format['pattern_type'] . '">';
+
+                !empty($format['fg_color']) && $fillXML .= '<fgColor rgb="' . $format['fg_color'] . '"/>';
+                !empty($format['bg_color']) && $fillXML .= '<bgColor rgb="' . $format['bg_color'] . '"/>';
+
+                $fillXML .= '</patternFill>';
+            }
+            $fillXML .= '</fill>';
+        }
+
+        $fillXML .= '</fills>';
 
         return $fillXML;
     }
@@ -128,9 +165,9 @@ HTML;
         $html .= $this->createFillXML();
         $html .= $this->createBorderXML();
 
-        $html .= '<cellXfs count="'.count($this->coordinates).'">';
+        $html .= '<cellXfs count="' . count($this->coordinates) . '">';
         foreach ($this->coordinates as $coordinate) {
-            $html .= '<xf applyAlignment="false" applyBorder="false" applyFont="true" applyProtection="false" borderId="0" fillId="0" fontId="'.$coordinate['font_id'].'" numFmtId="'.$coordinate['number_format_id'].'" xfId="0">';
+            $html .= '<xf applyAlignment="false" applyBorder="false" applyFont="true" applyProtection="false" borderId="0" fillId="0" fontId="' . $coordinate['font_id'] . '" numFmtId="' . $coordinate['number_format_id'] . '" xfId="0">';
             $html .= '<alignment horizontal="general" vertical="bottom" textRotation="0" wrapText="false" indent="0" shrinkToFit="false"/>';
             $html .= '<protection locked="true" hidden="false"/>';
             $html .= '</xf>';
@@ -141,17 +178,18 @@ HTML;
         return $html;
     }
 
-    public function getStyleId($coordinate, $sheetId)
+    public function getStyleId($coordinate)
     {
         if (empty($this->coordinates)) {
             $numberFormats = $this->typeHandle->getNumberFormats();
-            $fontId = $this->fontHandle->getFontId();
 
             $id = 0;
             foreach ($numberFormats as $key => $format) {
                 $this->coordinates[$key] = [
                     'number_format_id' => $format['id'],
-                    'font_id'          => $fontId,
+                    'font_id'          => 0,
+                    'fill_id'          => 0,
+                    'border_id'        => 0,
                     'id'               => $id,
                 ];
 
@@ -159,14 +197,14 @@ HTML;
             }
         }
 
-        $key = $coordinate . $sheetId;
+        $key = $coordinate . $this->currentSheetId;
         if (isset($this->coordinates[$key])) {
-            return $this->coordinates[$key]['index'];
+            return $this->coordinates[$key]['id'];
         }
 
-        $key = substr($coordinate, 0, 1) . $sheetId;
+        $key = substr($coordinate, 0, 1) . $this->currentSheetId;
         if (isset($this->coordinates[$key])) {
-            return $this->coordinates[$key]['index'];
+            return $this->coordinates[$key]['id'];
         }
 
         return 0;

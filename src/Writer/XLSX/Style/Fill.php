@@ -45,7 +45,7 @@ class Fill
         return $this;
     }
 
-    public function getFontFormats()
+    public function getFillFormats()
     {
         return $this->fillFormats;
     }
