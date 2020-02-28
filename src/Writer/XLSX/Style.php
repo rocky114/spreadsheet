@@ -147,13 +147,37 @@ HTML;
 
     public function createBorderXML()
     {
-        $borderXML = <<<HTML
-            <borders count="1">
-                <border diagonalDown="false" diagonalUp="false">
-                    <left/><right/><top/><bottom/><diagonal/>
-                </border>
-            </borders>
-HTML;
+        $borderXML = '<borders count="' . count($this->borderHandle->getBorderFormats()) . '">';
+        foreach ($this->borderHandle->getBorderFormats() as $key => $format) {
+            $borderXML .= '<border>';
+            if (empty($format['begin'])) {
+                $borderXML .= '<begin/>';
+            } else {
+
+            }
+
+            if (empty($format['end'])) {
+                $borderXML .= '<end/>';
+            } else {
+
+            }
+
+            if (empty($format['top'])) {
+                $borderXML .= '<top/>';
+            } else {
+
+            }
+
+            if (empty($format['bottom'])) {
+                $borderXML .= '<bottom/>';
+            } else {
+
+            }
+
+            $borderXML .= '<diagonal/></border>';
+        }
+
+        $borderXML .= '</borders>';
 
         return $borderXML;
     }

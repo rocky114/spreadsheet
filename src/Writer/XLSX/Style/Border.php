@@ -10,7 +10,12 @@ class Border
 
     protected $borderFormats = [
         'general' => [
-            'id' => 0,
+            'id'       => 0,
+            'start'    => [],
+            'end'      => [],
+            'top'      => [],
+            'bottom'   => [],
+            'diagonal' => []
         ]
     ];
 
