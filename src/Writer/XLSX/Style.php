@@ -182,18 +182,31 @@ HTML;
         return $borderXML;
     }
 
+    public function createCellStyleXML()
+    {
+        $cellStyleXML = <<<HTML
+            <cellStyleXfs count="1">
+                <xf numFmtId="0" fontId="0" fillId="0" borderId="0">
+			        <alignment vertical="center"/>
+		        </xf>
+		    </cellStyleXfs>
+HTML;
+
+        return $cellStyleXML;
+    }
+
     public function getStyleXML()
     {
         $html = $this->createNumberFormatXML();
         $html .= $this->createFontXML();
         $html .= $this->createFillXML();
         $html .= $this->createBorderXML();
+        $html .= $this->createCellStyleXML();
 
         $html .= '<cellXfs count="' . count($this->coordinates) . '">';
         foreach ($this->coordinates as $coordinate) {
             $html .= '<xf applyAlignment="false" applyBorder="false" applyFont="true" applyProtection="false" borderId="0" fillId="0" fontId="' . $coordinate['font_id'] . '" numFmtId="' . $coordinate['number_format_id'] . '" xfId="0">';
-            $html .= '<alignment horizontal="general" vertical="bottom" textRotation="0" wrapText="false" indent="0" shrinkToFit="false"/>';
-            $html .= '<protection locked="true" hidden="false"/>';
+            $html .= '<alignment horizontal="general" vertical="center" wrapText="false"/>';
             $html .= '</xf>';
         }
 
