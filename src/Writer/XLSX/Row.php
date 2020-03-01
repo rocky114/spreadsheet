@@ -17,6 +17,8 @@ class Row
 
     protected $sheetId;
 
+    protected $isTableHeader = false;
+
     public function __construct(Style $style, int $sheetId)
     {
         $this->styleHandle = $style;
@@ -38,6 +40,13 @@ class Row
         return $this;
     }
 
+    public function setTableHeader(bool $bool)
+    {
+        $this->isTableHeader = $bool;
+
+        return $this;
+    }
+
     public function getRowXML()
     {
         return $this->rowXML;
@@ -50,7 +59,7 @@ class Row
 
         $cellXML = '<c r="' . $coordinate . $this->currentRowIndex . '" s="' . $styleId . '"';
 
-        if ($this->currentRowIndex === 1) {
+        if ($this->isTableHeader) {
             $type = 'string';
         } else {
             $type = $this->styleHandle->getType()->getCellValueType($coordinate);

@@ -52,7 +52,11 @@ class Worksheet
             $this->workbook->getStyle()->getType()->setNumberFormats($formats);
         }
 
+        $this->rowHandle->setTableHeader(true);
+
         $this->addRow($header);
+
+        $this->rowHandle->setTableHeader(false);
 
         return $this;
     }

@@ -239,11 +239,6 @@ HTML;
             return $this->coordinates[$key]['id'];
         }
 
-        $key = substr($coordinate, 0, 1) . $this->currentSheetId;
-        if (isset($this->coordinates[$key])) {
-            return $this->coordinates[$key]['id'];
-        }
-
         return 0;
     }
 }
