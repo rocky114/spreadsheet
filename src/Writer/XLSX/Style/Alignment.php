@@ -11,7 +11,7 @@ class Alignment
     protected $alignmentFormats = [
         'general' => [
             'id'         => 0,
-            'wrap_text'  => false,
+            'wrap_text'  => 0,
             'vertical'   => 'center',
             'horizontal' => 'general'
         ]
@@ -27,7 +27,6 @@ class Alignment
             $this->currentIndex++;
         }
 
-
         $this->alignmentFormats[$this->currentCoordinate . $this->currentSheetId] = [
             'id'         => $this->currentIndex,
             'wrap_text'  => $bool,
@@ -38,9 +37,14 @@ class Alignment
         return $this;
     }
 
-    public function getFillFormats()
+    public function getAlignmentFormat(string $coordinate)
     {
-        return $this->alignmentFormats;
+        $key = $coordinate . $this->currentSheetId;
+        if (isset($this->alignmentFormats[$key])) {
+            return $this->alignmentFormats[$key];
+        }
+
+        return $this->alignmentFormats['general'];
     }
 
 }

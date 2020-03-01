@@ -219,8 +219,14 @@ HTML;
 
         $html .= '<cellXfs count="' . count($this->coordinates) . '">';
         foreach ($this->coordinates as $coordinate) {
-            $html .= '<xf applyAlignment="false" applyBorder="false" applyFont="true" applyProtection="false" borderId="0" fillId="0" fontId="' . $coordinate['font_id'] . '" numFmtId="' . $coordinate['number_format_id'] . '" xfId="0">';
-            $html .= '<alignment horizontal="general" vertical="center" wrapText="false"/>';
+            $applyAlignment = $coordinate['alignment']['id'] === 0 ? '' : 'applyAlignment="1" ';
+            $applyBorder = $coordinate['border_id'] === 0 ? '' : 'applyBorder="1" ';
+            $applyFill = $coordinate['fill_id'] === 0 ? '' : 'applyFill="1" ';
+            $applyFont = $coordinate['font_id'] === 0 ? '' : 'applyFont="1" ';
+            $applyNumberFormat = $coordinate['number_format_id'] === 0 ? '' : 'applyNumberFormat="1"';
+
+            $html .= '<xf borderId="' . $coordinate['border_id'] . '" fillId="' . $coordinate['fill_id'] . '" fontId="' . $coordinate['font_id'] . '" numFmtId="' . $coordinate['number_format_id'] . '" xfId="0" ' . $applyAlignment . $applyBorder . $applyFill . $applyFont . $applyNumberFormat . '>';
+            $html .= '<alignment horizontal="' . $coordinate['alignment']['horizontal'] . '" vertical="' . $coordinate['vertical'] . '" wrapText="' . $coordinate['wrap_text'] . '"/>';
             $html .= '</xf>';
         }
 
@@ -270,15 +276,17 @@ HTML;
         foreach ($this->coordinates as $coordinate => $item) {
             $numberFormatId = $this->typeHandle->getNumberFormatId($coordinate);
             $fontId = $this->fontHandle->getFontId($coordinate);
-            $fillId = $this->fillHandle->getFillId();
-            $borderId = $this->borderHandle->getBorderId();
+            $fillId = $this->fillHandle->getFillId($coordinate);
+            $borderId = $this->borderHandle->getBorderId($coordinate);
+            $alignment = $this->alignmentHandle->getAlignmentFormat($coordinate);
 
             $this->coordinates[$coordinate] = [
+                'id'               => $id,
                 'number_format_id' => $numberFormatId,
                 'font_id'          => $fontId,
                 'fill_id'          => $fillId,
                 'border_id'        => $borderId,
-                'id'               => $id,
+                'alignment'        => $alignment
             ];
 
             $id++;
