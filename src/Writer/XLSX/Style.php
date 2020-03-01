@@ -9,8 +9,6 @@ use Rocky114\Excel\Writer\XLSX\Style\Font;
 
 class Style
 {
-    protected $currentId;
-
     protected $typeHandle;
     protected $fontHandle;
     protected $fillHandle;
@@ -226,7 +224,7 @@ HTML;
             $applyNumberFormat = $coordinate['number_format_id'] === 0 ? '' : 'applyNumberFormat="1"';
 
             $html .= '<xf borderId="' . $coordinate['border_id'] . '" fillId="' . $coordinate['fill_id'] . '" fontId="' . $coordinate['font_id'] . '" numFmtId="' . $coordinate['number_format_id'] . '" xfId="0" ' . $applyAlignment . $applyBorder . $applyFill . $applyFont . $applyNumberFormat . '>';
-            $html .= '<alignment horizontal="' . $coordinate['alignment']['horizontal'] . '" vertical="' . $coordinate['vertical'] . '" wrapText="' . $coordinate['wrap_text'] . '"/>';
+            $html .= '<alignment horizontal="' . $coordinate['alignment']['horizontal'] . '" vertical="' . $coordinate['alignment']['vertical'] . '" wrapText="' . $coordinate['alignment']['wrap_text'] . '"/>';
             $html .= '</xf>';
         }
 
@@ -237,7 +235,7 @@ HTML;
 
     public function getStyleId($coordinate)
     {
-        $key = $coordinate . $this->currentSheetId;
+        $key = $coordinate . '_' . $this->currentSheetId;
         if (isset($this->coordinates[$key])) {
             return $this->coordinates[$key]['id'];
         }
@@ -255,13 +253,16 @@ HTML;
         $numberFormats = $this->typeHandle->getNumberFormats();
 
         $id = count($this->coordinates);
+        $alignment = $this->alignmentHandle->getAlignmentFormat();
+
         foreach ($numberFormats as $key => $format) {
             $this->coordinates[$key] = [
+                'id'               => $id,
                 'number_format_id' => $format['id'],
                 'font_id'          => 0,
                 'fill_id'          => 0,
                 'border_id'        => 0,
-                'id'               => $id,
+                'alignment'        => $alignment
             ];
 
             $id++;

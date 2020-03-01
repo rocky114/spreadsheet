@@ -30,7 +30,7 @@ class Border
 
     public function getBorderId(string $coordinate = null)
     {
-        $key = $coordinate . $this->currentSheetId;
+        $key = $coordinate . '_' . $this->currentSheetId;
         if (isset($this->borderFormats[$key])) {
             return $this->borderFormats[$key]['id'];
         }

@@ -23,11 +23,11 @@ class Alignment
 
     public function setWrapText(bool $bool)
     {
-        if (!isset($this->alignmentFormats[$this->currentCoordinate . $this->currentSheetId])) {
+        if (!isset($this->alignmentFormats[$this->currentCoordinate . '_' . $this->currentSheetId])) {
             $this->currentIndex++;
         }
 
-        $this->alignmentFormats[$this->currentCoordinate . $this->currentSheetId] = [
+        $this->alignmentFormats[$this->currentCoordinate . '_' . $this->currentSheetId] = [
             'id'         => $this->currentIndex,
             'wrap_text'  => $bool,
             'vertical'   => 'center',
@@ -37,9 +37,9 @@ class Alignment
         return $this;
     }
 
-    public function getAlignmentFormat(string $coordinate)
+    public function getAlignmentFormat(string $coordinate = 'general')
     {
-        $key = $coordinate . $this->currentSheetId;
+        $key = $coordinate . '_' . $this->currentSheetId;
         if (isset($this->alignmentFormats[$key])) {
             return $this->alignmentFormats[$key];
         }

@@ -23,36 +23,41 @@ class Font
 
     public function setSize(int $size)
     {
-        if (!isset($this->fontFormats[$this->currentCoordinate . $this->currentSheetId])) {
+        $key = $this->currentCoordinate . '_' . $this->currentSheetId;
+        if (!isset($this->fontFormats[$key])) {
             $this->currentIndex++;
         }
 
-        $this->fontFormats[$this->currentCoordinate . $this->currentSheetId]['size'] = $size;
-        $this->fontFormats[$this->currentCoordinate . $this->currentSheetId]['id'] = $this->currentIndex;
+        $this->fontFormats[$key]['size'] = $size;
+        $this->fontFormats[$key]['id'] = $this->currentIndex;
 
         return $this;
     }
 
     public function setBold(bool $boolean)
     {
-        if (!isset($this->fontFormats[$this->currentCoordinate . $this->currentSheetId])) {
+        $key = $this->currentCoordinate . '_' . $this->currentSheetId;
+
+        if (!isset($this->fontFormats[$key])) {
             $this->currentIndex++;
         }
 
-        $this->fontFormats[$this->currentCoordinate . $this->currentSheetId]['bold'] = $boolean;
-        $this->fontFormats[$this->currentCoordinate . $this->currentSheetId]['id'] = $this->currentIndex;
+        $this->fontFormats[$key]['bold'] = $boolean;
+        $this->fontFormats[$key]['id'] = $this->currentIndex;
 
         return $this;
     }
 
     public function setName($name)
     {
-        if (!isset($this->fontFormats[$this->currentCoordinate . $this->currentSheetId])) {
+        $key = $this->currentCoordinate . '_' . $this->currentSheetId;
+
+        if (!isset($this->fontFormats[$key])) {
             $this->currentIndex++;
         }
 
-        $this->fontFormats[$this->currentCoordinate . $this->currentSheetId]['name'] = $name;
-        $this->fontFormats[$this->currentCoordinate . $this->currentSheetId]['id'] = $this->currentIndex;
+        $this->fontFormats[$key]['name'] = $name;
+        $this->fontFormats[$key]['id'] = $this->currentIndex;
 
         return $this;
     }
@@ -64,7 +69,7 @@ class Font
 
     public function getFontId(string $coordinate = null)
     {
-        $key = $coordinate . $this->currentSheetId;
+        $key = $coordinate . '_' . $this->currentSheetId;
         if (isset($this->fontFormats[$key])) {
             return $this->fontFormats[$key]['id'];
         }

@@ -21,26 +21,27 @@ class Fill
 
     public function setPatternType(int $type)
     {
-        if (!isset($this->fillFormats[$this->currentCoordinate . $this->currentSheetId])) {
+        $key = $this->currentCoordinate . '_' . $this->currentSheetId;
+        if (!isset($this->fillFormats[$key])) {
             $this->currentIndex++;
         }
 
-        $this->fillFormats[$this->currentCoordinate . $this->currentSheetId]['pattern_type'] = $type;
-        $this->fillFormats[$this->currentCoordinate . $this->currentSheetId]['id'] = $this->currentIndex;
+        $this->fillFormats[$key]['pattern_type'] = $type;
+        $this->fillFormats[$key]['id'] = $this->currentIndex;
 
         return $this;
     }
 
     public function setForegroundColor(string $rgb)
     {
-        $this->fillFormats[$this->currentCoordinate . $this->currentSheetId]['fg_color'] = $rgb;
+        $this->fillFormats[$this->currentCoordinate . '_' . $this->currentSheetId]['fg_color'] = $rgb;
 
         return $this;
     }
 
     public function setBackgroundColor(string $rgb)
     {
-        $this->fillFormats[$this->currentCoordinate . $this->currentSheetId]['bg_color'] = $rgb;
+        $this->fillFormats[$this->currentCoordinate . '_' . $this->currentSheetId]['bg_color'] = $rgb;
 
         return $this;
     }
@@ -52,7 +53,7 @@ class Fill
 
     public function getFillId(string $coordinate = null)
     {
-        $key = $coordinate . $this->currentSheetId;
+        $key = $coordinate . '_' . $this->currentSheetId;
         if (isset($this->fillFormats[$key])) {
             return $this->fillFormats[$key]['id'];
         }

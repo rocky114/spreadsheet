@@ -44,7 +44,7 @@ class Type
 
     public function getNumberFormatId($coordinate)
     {
-        $key = $coordinate . $this->currentSheetId;
+        $key = $coordinate . '_' . $this->currentSheetId;
         if (isset($this->numberFormats[$key])) {
             return $this->numberFormats[$key]['id'];
         }
@@ -59,8 +59,8 @@ class Type
 
     public function getCellValueType($coordinate)
     {
-        if (isset($this->numberFormats[$coordinate . $this->currentSheetId])) {
-            $format = $this->numberFormats[$coordinate . $this->currentSheetId];
+        if (isset($this->numberFormats[$coordinate . '_' . $this->currentSheetId])) {
+            $format = $this->numberFormats[$coordinate . '_' . $this->currentSheetId];
 
             if (in_array($format['code'], ['0', '0.00', '#,##0', '#,##0.00'], true)) {
                 return 'number';
@@ -85,7 +85,7 @@ class Type
 
             $numberFormatId = $this->numberFormatCode[$code];
 
-            $this->numberFormats[$coordinate . $this->currentSheetId] = [
+            $this->numberFormats[$coordinate . '_' . $this->currentSheetId] = [
                 'code' => $code,
                 'id'   => $numberFormatId
             ];
