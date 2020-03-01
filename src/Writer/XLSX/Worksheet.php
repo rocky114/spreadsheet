@@ -29,6 +29,8 @@ class Worksheet
 
     protected $closed = false;
 
+    protected $hasSetStyle = false;
+
     public function __construct($id, $name, Workbook $workbook)
     {
         $this->id = $id;
@@ -63,6 +65,11 @@ class Worksheet
 
     public function addRow(array $row = [])
     {
+        if (!$this->hasSetStyle) {
+            $this->workbook->getStyle()->createCoordinateStyle()->createColumnTypeStyle();
+            $this->hasSetStyle = true;
+        }
+
         $this->lastWrittenRowIndex++;
 
         $rowXML = $this->rowHandle->setCells($this->lastWrittenRowIndex, $row)->getRowXML();
@@ -117,6 +124,6 @@ HTML;
      */
     public function getStyle($coordinate)
     {
-        return $this->workbook->getStyle()->setCoordinate($coordinate)->setSheetId($this->id);
+        return $this->workbook->getStyle()->setCoordinate($coordinate, $this->id);
     }
 }

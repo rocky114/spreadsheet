@@ -28,7 +28,7 @@ class Border
         return $this->borderFormats;
     }
 
-    public function getFontId(string $coordinate = null)
+    public function getBorderId(string $coordinate = null)
     {
         $key = $coordinate . $this->currentSheetId;
         if (isset($this->borderFormats[$key])) {

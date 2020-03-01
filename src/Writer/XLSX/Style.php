@@ -2,8 +2,7 @@
 
 namespace Rocky114\Excel\Writer\XLSX;
 
-use Rocky114\Excel\Common\FileHelper;
-use Rocky114\Excel\Common\FunctionHelper;
+use Rocky114\Excel\Writer\XLSX\Style\Alignment;
 use Rocky114\Excel\Writer\XLSX\Style\Border;
 use Rocky114\Excel\Writer\XLSX\Style\Fill;
 use Rocky114\Excel\Writer\XLSX\Style\Font;
@@ -16,6 +15,7 @@ class Style
     protected $fontHandle;
     protected $fillHandle;
     protected $borderHandle;
+    protected $alignmentHandle;
 
     protected $filename;
 
@@ -30,19 +30,24 @@ class Style
         $this->fontHandle = new Font();
         $this->fillHandle = new Fill();
         $this->borderHandle = new Border();
+        $this->alignmentHandle = new Alignment();
     }
 
     /**
-     * @param $coordinate
+     * @param string $coordinate
+     * @param int $sheetId
      * @return $this
      */
-    public function setCoordinate(string $coordinate)
+    public function setCoordinate(string $coordinate, int $sheetId)
     {
+        $this->coordinates[$coordinate . $sheetId] = [];
+
         $this->currentCoordinate = $coordinate;
-        $this->typeHandle->setCoordinate($coordinate);
-        $this->fontHandle->setCoordinate($coordinate);
-        $this->fillHandle->setCoordinate($coordinate);
-        $this->borderHandle->setCoordinate($coordinate);
+        $this->typeHandle->setCoordinate($coordinate, $sheetId);
+        $this->fontHandle->setCoordinate($coordinate, $sheetId);
+        $this->fillHandle->setCoordinate($coordinate, $sheetId);
+        $this->borderHandle->setCoordinate($coordinate, $sheetId);
+        $this->alignmentHandle->setCoordinate($coordinate, $sheetId);
 
         return $this;
     }
@@ -54,6 +59,7 @@ class Style
         $this->fontHandle->setSheetId($sheetId);
         $this->fillHandle->setSheetId($sheetId);
         $this->borderHandle->setSheetId($sheetId);
+        $this->alignmentHandle->setSheetId($sheetId);
 
         return $this;
     }
@@ -88,6 +94,14 @@ class Style
     public function getBorder()
     {
         return $this->borderHandle;
+    }
+
+    /**
+     * @return \Rocky114\Excel\Writer\XLSX\Style\Alignment
+     */
+    public function getAlignment()
+    {
+        return $this->alignmentHandle;
     }
 
     public function createNumberFormatXML()
@@ -217,28 +231,59 @@ HTML;
 
     public function getStyleId($coordinate)
     {
-        if (empty($this->coordinates)) {
-            $numberFormats = $this->typeHandle->getNumberFormats();
-
-            $id = 0;
-            foreach ($numberFormats as $key => $format) {
-                $this->coordinates[$key] = [
-                    'number_format_id' => $format['id'],
-                    'font_id'          => 0,
-                    'fill_id'          => 0,
-                    'border_id'        => 0,
-                    'id'               => $id,
-                ];
-
-                $id++;
-            }
-        }
-
         $key = $coordinate . $this->currentSheetId;
         if (isset($this->coordinates[$key])) {
             return $this->coordinates[$key]['id'];
         }
 
+        $key = substr($coordinate, 0, 1) . $this->currentSheetId;
+        if (isset($this->coordinates[$key])) {
+            return $this->coordinates[$key]['id'];
+        }
+
         return 0;
+    }
+
+    public function createColumnTypeStyle()
+    {
+        $numberFormats = $this->typeHandle->getNumberFormats();
+
+        $id = count($this->coordinates);
+        foreach ($numberFormats as $key => $format) {
+            $this->coordinates[$key] = [
+                'number_format_id' => $format['id'],
+                'font_id'          => 0,
+                'fill_id'          => 0,
+                'border_id'        => 0,
+                'id'               => $id,
+            ];
+
+            $id++;
+        }
+
+        return $this;
+    }
+
+    public function createCoordinateStyle()
+    {
+        $id = 0;
+        foreach ($this->coordinates as $coordinate => $item) {
+            $numberFormatId = $this->typeHandle->getNumberFormatId($coordinate);
+            $fontId = $this->fontHandle->getFontId($coordinate);
+            $fillId = $this->fillHandle->getFillId();
+            $borderId = $this->borderHandle->getBorderId();
+
+            $this->coordinates[$coordinate] = [
+                'number_format_id' => $numberFormatId,
+                'font_id'          => $fontId,
+                'fill_id'          => $fillId,
+                'border_id'        => $borderId,
+                'id'               => $id,
+            ];
+
+            $id++;
+        }
+
+        return $this;
     }
 }
