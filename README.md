@@ -1,6 +1,6 @@
 # EXCEL
 
-excel is a PHP library to read and write spreadsheet files (CSV, XLSX), in a fast and scalable way.
+this is a PHP library to read and write spreadsheet files (CSV, XLSX), in a fast and scalable way.
 
 ## Requirements
 
