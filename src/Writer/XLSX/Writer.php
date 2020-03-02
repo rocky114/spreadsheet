@@ -59,6 +59,11 @@ class Writer
         return $this;
     }
 
+    public function mergeCells($startRow, $startColumn, $endRow, $endColumn)
+    {
+        $this->workbook->getCurrentSheet()->mergeCells($startRow, $startColumn, $endRow, $endColumn);
+    }
+
     /**
      * @return \Rocky114\Excel\Writer\XLSX\Workbook
      */

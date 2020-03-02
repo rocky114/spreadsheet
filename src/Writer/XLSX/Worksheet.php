@@ -126,4 +126,10 @@ HTML;
     {
         return $this->workbook->getStyle()->setCoordinate($coordinate, $this->id);
     }
+
+
+    public function mergeCells($startRow, $startColumn, $endRow, $endColumn)
+    {
+
+    }
 }
