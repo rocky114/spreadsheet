@@ -20,7 +20,7 @@ class Writer
         $this->options = [
             'temp_folder' => sys_get_temp_dir(),
             'debug'       => false,
-            'filename'    => date("Y-m-d").'.xlsx'
+            'filename'    => date("Y-m-d") . '.xlsx'
         ];
 
         $this->options = array_merge($this->options, $config);
@@ -94,11 +94,11 @@ class Writer
             ob_end_clean();
         }
 
-        $this->fileHandle = fopen('php://output', 'w');
-
         header('Content-Type: ' . 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment; filename="' . $this->workbook->filename . '"');
         header('Cache-Control: max-age=0');
         header('Pragma: public');
+
+        readfile($this->workbook->temp_folder . $this->workbook->filename);
     }
 }
