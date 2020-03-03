@@ -9,8 +9,6 @@ class ZipHelper
 {
     protected $zipHandle;
 
-    protected $zipFilePath;
-
     protected $workbook;
 
     public function __construct(Workbook $workbook)
@@ -42,10 +40,5 @@ class ZipHelper
         $this->zipHandle->addFromString('xl/_rels/workbook.xml.rels', $this->workbook->createWorkbookRelXml());
 
         $this->zipHandle->close();
-    }
-
-    public function getZipArchivePath()
-    {
-        return $this->zipFilePath;
     }
 }
