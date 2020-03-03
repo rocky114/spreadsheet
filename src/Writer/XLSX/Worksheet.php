@@ -27,9 +27,11 @@ class Worksheet
 
     protected $columnNumber = 0;
 
-    protected $closed = false;
+    protected $hasClosed = false;
 
     protected $hasSetStyle = false;
+
+    protected $mergeCells = [];
 
     public function __construct($id, $name, Workbook $workbook)
     {
@@ -92,18 +94,29 @@ HTML;
         $this->fileHandle->write($html);
     }
 
+    public function mergeCell($startCoordinate, $endCoordinate)
+    {
+        $this->mergeCells[] = [$startCoordinate, $endCoordinate];
+    }
+
     public function closeSheet()
     {
-        if (!$this->closed) {
-            $html = <<<HTML
-    </sheetData>
-</worksheet>
-HTML;
+        if (!$this->hasClosed) {
+            $html = '';
+            if (!empty($this->mergeCells)) {
+                $html .= '<mergeCells count="' . count($this->mergeCells) . '">';
+                foreach ($this->mergeCells as $cells) {
+                    $html .= '<mergeCell ref="' . $cells[0] . ':' . $cells[1] . '"/>';
+                }
+                $html .= '</mergeCells>';
+            }
+
+            $html .= '</sheetData></worksheet>';
 
             $this->fileHandle->write($html);
             $this->fileHandle->close();
 
-            $this->closed = true;
+            $this->hasClosed = true;
         }
     }
 
@@ -125,11 +138,5 @@ HTML;
     public function getStyle($coordinate)
     {
         return $this->workbook->getStyle()->setCoordinate($coordinate, $this->id);
-    }
-
-
-    public function mergeCells($startRow, $startColumn, $endRow, $endColumn)
-    {
-
     }
 }

@@ -59,9 +59,9 @@ class Writer
         return $this;
     }
 
-    public function mergeCells($startRow, $startColumn, $endRow, $endColumn)
+    public function mergeCell($startCoordinate, $endCoordinate)
     {
-        $this->workbook->getCurrentSheet()->mergeCells($startRow, $startColumn, $endRow, $endColumn);
+        $this->workbook->getCurrentSheet()->mergeCell($startCoordinate, $endCoordinate);
     }
 
     /**
