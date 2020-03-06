@@ -1,8 +1,8 @@
 <?php
 
-namespace Rocky114\Excel\Writer\CSV;
+namespace Rocky114\Spreadsheet\Writer\CSV;
 
-use Rocky114\Excel\Common\FunctionHelper;
+use Rocky114\Spreadsheet\Common\FunctionHelper;
 
 class Writer
 {

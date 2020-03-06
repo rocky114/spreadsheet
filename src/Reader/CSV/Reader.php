@@ -1,8 +1,8 @@
 <?php
 
-namespace Rocky114\Excel\Reader\CSV;
+namespace Rocky114\Spreadsheet\Reader\CSV;
 
-use Rocky114\Excel\Reader\ReaderInterface;
+use Rocky114\Spreadsheet\Reader\ReaderInterface;
 
 class Reader implements ReaderInterface
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Rocky114\Excel\Writer\XLSX;
+namespace Rocky114\Spreadsheet\Writer\XLSX;
 
-use Rocky114\Excel\Writer\XLSX\Style\Coordinate;
+use Rocky114\Spreadsheet\Writer\XLSX\Style\Coordinate;
 
 class Type
 {

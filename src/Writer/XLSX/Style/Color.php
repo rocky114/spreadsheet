@@ -1,6 +1,6 @@
 <?php
 
-namespace Rocky114\Excel\Writer\XLSX\Style;
+namespace Rocky114\Spreadsheet\Writer\XLSX\Style;
 
 class Color
 {

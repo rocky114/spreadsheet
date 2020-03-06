@@ -1,9 +1,9 @@
 <?php
 
-namespace Rocky114\Excel\Writer\XLSX;
+namespace Rocky114\Spreadsheet\Writer\XLSX;
 
-use Rocky114\Excel\Common\FunctionHelper;
-use Rocky114\Excel\Writer\XLSX\Style;
+use Rocky114\Spreadsheet\Common\FunctionHelper;
+use Rocky114\Spreadsheet\Writer\XLSX\Style;
 
 class Row
 {

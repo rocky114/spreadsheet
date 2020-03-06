@@ -1,9 +1,9 @@
 <?php
 
-namespace Rocky114\Excel\Writer\XLSX;
+namespace Rocky114\Spreadsheet\Writer\XLSX;
 
-use Rocky114\Excel\Common\FileHelper;
-use Rocky114\Excel\Common\FunctionHelper;
+use Rocky114\Spreadsheet\Common\FileHelper;
+use Rocky114\Spreadsheet\Common\FunctionHelper;
 
 class Worksheet
 {
@@ -133,7 +133,7 @@ HTML;
     /**
      * @param $coordinate
      *
-     * @return \Rocky114\Excel\Writer\XLSX\Style
+     * @return \Rocky114\Spreadsheet\Writer\XLSX\Style
      */
     public function getStyle($coordinate)
     {

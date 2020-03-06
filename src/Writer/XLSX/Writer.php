@@ -1,10 +1,10 @@
 <?php
 
-namespace Rocky114\Excel\Writer\XLSX;
+namespace Rocky114\Spreadsheet\Writer\XLSX;
 
-use Rocky114\Excel\Common\FunctionHelper;
-use Rocky114\Excel\Common\ZipHelper;
-use Rocky114\Excel\Writer\XLSX\Style\Style;
+use Rocky114\Spreadsheet\Common\FunctionHelper;
+use Rocky114\Spreadsheet\Common\ZipHelper;
+use Rocky114\Spreadsheet\Writer\XLSX\Style\Style;
 
 class Writer
 {
@@ -65,7 +65,7 @@ class Writer
     }
 
     /**
-     * @return \Rocky114\Excel\Writer\XLSX\Workbook
+     * @return \Rocky114\Spreadsheet\Writer\XLSX\Workbook
      */
     public function getWorkbook()
     {

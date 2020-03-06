@@ -1,9 +1,9 @@
 <?php
 
-namespace Rocky114\Excel\Common;
+namespace Rocky114\Spreadsheet\Common;
 
 use ZipArchive;
-use Rocky114\Excel\Writer\XLSX\Workbook;
+use Rocky114\Spreadsheet\Writer\XLSX\Workbook;
 
 class ZipHelper
 {

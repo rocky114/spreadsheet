@@ -1,5 +1,5 @@
 {
-    "name": "rocky114/excel",
+    "name": "rocky114/spreadsheet",
     "description": "PHP Library to read and write spreadsheet files (CSV, XLSX), in a fast and scalable way",
     "type": "library",
     "keywords": ["php","read","write","csv","xlsx","office","excel","spreadsheet","scale","memory","stream"],
@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Rocky114\\Excel\\": "excel/src"
+            "Rocky114\\Spreadsheet\\": "spreadsheet/src"
         }
     },
     "minimum-stability": "dev",

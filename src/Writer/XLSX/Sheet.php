@@ -1,6 +1,6 @@
 <?php
 
-namespace Rocky114\Excel\Writer\XLSX;
+namespace Rocky114\Spreadsheet\Writer\XLSX;
 
 class Sheet
 {

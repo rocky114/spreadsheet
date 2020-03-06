@@ -1,11 +1,11 @@
 <?php
 
-namespace Rocky114\Excel\Writer\XLSX;
+namespace Rocky114\Spreadsheet\Writer\XLSX;
 
-use Rocky114\Excel\Writer\XLSX\Style\Alignment;
-use Rocky114\Excel\Writer\XLSX\Style\Border;
-use Rocky114\Excel\Writer\XLSX\Style\Fill;
-use Rocky114\Excel\Writer\XLSX\Style\Font;
+use Rocky114\Spreadsheet\Writer\XLSX\Style\Alignment;
+use Rocky114\Spreadsheet\Writer\XLSX\Style\Border;
+use Rocky114\Spreadsheet\Writer\XLSX\Style\Fill;
+use Rocky114\Spreadsheet\Writer\XLSX\Style\Font;
 
 class Style
 {
@@ -63,7 +63,7 @@ class Style
     }
 
     /**
-     * @return \Rocky114\Excel\Writer\XLSX\Type
+     * @return \Rocky114\Spreadsheet\Writer\XLSX\Type
      */
     public function getType()
     {
@@ -71,7 +71,7 @@ class Style
     }
 
     /**
-     * @return \Rocky114\Excel\Writer\XLSX\Style\Font
+     * @return \Rocky114\Spreadsheet\Writer\XLSX\Style\Font
      */
     public function getFont()
     {
@@ -79,7 +79,7 @@ class Style
     }
 
     /**
-     * @return \Rocky114\Excel\Writer\XLSX\Style\Fill
+     * @return \Rocky114\Spreadsheet\Writer\XLSX\Style\Fill
      */
     public function getFill()
     {
@@ -87,7 +87,7 @@ class Style
     }
 
     /**
-     * @return \Rocky114\Excel\Writer\XLSX\Style\Border
+     * @return \Rocky114\Spreadsheet\Writer\XLSX\Style\Border
      */
     public function getBorder()
     {
@@ -95,7 +95,7 @@ class Style
     }
 
     /**
-     * @return \Rocky114\Excel\Writer\XLSX\Style\Alignment
+     * @return \Rocky114\Spreadsheet\Writer\XLSX\Style\Alignment
      */
     public function getAlignment()
     {

@@ -1,15 +1,15 @@
 <?php
 
-namespace Rocky114\Excel;
+namespace Rocky114\Spreadsheet;
 
-use Rocky114\Excel\Reader\CSV\Reader as CSVReader;
-use Rocky114\Excel\Reader\XLSX\Reader as XLSXReader;
+use Rocky114\Spreadsheet\Reader\CSV\Reader as CSVReader;
+use Rocky114\Spreadsheet\Reader\XLSX\Reader as XLSXReader;
 
 class ReaderFactory
 {
     /**
      * @param string $path
-     * @return \Rocky114\Excel\Reader\ReaderInterface
+     * @return \Rocky114\Spreadsheet\Reader\ReaderInterface
      * @throws \Exception
      */
     public static function createReaderFromFile(string $path)
@@ -25,7 +25,7 @@ class ReaderFactory
     }
 
     /**
-     * @return \Rocky114\Excel\Reader\CSV\Reader
+     * @return \Rocky114\Spreadsheet\Reader\CSV\Reader
      */
     public static function createCSVReader()
     {
@@ -33,7 +33,7 @@ class ReaderFactory
     }
 
     /**
-     * @return \Rocky114\Excel\Reader\XLSX\Reader
+     * @return \Rocky114\Spreadsheet\Reader\XLSX\Reader
      */
     public static function createXLSXReader()
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Rocky114\Excel\Reader;
+namespace Rocky114\Spreadsheet\Reader;
 
 interface ReaderInterface
 {

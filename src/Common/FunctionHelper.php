@@ -1,6 +1,6 @@
 <?php
 
-namespace Rocky114\Excel\Common;
+namespace Rocky114\Spreadsheet\Common;
 
 class FunctionHelper
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Rocky114\Excel;
+namespace Rocky114\Spreadsheet;
 
 class Autoload
 {
@@ -13,7 +13,7 @@ class Autoload
 
     public function getFullFilePath($filename = null)
     {
-        $prefix = 'Rocky114\Excel';
+        $prefix = 'Rocky114\Spreadsheet';
 
         $filename = str_replace([$prefix, '\\'], ['', '/'], $filename);
 
