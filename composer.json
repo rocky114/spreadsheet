@@ -4,7 +4,7 @@
     "type": "library",
     "keywords": ["php","read","write","csv","xlsx","office","excel","spreadsheet","scale","memory","stream"],
     "license": "MIT",
-    "homepage": "https://github.com/rocky114/excel",
+    "homepage": "https://github.com/rocky114/spreadsheet",
     "authors": [
         {
           "name": "rocky",

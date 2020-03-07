@@ -8,13 +8,20 @@ use Rocky114\Spreadsheet\Reader\XLSX\Reader as XLSXReader;
 class ReaderFactory
 {
     /**
-     * @param string $path
+     * @param string $filePath
      * @return \Rocky114\Spreadsheet\Reader\ReaderInterface
      * @throws \Exception
      */
-    public static function createReaderFromFile(string $path)
+    public static function createReaderFromFile(string $filePath)
     {
-        $extension = \strtolower(\pathinfo($path, PATHINFO_EXTENSION));
+        if (!file_exists($filePath)) {
+            throw new \Exception("Could not open $filePath for reading! File does not exist.");
+        }
+        if (!is_readable($filePath)) {
+            throw new \Exception("Could not open $filePath for reading! File is not readable.");
+        }
+
+        $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
         if ($extension === 'csv') {
             return self::createCSVReader();
         } else if ($extension === 'xlsx') {

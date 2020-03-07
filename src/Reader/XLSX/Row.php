@@ -1,11 +1,10 @@
 <?php
 
-namespace Rocky114\Spreadsheet\Writer\XLSX;
+namespace Rocky114\Spreadsheet\Reader\XLSX;
 
-class Sheet
+class Row
 {
     public function __construct()
     {
-
     }
 }
