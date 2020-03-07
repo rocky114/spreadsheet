@@ -188,13 +188,6 @@ HTML;
 HTML;
 
         return $html;
-        /*$filename = FunctionHelper::createUniqueId('.xml');
-
-        $fileHandle = new FileHelper($this->temp_folder . $filename);
-        $fileHandle->write($html);
-        $fileHandle->close();
-
-        return $fileHandle->getFilePath();*/
     }
 
     /**

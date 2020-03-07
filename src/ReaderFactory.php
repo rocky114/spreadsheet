@@ -14,6 +14,7 @@ class ReaderFactory
      */
     public static function createReaderFromFile(string $filePath)
     {
+        $filePath = realpath($filePath);
         if (!file_exists($filePath)) {
             throw new \Exception("Could not open $filePath for reading! File does not exist.");
         }
@@ -23,9 +24,9 @@ class ReaderFactory
 
         $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
         if ($extension === 'csv') {
-            return self::createCSVReader();
+            return self::createCSVReader($filePath);
         } else if ($extension === 'xlsx') {
-            return self::createXLSXReader();
+            return self::createXLSXReader($filePath);
         } else {
             throw new \Exception('Cannot read files, only csv, xlsx files are supported');
         }
@@ -34,16 +35,16 @@ class ReaderFactory
     /**
      * @return \Rocky114\Spreadsheet\Reader\CSV\Reader
      */
-    public static function createCSVReader()
+    public static function createCSVReader($filePath)
     {
-        return new CSVReader();
+        return new CSVReader($filePath);
     }
 
     /**
      * @return \Rocky114\Spreadsheet\Reader\XLSX\Reader
      */
-    public static function createXLSXReader()
+    public static function createXLSXReader($filePath)
     {
-        return new XLSXReader();
+        return new XLSXReader($filePath);
     }
 }

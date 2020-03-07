@@ -2,10 +2,8 @@
 
 namespace Rocky114\Spreadsheet\Reader\XLSX;
 
-class Row implements \Iterator
+class Sheet implements \Iterator
 {
-    protected $columns = [];
-
     public function __construct()
     {
     }
@@ -35,8 +33,8 @@ class Row implements \Iterator
 
     }
 
-    public function setReadColumns(array $column = [])
+    public function getRowIterator()
     {
-        $this->columns = $column;
+
     }
 }
