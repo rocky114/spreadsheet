@@ -9,7 +9,7 @@ function dd($data)
     die;
 }
 
-$writer = \Rocky114\Excel\WriterFactory::createXLSXWriter(['temp_folder' => '/Users/huangdongcheng/excel/storage']);
+$writer = \Rocky114\Spreadsheet\WriterFactory::createXLSXWriter(['temp_folder' => '/Users/huangdongcheng/excel/storage']);
 
 $writer->addNewSheet('sheet1');
 
