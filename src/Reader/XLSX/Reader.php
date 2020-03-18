@@ -3,63 +3,35 @@
 namespace Rocky114\Spreadsheet\Reader\XLSX;
 
 use Rocky114\Spreadsheet\Reader\ReaderInterface;
-use \XMLReader;
+use Rocky114\Spreadsheet\Reader\XLSX\XMLReader;
 
 class Reader implements ReaderInterface
 {
-    protected $sheets = [];
-    protected $filePath;
-
-    protected $hasShareStringFile = false;
-    protected $shareStringHandle;
+    protected $readerHandle;
+    protected $sheetHandle;
 
     public function __construct($filePath)
     {
-        $this->filePath = $filePath;
-        $this->shareStringHandle = new ShareString($filePath);
+        $this->readerHandle = new XMLReader($filePath);
     }
 
     public function open()
     {
-        $readerHandle = new XMLReader();
-        if (false === $readerHandle->open("zip://{$this->filePath}#[Content_Types].xml")) {
-            throw new \Exception('Could not open [Content_Types].xml for reading! File does not exist.');
-        }
+        $this->readerHandle->readContentTypeXML();
+        $this->readerHandle->readShareStringXML();
 
-        while ($readerHandle->read()) {
-            if ($readerHandle->nodeType === XMLReader::END_ELEMENT) {
-                break;
-            }
-
-            $file = $readerHandle->getAttribute('PartName');
-            if ($file === '/xl/sharedStrings.xml') {
-                $this->hasShareStringFile = true;
-                continue;
-            }
-
-            if (false !== strpos($file, '/xl/worksheets')) {
-                $this->sheets[] = $file;
-            }
-        }
-
-        $readerHandle->close();
-
-        if ($this->hasShareStringFile) {
-            $this->shareStringHandle->parseShareString();
-        }
+        $this->sheetHandle = new Sheet($this->readerHandle);
     }
 
+    /**
+     * @return \Rocky114\Spreadsheet\Reader\XLSX\Sheet
+     */
     public function getSheetIterator()
     {
-
+        return $this->sheetHandle;
     }
 
-    public function getSheetByIndex(int $index)
-    {
-
-    }
-
-    public function getSheetByName(string $name)
+    public function getSheet(int $index)
     {
 
     }
