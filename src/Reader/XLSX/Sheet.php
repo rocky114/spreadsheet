@@ -18,7 +18,7 @@ class Sheet implements \Iterator
 
     public function current()
     {
-        return $this->sheets[$this->index];
+        return $this;
     }
 
     public function next()

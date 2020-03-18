@@ -9,15 +9,10 @@ class Row implements \Iterator
 
     protected $readerHandle;
 
-    protected $hasReachedEndOfFile = false;
-
+    protected $cellType;
     protected $rowNumber = 0;
 
-    protected $rowStart = false;
-    protected $rowEnd = false;
-
-    protected $cellType;
-    protected $maxRow;
+    protected $eof = false;
 
     public function __construct(XMLReader $reader)
     {
@@ -31,17 +26,8 @@ class Row implements \Iterator
             $element = $this->readerHandle->name;
             $type = $this->readerHandle->nodeType;
 
-            if ($element === 'row') {
-                $this->rowStart = $type === $this->readerHandle::ELEMENT ? true : false;
-                $this->rowEnd = $type === $this->readerHandle::END_ELEMENT ? true : false;
-            }
-
-            if ($this->rowEnd) {
+            if ($element === 'row' && $type === $this->readerHandle::END_ELEMENT) {
                 break;
-            }
-
-            if (!$this->rowStart) {
-                continue;
             }
 
             $element === 'c' && $this->cellType = $this->readerHandle->getAttribute('t');
@@ -58,6 +44,19 @@ class Row implements \Iterator
     public function next()
     {
         $this->rowNumber++;
+
+        while ($this->readerHandle->read()) {
+            $element = $this->readerHandle->name;
+            $type = $this->readerHandle->nodeType;
+
+            if ($element === 'row' && $type === $this->readerHandle::ELEMENT) {
+                break;
+            }
+
+            if ($element === 'sheetData' && $type === $this->readerHandle::END_ELEMENT) {
+                $this->eof = true;
+            }
+        }
     }
 
     public function key()
@@ -67,28 +66,27 @@ class Row implements \Iterator
 
     public function valid()
     {
-        $isValid = $this->rowNumber < $this->maxRow;
-        if (!$isValid) {
+        if ($this->eof) {
             $this->readerHandle->close();
         }
 
-        return $isValid;
+        return !$this->eof;
     }
 
     public function rewind()
     {
+        $this->eof = false;
+        $this->rowNumber = 0;
+
         if (false === $this->readerHandle->open("zip://{$this->readerHandle->filePath}#{$this->file}")) {
             throw new \Exception("Could not open {$this->file} for reading! File does not exist.");
         }
 
         while ($this->readerHandle->read()) {
             $element = $this->readerHandle->name;
+            $type = $this->readerHandle->nodeType;
 
-            if ($element === 'dimension') {
-                $dimension = $this->readerHandle->getAttribute('ref');
-                $arr = explode(':', $dimension);
-                $this->maxRow = str_replace(range('A', 'Z'), '', $arr[1]);
-
+            if ($element === 'row' && $type === $this->readerHandle::ELEMENT) {
                 break;
             }
         }

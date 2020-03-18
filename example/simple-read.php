@@ -7,7 +7,7 @@ $reader->open();
 
 $data = [];
 foreach ($reader->getSheetIterator() as $sheet) {
-    foreach ($reader->getSheetIterator()->getRowIterator() as $row) {
+    foreach ($sheet->getRowIterator() as $row) {
         $data[] = $row;
     }
 }
