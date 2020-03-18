@@ -2,13 +2,6 @@
 
 include "../src/Autoload.php";
 
-function dd($data)
-{
-    echo '<pre>';
-    print_r($data);
-    die;
-}
-
 $writer = \Rocky114\Spreadsheet\WriterFactory::createXLSXWriter(['temp_folder' => '/Users/huangdongcheng/excel/storage']);
 
 $writer->addNewSheet('sheet1');

@@ -25,3 +25,5 @@ $autoload = new Autoload();
 
 spl_autoload_register([$autoload, 'load'], true);
 
+include "helper.php";
+
