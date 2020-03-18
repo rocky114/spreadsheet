@@ -12,8 +12,5 @@ foreach ($reader->getSheetIterator() as $sheet) {
     }
 }
 
-echo '<pre>';
-print_r($data);
-
 
 
