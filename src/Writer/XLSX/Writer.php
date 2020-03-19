@@ -92,6 +92,6 @@ class Writer
             ob_end_clean();
         }
 
-        download($this->workbook->filename, $this->workbook->temp_folder . $this->workbook->filename);
+        download($this->workbook->filename, $this->workbook->tempFolder . $this->workbook->filename);
     }
 }

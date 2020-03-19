@@ -2,7 +2,9 @@
 
 include "../src/Autoload.php";
 
-$writer = \Rocky114\Spreadsheet\WriterFactory::createXLSXWriter(['temp_folder' => '/Users/huangdongcheng/excel/storage']);
+$writer = \Rocky114\Spreadsheet\WriterFactory::createXLSXWriter();
+
+$writer->setTempFolder('/Users/huangdongcheng/excel/storage');
 
 $writer->addNewSheet('sheet1');
 
