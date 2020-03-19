@@ -16,6 +16,9 @@ class Sheet implements \Iterator
         $this->sheets = $this->readerHandle->getSheets();
     }
 
+    /**
+     * @return \Rocky114\Spreadsheet\Reader\XLSX\Sheet
+     */
     public function current()
     {
         return $this;
