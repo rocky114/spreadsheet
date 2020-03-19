@@ -12,10 +12,10 @@ if (!function_exists('getColumnHeader')) {
 
         if (!isset($columnHeader[$index])) {
             $chars = '';
-            $aAsciiNumber = ord('A');
+            $asciiNumber = ord('A');
 
             do {
-                $chars = chr($index % 26 + $aAsciiNumber) . $chars;
+                $chars = chr($index % 26 + $asciiNumber) . $chars;
 
                 $index = intval($index / 26);
             } while ($index > 0);

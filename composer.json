@@ -1,8 +1,8 @@
 {
     "name": "rocky114/spreadsheet",
-    "description": "PHP Library to read and write spreadsheet files (CSV, XLSX), in a fast and scalable way",
+    "description": "PHP library to read and write spreadsheet files (CSV, XLSX)",
     "type": "library",
-    "keywords": ["php","read","write","csv","xlsx","office","excel","spreadsheet","scale","memory","stream"],
+    "keywords": ["php","read","write","csv","xlsx","office","excel","spreadsheet","scale","memory"],
     "license": "MIT",
     "homepage": "https://github.com/rocky114/spreadsheet",
     "authors": [
@@ -17,6 +17,9 @@
         "ext-xmlreader" : "*"
     },
     "autoload": {
+        "files": [
+            "spreadsheet/src/helper.php"
+        ],
         "psr-4": {
             "Rocky114\\Spreadsheet\\": "spreadsheet/src"
         }
