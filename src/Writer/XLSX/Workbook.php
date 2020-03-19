@@ -2,9 +2,6 @@
 
 namespace Rocky114\Spreadsheet\Writer\XLSX;
 
-use Rocky114\Spreadsheet\Common\FileHelper;
-use Rocky114\Spreadsheet\Common\FunctionHelper;
-
 class Workbook
 {
     protected $worksheets = [];
@@ -15,15 +12,33 @@ class Workbook
 
     protected $styleHandle;
 
-    protected $config = [];
+    protected $writerHandle;
 
-    public function __construct(array $config = [])
+    public $filename;
+    public $tempFolder;
+
+    public function __construct()
     {
-        $this->config = $config;
+        $this->filename = date("Y-m-d") . '.xlsx';
+        $this->tempFolder = sys_get_temp_dir();
 
-        $this->workbookId = FunctionHelper::createUniqueId('.xlsx');
+        $this->workbookId = createUniqueId('.xlsx');
 
         $this->styleHandle = new Style();
+    }
+
+    public function setTempFolder($tempFolder)
+    {
+        $this->tempFolder = rtrim(realpath($tempFolder), '/') . DIRECTORY_SEPARATOR;
+
+        return $this;
+    }
+
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
+
+        return $this;
     }
 
     public function getWorkbookId()
@@ -213,5 +228,31 @@ HTML;
         }
 
         throw new \Exception('undefined index' . $name);
+    }
+
+    public function writeToZipArchive()
+    {
+        $this->zipHandle = new \ZipArchive();
+        $this->zipHandle->open($this->tempFolder.$this->filename, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+
+        $this->zipHandle->addEmptyDir('docProps');
+        $this->zipHandle->addFromString('docProps/app.xml', $this->createAppXml());
+        $this->zipHandle->addFromString('docProps/core.xml', $this->createCoreXml());
+
+        $this->zipHandle->addEmptyDir('_rels/');
+        $this->zipHandle->addFromString('_rels/.rels', $this->createRelXml());
+
+        $this->zipHandle->addEmptyDir('xl/worksheets/');
+        foreach ($this->workbook->getWorksheets() as $worksheet) {
+            $this->zipHandle->addFile($worksheet->filePath, 'xl/worksheets/' . $worksheet->name.'.xml');
+        }
+
+        $this->zipHandle->addFromString('xl/workbook.xml', $this->createWorkbookXml());
+        $this->zipHandle->addFromString('xl/styles.xml', $this->createStyleXml());
+        $this->zipHandle->addFromString('[Content_Types].xml', $this->createContentTypeXml());
+        $this->zipHandle->addEmptyDir('xl/_rels/');
+        $this->zipHandle->addFromString('xl/_rels/workbook.xml.rels', $this->createWorkbookRelXml());
+
+        $this->zipHandle->close();
     }
 }

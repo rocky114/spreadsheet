@@ -2,7 +2,7 @@
 
 namespace Rocky114\Spreadsheet\Writer\XLSX;
 
-use Rocky114\Spreadsheet\Common\FileHelper;
+use Rocky114\Spreadsheet\Common\FileWriter;
 use Rocky114\Spreadsheet\Common\FunctionHelper;
 
 class Worksheet
@@ -39,9 +39,9 @@ class Worksheet
         $this->name = $name;
         $this->workbook = $workbook;
 
-        $this->filename = FunctionHelper::createUniqueId('.xml');
-        $this->filePath = $workbook->temp_folder . $this->filename;
-        $this->fileHandle = new FileHelper($this->filePath);
+        $this->filename = createUniqueId('.xml');
+        $this->filePath = $workbook->tempFolder . $this->filename;
+        $this->fileHandle = new FileWriter($this->filePath);
 
         $this->rowHandle = new Row($this->workbook->getStyle(), $this->id);
 

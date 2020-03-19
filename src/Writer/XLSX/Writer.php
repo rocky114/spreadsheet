@@ -2,31 +2,16 @@
 
 namespace Rocky114\Spreadsheet\Writer\XLSX;
 
-use Rocky114\Spreadsheet\Common\FunctionHelper;
-use Rocky114\Spreadsheet\Common\ZipHelper;
-use Rocky114\Spreadsheet\Writer\XLSX\Style\Style;
-
 class Writer
 {
     protected $fileHandle;
 
-    protected $zipHelper;
+    protected $zipHandle;
     protected $workbook;
 
-    protected $options = [];
-
-    public function __construct(array $config = [])
+    public function __construct()
     {
-        $this->options = [
-            'temp_folder' => sys_get_temp_dir(),
-            'debug'       => false,
-            'filename'    => date("Y-m-d") . '.xlsx'
-        ];
-
-        $this->options = array_merge($this->options, $config);
-        $this->options['temp_folder'] = realpath(rtrim($this->options['temp_folder'], '/')) . DIRECTORY_SEPARATOR;
-
-        $this->workbook = new Workbook($this->options);
+        $this->workbook = new Workbook();
     }
 
     public function addNewSheet($name)
@@ -78,8 +63,7 @@ class Writer
             $worksheet->closeSheet();
         }
 
-        $this->zipHelper = new ZipHelper($this->workbook);
-        $this->zipHelper->writeToZipArchive();
+        $this->workbook->writeToZipArchive();
 
         foreach ($this->workbook->getWorksheets() as $worksheet) {
             unlink($worksheet->filePath);

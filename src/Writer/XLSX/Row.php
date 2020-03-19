@@ -2,9 +2,6 @@
 
 namespace Rocky114\Spreadsheet\Writer\XLSX;
 
-use Rocky114\Spreadsheet\Common\FunctionHelper;
-use Rocky114\Spreadsheet\Writer\XLSX\Style;
-
 class Row
 {
     protected $styleHandle;
@@ -54,7 +51,7 @@ class Row
 
     protected function getCellXML(int $columnIndex, string &$cellValue = '')
     {
-        $coordinate = FunctionHelper::getColumnHeader($columnIndex);
+        $coordinate = getColumnHeader($columnIndex);
         $styleId = $this->styleHandle->getStyleId($coordinate);
 
         $cellXML = '<c r="' . $coordinate . $this->currentRowIndex . '" s="' . $styleId . '"';

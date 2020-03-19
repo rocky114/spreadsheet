@@ -26,7 +26,7 @@ class Writer
         $this->options = array_merge($this->options, $config);
         $this->options['temp_folder'] = realpath(rtrim($this->options['temp_folder'], '/')) . DIRECTORY_SEPARATOR;
 
-        $this->filename = FunctionHelper::createUniqueId('.csv');
+        $this->filename = createUniqueId('.csv');
         if (false === $this->fileHandle = fopen($this->options['temp_folder'] . $this->filename, 'w')) {
             throw new \Exception('Cannot open file ' . $this->options['filename']);
         }

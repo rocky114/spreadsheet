@@ -2,7 +2,7 @@
 
 namespace Rocky114\Spreadsheet\Common;
 
-class FileHelper
+class FileWriter
 {
     protected $buffer;
 

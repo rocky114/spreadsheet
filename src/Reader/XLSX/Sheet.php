@@ -44,6 +44,9 @@ class Sheet implements \Iterator
         $this->index = 0;
     }
 
+    /**
+     * @return Row
+     */
     public function getRowIterator()
     {
         $this->rowHandle = new Row($this->readerHandle);
