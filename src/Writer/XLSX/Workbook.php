@@ -19,9 +19,6 @@ class Workbook
 
     public function __construct()
     {
-        $this->filename = date("Y-m-d") . '.xlsx';
-        $this->tempFolder = sys_get_temp_dir();
-
         $this->workbookId = createUniqueId('.xlsx');
 
         $this->styleHandle = new Style();
@@ -221,38 +218,42 @@ HTML;
         return $this->styleHandle;
     }
 
-    public function __get($name)
-    {
-        if (isset($this->config[$name])) {
-            return $this->config[$name];
-        }
-
-        throw new \Exception('undefined index' . $name);
-    }
-
     public function writeToZipArchive()
     {
-        $this->zipHandle = new \ZipArchive();
-        $this->zipHandle->open($this->tempFolder.$this->filename, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
+        $zipHandle = new \ZipArchive();
+        $zipHandle->open($this->tempFolder . $this->filename, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
 
-        $this->zipHandle->addEmptyDir('docProps');
-        $this->zipHandle->addFromString('docProps/app.xml', $this->createAppXml());
-        $this->zipHandle->addFromString('docProps/core.xml', $this->createCoreXml());
+        $zipHandle->addEmptyDir('docProps');
+        $zipHandle->addFromString('docProps/app.xml', $this->createAppXml());
+        $zipHandle->addFromString('docProps/core.xml', $this->createCoreXml());
 
-        $this->zipHandle->addEmptyDir('_rels/');
-        $this->zipHandle->addFromString('_rels/.rels', $this->createRelXml());
+        $zipHandle->addEmptyDir('_rels/');
+        $zipHandle->addFromString('_rels/.rels', $this->createRelXml());
 
-        $this->zipHandle->addEmptyDir('xl/worksheets/');
-        foreach ($this->workbook->getWorksheets() as $worksheet) {
-            $this->zipHandle->addFile($worksheet->filePath, 'xl/worksheets/' . $worksheet->name.'.xml');
+        $zipHandle->addEmptyDir('xl/worksheets/');
+        foreach ($this->getWorksheets() as $worksheet) {
+            $zipHandle->addFile($worksheet->filePath, 'xl/worksheets/' . $worksheet->name . '.xml');
         }
 
-        $this->zipHandle->addFromString('xl/workbook.xml', $this->createWorkbookXml());
-        $this->zipHandle->addFromString('xl/styles.xml', $this->createStyleXml());
-        $this->zipHandle->addFromString('[Content_Types].xml', $this->createContentTypeXml());
-        $this->zipHandle->addEmptyDir('xl/_rels/');
-        $this->zipHandle->addFromString('xl/_rels/workbook.xml.rels', $this->createWorkbookRelXml());
+        $zipHandle->addFromString('xl/workbook.xml', $this->createWorkbookXml());
+        $zipHandle->addFromString('xl/styles.xml', $this->createStyleXml());
+        $zipHandle->addFromString('[Content_Types].xml', $this->createContentTypeXml());
+        $zipHandle->addEmptyDir('xl/_rels/');
+        $zipHandle->addFromString('xl/_rels/workbook.xml.rels', $this->createWorkbookRelXml());
 
-        $this->zipHandle->close();
+        $zipHandle->close();
+    }
+
+    public function close()
+    {
+        foreach ($this->getWorksheets() as $worksheet) {
+            $worksheet->closeSheet();
+        }
+
+        $this->writeToZipArchive();
+
+        foreach ($this->getWorksheets() as $worksheet) {
+            unlink($worksheet->filePath);
+        }
     }
 }

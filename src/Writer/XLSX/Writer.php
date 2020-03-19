@@ -4,14 +4,31 @@ namespace Rocky114\Spreadsheet\Writer\XLSX;
 
 class Writer
 {
-    protected $fileHandle;
-
-    protected $zipHandle;
     protected $workbook;
 
     public function __construct()
     {
         $this->workbook = new Workbook();
+
+        $filename = date("Y-m-d") . '.xlsx';
+        $tempFolder = sys_get_temp_dir();
+
+        $this->workbook->setFilename($filename);
+        $this->workbook->setTempFolder($tempFolder);
+    }
+
+    public function setTempFolder($tempFolder)
+    {
+        $this->workbook->setTempFolder($tempFolder);
+
+        return $this;
+    }
+
+    public function setFilename($filename)
+    {
+        $this->workbook->setFilename($filename);
+
+        return $this;
     }
 
     public function addNewSheet($name)
@@ -59,15 +76,7 @@ class Writer
 
     public function close()
     {
-        foreach ($this->workbook->getWorksheets() as $worksheet) {
-            $worksheet->closeSheet();
-        }
-
-        $this->workbook->writeToZipArchive();
-
-        foreach ($this->workbook->getWorksheets() as $worksheet) {
-            unlink($worksheet->filePath);
-        }
+        $this->workbook->close();
     }
 
     public function save()
@@ -83,11 +92,6 @@ class Writer
             ob_end_clean();
         }
 
-        header('Content-Type: ' . 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="' . $this->workbook->filename . '"');
-        header('Cache-Control: max-age=0');
-        header('Pragma: public');
-
-        readfile($this->workbook->temp_folder . $this->workbook->filename);
+        download($this->workbook->filename, $this->workbook->temp_folder . $this->workbook->filename);
     }
 }

@@ -35,7 +35,7 @@ if (!function_exists('createUniqueId')) {
      */
     function createUniqueId($suffix = '', $prefix = '')
     {
-        return $prefix.uniqid(php_uname('n').getmypid(), true).$suffix;
+        return $prefix . uniqid(php_uname('n') . getmypid(), true) . $suffix;
     }
 }
 
@@ -47,5 +47,17 @@ if (!function_exists('isUTF8Code')) {
         }
 
         return preg_match("//u", $string) ? true : false;
+    }
+}
+
+if (!function_exists('download')) {
+    function download($filename, $path)
+    {
+        header('Content-Type: ' . 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+        header('Pragma: public');
+
+        readfile($path);
     }
 }

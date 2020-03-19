@@ -2,34 +2,55 @@
 
 namespace Rocky114\Spreadsheet\Writer\CSV;
 
-use Rocky114\Spreadsheet\Common\FunctionHelper;
-
 class Writer
 {
     protected $fileHandle;
     protected $filename;
+    protected $filePath;
 
-    protected $options = [];
+    public $tempFolder;
 
-    public function __construct($config)
+    public $csvConfig = [
+        'delimiter'   => ',',
+        'enclosure'   => '"',
+        'escape_char' => '\\'
+    ];
+
+    public function __construct()
     {
-        $this->options = [
-            'temp_folder' => sys_get_temp_dir(),
-            'filename'    => date("Y-m-d") . '.csv',
-            'csv'         => [
-                'delimiter'   => ',',
-                'enclosure'   => '"',
-                'escape_char' => '\\'
-            ],
-        ];
+        $this->name = date("Y-m-d") . '.csv';
+        $this->tempFolder = sys_get_temp_dir();
+    }
 
-        $this->options = array_merge($this->options, $config);
-        $this->options['temp_folder'] = realpath(rtrim($this->options['temp_folder'], '/')) . DIRECTORY_SEPARATOR;
-
-        $this->filename = createUniqueId('.csv');
-        if (false === $this->fileHandle = fopen($this->options['temp_folder'] . $this->filename, 'w')) {
-            throw new \Exception('Cannot open file ' . $this->options['filename']);
+    public function addNewSheet()
+    {
+        $this->filePath = $this->tempFolder.createUniqueId('.csv');
+        if (false === $this->fileHandle = fopen($this->filePath, 'w')) {
+            throw new \Exception('Cannot open file ' . $this->filename);
         }
+
+        return $this;
+    }
+
+    public function setTempFolder($tempFolder)
+    {
+        $this->tempFolder = rtrim(realpath($tempFolder), '/') . DIRECTORY_SEPARATOR;
+
+        return $this;
+    }
+
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
+
+        return $this;
+    }
+
+    public function setCsvConfig($option)
+    {
+        $this->csvConfig = $option;
+
+        return $this;
     }
 
     public function addHeader(array $header)
@@ -41,7 +62,7 @@ class Writer
 
     public function addRow(array $row = [])
     {
-        $option = $this->options['csv'];
+        $option = $this->csvConfig;
 
         fputcsv($this->fileHandle, $row, $option['delimiter'], $option['enclosure'], $option['escape_char']);
 
@@ -75,11 +96,6 @@ class Writer
             ob_end_clean();
         }
 
-        header('Content-Type: ' . 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="' . $this->options['filename'] . '"');
-        header('Cache-Control: max-age=0');
-        header('Pragma: public');
-
-        readfile($this->options['temp_folder'] . $this->filename);
+        download($this->filename, $this->filePath);
     }
 }
