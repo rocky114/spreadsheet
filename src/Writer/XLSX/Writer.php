@@ -92,6 +92,7 @@ class Writer
             ob_end_clean();
         }
 
-        download($this->workbook->filename, $this->workbook->tempFolder . $this->workbook->filename);
+        $contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+        download($this->workbook->filename, $this->workbook->tempFolder . $this->workbook->filename, $contentType);
     }
 }

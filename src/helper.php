@@ -51,9 +51,9 @@ if (!function_exists('isUTF8Code')) {
 }
 
 if (!function_exists('download')) {
-    function download($filename, $path)
+    function download($filename, $path, $contentType='text/html')
     {
-        header('Content-Type: ' . 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Type: ' . $contentType);
         header('Content-Disposition: attachment; filename="' . $filename . '"');
         header('Cache-Control: max-age=0');
         header('Pragma: public');
