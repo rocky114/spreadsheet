@@ -10,11 +10,8 @@ class Writer
     {
         $this->workbook = new Workbook();
 
-        $filename = date("Y-m-d") . '.xlsx';
-        $tempFolder = sys_get_temp_dir();
-
-        $this->workbook->setFilename($filename);
-        $this->workbook->setTempFolder($tempFolder);
+        $this->workbook->setFilename(date("Y-m-d") . '.xlsx');
+        $this->workbook->setTempFolder(sys_get_temp_dir());
     }
 
     public function setTempFolder($tempFolder)

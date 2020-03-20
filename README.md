@@ -10,7 +10,7 @@ this is a PHP library to read and write spreadsheet files (CSV, XLSX), in a fast
 
 ## writer example
 ```
-$writer = \Rocky114\Excel\Writer\WriterFactory::createXLSXWriter(['temp_folder' => '/']);
+$writer = \Rocky114\Excel\Writer\WriterFactory::createXLSXWriter();
 
 $writer->addNewSheet('sheet1');
 
