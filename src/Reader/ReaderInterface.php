@@ -4,6 +4,6 @@ namespace Rocky114\Spreadsheet\Reader;
 
 interface ReaderInterface
 {
-    public function open();
+    public function open(string $path);
     public function close();
 }

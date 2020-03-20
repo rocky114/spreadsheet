@@ -2,8 +2,7 @@
 
 include "../src/Autoload.php";
 
-$reader = \Rocky114\Spreadsheet\ReaderFactory::createXLSXReader('/Users/huangdongcheng/Downloads/test.xlsx');
-$reader->open();
+$reader = \Rocky114\Spreadsheet\ReaderFactory::createReaderFromFile('./test.xlsx');
 
 $data = [];
 foreach ($reader->getSheetIterator() as $sheet) {

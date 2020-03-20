@@ -51,7 +51,7 @@ if (!function_exists('isUTF8Code')) {
 }
 
 if (!function_exists('download')) {
-    function download($filename, $path, $contentType='text/html')
+    function download($filename, $path, $contentType='text/csv')
     {
         header('Content-Type: ' . $contentType);
         header('Content-Disposition: attachment; filename="' . $filename . '"');
