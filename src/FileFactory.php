@@ -1,8 +1,8 @@
 <?php
 
-namespace Rocky114\Spreadsheet\Common;
+namespace Rocky114\Spreadsheet;
 
-class FileWriter
+class FileFactory
 {
     protected $buffer;
 
@@ -15,7 +15,7 @@ class FileWriter
     protected $filepath;
 
     /**
-     * FileWriter constructor.
+     * FileFactory constructor.
      * @param null $filepath
      * @param string $mode
      * @throws \Exception
@@ -42,6 +42,11 @@ class FileWriter
         if ($this->currentNumber === 10) {
             $this->clearBuffer();
         }
+    }
+
+    public function getCsv()
+    {
+        return fgetcsv($this->fileHandle);
     }
 
     /**
@@ -72,12 +77,8 @@ class FileWriter
     /**
      * @return string
      */
-    public function getFilePath()
+    public function getFilepath()
     {
         return $this->filepath;
-    }
-
-    public function __destruct()
-    {
     }
 }

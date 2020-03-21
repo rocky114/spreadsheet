@@ -2,6 +2,7 @@
 
 namespace Rocky114\Spreadsheet\Reader\CSV;
 
+use Rocky114\Spreadsheet\FileFactory;
 use Rocky114\Spreadsheet\Reader\ReaderAbstract;
 
 class Reader extends ReaderAbstract
@@ -17,10 +18,7 @@ class Reader extends ReaderAbstract
     {
         parent::open($filepath);
 
-        if (($this->fileHandle = fopen($this->filepath, "r")) === false) {
-            throw new \Exception('Cannot open file' . $this->filepath);
-        }
-
+        $this->fileHandle = new FileFactory($this->fileHandle);
         $this->sheetHandle = new Sheet($this->fileHandle);
     }
 

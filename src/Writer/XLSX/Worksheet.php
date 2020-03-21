@@ -2,8 +2,7 @@
 
 namespace Rocky114\Spreadsheet\Writer\XLSX;
 
-use Rocky114\Spreadsheet\Common\FileWriter;
-use Rocky114\Spreadsheet\Common\FunctionHelper;
+use Rocky114\Spreadsheet\FileFactory;
 
 class Worksheet
 {
@@ -33,6 +32,13 @@ class Worksheet
 
     protected $mergeCells = [];
 
+    /**
+     * Worksheet constructor.
+     * @param $id
+     * @param $name
+     * @param Workbook $workbook
+     * @throws \Exception
+     */
     public function __construct($id, $name, Workbook $workbook)
     {
         $this->id = $id;
@@ -41,13 +47,19 @@ class Worksheet
 
         $this->filename = createUniqueId('.xml');
         $this->filePath = $workbook->tempFolder . $this->filename;
-        $this->fileHandle = new FileWriter($this->filePath);
+        $this->fileHandle = new FileFactory($this->filePath);
 
         $this->rowHandle = new Row($this->workbook->getStyle(), $this->id);
 
         $this->startSheet();
     }
 
+    /**
+     * @param array $header
+     * @param array $formats
+     * @return $this
+     * @throws \Exception
+     */
     public function addHeader(array $header, $formats = [])
     {
         $this->columnNumber = count($header);
@@ -65,6 +77,11 @@ class Worksheet
         return $this;
     }
 
+    /**
+     * @param array $row
+     * @return $this
+     * @throws \Exception
+     */
     public function addRow(array $row = [])
     {
         if (!$this->hasSetStyle) {
@@ -81,6 +98,9 @@ class Worksheet
         return $this;
     }
 
+    /**
+     * @throws \Exception
+     */
     protected function startSheet()
     {
         $this->workbook->getStyle()->setSheetId($this->id);
@@ -94,11 +114,18 @@ HTML;
         $this->fileHandle->write($html);
     }
 
+    /**
+     * @param $startCoordinate
+     * @param $endCoordinate
+     */
     public function mergeCell($startCoordinate, $endCoordinate)
     {
         $this->mergeCells[] = [$startCoordinate, $endCoordinate];
     }
 
+    /**
+     * @throws \Exception
+     */
     public function closeSheet()
     {
         if (!$this->hasClosed) {

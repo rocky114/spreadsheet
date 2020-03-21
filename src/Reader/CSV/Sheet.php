@@ -2,6 +2,8 @@
 
 namespace Rocky114\Spreadsheet\Reader\CSV;
 
+use Rocky114\Spreadsheet\FileFactory;
+
 class Sheet implements \Iterator
 {
     protected $index = 0;
@@ -11,9 +13,9 @@ class Sheet implements \Iterator
 
     /**
      * Sheet constructor.
-     * @param fileHandle
+     * @param FileFactory $fileHandle
      */
-    public function __construct($fileHandle)
+    public function __construct(FileFactory $fileHandle)
     {
         $this->fileHandle = $fileHandle;
     }

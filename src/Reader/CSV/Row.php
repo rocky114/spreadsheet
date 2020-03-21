@@ -2,6 +2,8 @@
 
 namespace Rocky114\Spreadsheet\Reader\CSV;
 
+use Rocky114\Spreadsheet\FileFactory;
+
 class Row implements \Iterator
 {
     protected $columns = [];
@@ -12,9 +14,9 @@ class Row implements \Iterator
 
     /**
      * Row constructor.
-     * @param resource $fileHandle
+     * @param FileFactory $fileHandle
      */
-    public function __construct($fileHandle)
+    public function __construct(FileFactory $fileHandle)
     {
         $this->fileHandle = $fileHandle;
     }
@@ -36,7 +38,9 @@ class Row implements \Iterator
 
     public function valid()
     {
-        return ($this->row = fgetcsv($this->fileHandle)) === false;
+        $this->row = $this->fileHandle->getCsv();
+
+        return $this->row !== null && $this->row !== false;
     }
 
     public function rewind()
