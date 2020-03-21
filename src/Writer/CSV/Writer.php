@@ -6,7 +6,7 @@ class Writer
 {
     protected $fileHandle;
     protected $filename;
-    protected $filePath;
+    protected $filepath;
 
     public $tempFolder;
 
@@ -16,15 +16,22 @@ class Writer
         'escape_char' => '\\'
     ];
 
+    /**
+     * Writer constructor.
+     */
     public function __construct()
     {
-        $this->name = date("Y-m-d") . '.csv';
+        $this->filename = date("Y-m-d") . '.csv';
         $this->tempFolder = sys_get_temp_dir();
     }
 
+    /**
+     * @return $this
+     * @throws \Exception
+     */
     public function addNewSheet()
     {
-        $this->filePath = $this->tempFolder.createUniqueId('.csv');
+        $this->filepath = $this->tempFolder.createUniqueId('.csv');
         if (false === $this->fileHandle = fopen($this->filePath, 'w')) {
             throw new \Exception('Cannot open file ' . $this->filename);
         }
@@ -32,6 +39,10 @@ class Writer
         return $this;
     }
 
+    /**
+     * @param $tempFolder
+     * @return $this
+     */
     public function setTempFolder($tempFolder)
     {
         $this->tempFolder = rtrim(realpath($tempFolder), '/') . DIRECTORY_SEPARATOR;
@@ -39,20 +50,32 @@ class Writer
         return $this;
     }
 
-    public function setFilename($filename)
+    /**
+     * @param string $filename
+     * @return $this
+     */
+    public function setFilename(string $filename)
     {
         $this->filename = $filename;
 
         return $this;
     }
 
-    public function setCsvConfig($option)
+    /**
+     * @param array $option
+     * @return $this
+     */
+    public function setCsvConfig(array $option)
     {
         $this->csvConfig = $option;
 
         return $this;
     }
 
+    /**
+     * @param array $header
+     * @return $this
+     */
     public function addHeader(array $header)
     {
         $this->addRow($header);
@@ -60,6 +83,10 @@ class Writer
         return $this;
     }
 
+    /**
+     * @param array $row
+     * @return $this
+     */
     public function addRow(array $row = [])
     {
         $option = $this->csvConfig;
@@ -69,6 +96,10 @@ class Writer
         return $this;
     }
 
+    /**
+     * @param array $rows
+     * @return $this
+     */
     public function addRows(array $rows = [])
     {
         foreach ($rows as $row) {
@@ -96,6 +127,6 @@ class Writer
             ob_end_clean();
         }
 
-        download($this->filename, $this->filePath);
+        download($this->filename, $this->filepath);
     }
 }

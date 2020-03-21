@@ -10,7 +10,7 @@ class Reader implements ReaderInterface
     {
     }
 
-    public function open(string $path)
+    public function open(string $filepath)
     {
         // TODO: Implement load() method.
     }

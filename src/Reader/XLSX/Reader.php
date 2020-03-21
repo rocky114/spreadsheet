@@ -15,13 +15,6 @@ class Reader implements ReaderInterface
     protected $sheetHandle;
 
     /**
-     * Reader constructor.
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * @param $path
      * @throws \Exception
      */
@@ -53,12 +46,12 @@ class Reader implements ReaderInterface
 
     /**
      * @param int $index
-     * @return array
+     * @return Sheet
      * @throws \Exception
      */
-    public function getSheet(int $index)
+    public function getSheet(int $index = 0)
     {
-        return $this->sheetHandle->load($index);
+        return $this->sheetHandle->setIndex($index);
     }
 
     public function close()

@@ -60,11 +60,24 @@ class Sheet implements \Iterator
     }
 
     /**
-     * @param int $index
      * @return array
+     */
+    public function load()
+    {
+        $rows = [];
+        foreach ($this->getRowIterator() as $row) {
+            $rows[] = $row;
+        }
+
+        return $rows;
+    }
+
+    /**
+     * @param int $index
+     * @return $this
      * @throws \Exception
      */
-    public function load(int $index)
+    public function setIndex(int $index)
     {
         if (!isset($this->sheets[$index])) {
             throw new \Exception('sheets index 0 does not exist');
@@ -72,11 +85,6 @@ class Sheet implements \Iterator
 
         $this->index = $index;
 
-        $rows = [];
-        foreach ($this->getRowIterator() as $row) {
-            $rows[] = $row;
-        }
-
-        return $rows;
+        return $this;
     }
 }

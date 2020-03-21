@@ -12,6 +12,9 @@ try {
         }
     }
 
+    //
+    $data = $reader->getSheet(0)->load();
+
     echo '<pre>';
     print_r($data);
 } catch (\Exception $exception) {
