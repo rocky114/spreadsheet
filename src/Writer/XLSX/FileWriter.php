@@ -12,17 +12,27 @@ class FileWriter
 
     protected $fileHandle;
 
-    protected $filePath;
+    protected $filepath;
 
-    public function __construct($filePath = null, $mode = 'w')
+    /**
+     * FileWriter constructor.
+     * @param null $filepath
+     * @param string $mode
+     * @throws \Exception
+     */
+    public function __construct($filepath = null, $mode = 'w')
     {
-        $this->filePath = $filePath;
+        $this->filepath = $filepath;
 
-        if (false === $this->fileHandle = fopen($filePath, $mode)) {
-            throw new \Exception('Cannot open file ' . $filePath);
+        if (false === $this->fileHandle = fopen($filepath, $mode)) {
+            throw new \Exception('Cannot open file ' . $filepath);
         }
     }
 
+    /**
+     * @param string $content
+     * @throws \Exception
+     */
     public function write(&$content = '')
     {
         $this->buffer .= $content;
@@ -34,6 +44,9 @@ class FileWriter
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function clearBuffer()
     {
         if (false === fwrite($this->fileHandle, $this->buffer)) {
@@ -44,6 +57,9 @@ class FileWriter
         $this->currentNumber = 0;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function close()
     {
         if ($this->currentNumber > 0) {
@@ -53,9 +69,12 @@ class FileWriter
         fclose($this->fileHandle);
     }
 
+    /**
+     * @return string
+     */
     public function getFilePath()
     {
-        return $this->filePath;
+        return $this->filepath;
     }
 
     public function __destruct()

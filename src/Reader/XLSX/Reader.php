@@ -2,33 +2,27 @@
 
 namespace Rocky114\Spreadsheet\Reader\XLSX;
 
-use Rocky114\Spreadsheet\Reader\ReaderInterface;
+use Rocky114\Spreadsheet\Reader\ReaderAbstract;
 
 /**
  * Class Reader
  * @property \Rocky114\Spreadsheet\Reader\XLSX\Sheet $sheetHandle
  * @property  \Rocky114\Spreadsheet\Reader\XLSX\XMLReader $readerHandle
  */
-class Reader implements ReaderInterface
+class Reader extends ReaderAbstract
 {
     protected $readerHandle;
     protected $sheetHandle;
 
     /**
-     * @param $path
+     * @param $filepath
      * @throws \Exception
      */
-    public function open(string $path)
+    public function open(string $filepath)
     {
-        $path = realpath($path);
-        if (!file_exists($path)) {
-            throw new \Exception("Could not open $path for reading! File does not exist.");
-        }
-        if (!is_readable($path)) {
-            throw new \Exception("Could not open $path for reading! File is not readable.");
-        }
+        parent::open($filepath);
 
-        $this->readerHandle = new XMLReader($path);
+        $this->readerHandle = new XMLReader($this->filepath);
 
         $this->readerHandle->readContentTypeXML();
         $this->readerHandle->readShareStringXML();
@@ -52,10 +46,5 @@ class Reader implements ReaderInterface
     public function getSheet(int $index = 0)
     {
         return $this->sheetHandle->setIndex($index);
-    }
-
-    public function close()
-    {
-
     }
 }

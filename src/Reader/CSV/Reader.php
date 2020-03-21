@@ -2,21 +2,35 @@
 
 namespace Rocky114\Spreadsheet\Reader\CSV;
 
-use Rocky114\Spreadsheet\Reader\ReaderInterface;
+use Rocky114\Spreadsheet\Reader\ReaderAbstract;
 
-class Reader implements ReaderInterface
+class Reader extends ReaderAbstract
 {
-    public function __construct()
-    {
-    }
+    protected $fileHandle;
+    protected $sheetHandle;
 
+    /**
+     * @param string $filepath
+     * @throws \Exception
+     */
     public function open(string $filepath)
     {
-        // TODO: Implement load() method.
+        parent::open($filepath);
+
+        if (($this->fileHandle = fopen($this->filepath, "r")) === false) {
+            throw new \Exception('Cannot open file' . $this->filepath);
+        }
+
+        $this->sheetHandle = new Sheet($this->fileHandle);
     }
 
-    public function close()
+    public function getSheetIterator()
     {
+        return $this->sheetHandle;
+    }
 
+    public function getSheet(int $index = 0)
+    {
+        return $this->sheetHandle;
     }
 }
