@@ -18,7 +18,7 @@ class Reader extends ReaderAbstract
     {
         parent::open($filepath);
 
-        $this->fileHandle = new FileFactory($this->fileHandle);
+        $this->fileHandle = new FileFactory($this->fileHandle, "r");
         $this->sheetHandle = new Sheet($this->fileHandle);
     }
 
