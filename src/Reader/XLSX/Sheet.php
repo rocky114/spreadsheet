@@ -10,6 +10,10 @@ class Sheet implements \Iterator
     protected $readerHandle;
     protected $rowHandle;
 
+    /**
+     * Sheet constructor.
+     * @param XMLReader $reader
+     */
     public function __construct(XMLReader $reader)
     {
         $this->readerHandle = $reader;
@@ -53,5 +57,26 @@ class Sheet implements \Iterator
         $this->rowHandle->setSheetFile($this->sheets[$this->index]);
 
         return $this->rowHandle;
+    }
+
+    /**
+     * @param int $index
+     * @return array
+     * @throws \Exception
+     */
+    public function load(int $index)
+    {
+        if (!isset($this->sheets[$index])) {
+            throw new \Exception('sheets index 0 does not exist');
+        }
+
+        $this->index = $index;
+
+        $rows = [];
+        foreach ($this->getRowIterator() as $row) {
+            $rows[] = $row;
+        }
+
+        return $rows;
     }
 }

@@ -3,13 +3,20 @@
 namespace Rocky114\Spreadsheet\Reader\XLSX;
 
 use Rocky114\Spreadsheet\Reader\ReaderInterface;
-use Rocky114\Spreadsheet\Reader\XLSX\XMLReader;
 
+/**
+ * Class Reader
+ * @property \Rocky114\Spreadsheet\Reader\XLSX\Sheet $sheetHandle
+ * @property  \Rocky114\Spreadsheet\Reader\XLSX\XMLReader $readerHandle
+ */
 class Reader implements ReaderInterface
 {
     protected $readerHandle;
     protected $sheetHandle;
 
+    /**
+     * Reader constructor.
+     */
     public function __construct()
     {
     }
@@ -44,9 +51,14 @@ class Reader implements ReaderInterface
         return $this->sheetHandle;
     }
 
+    /**
+     * @param int $index
+     * @return array
+     * @throws \Exception
+     */
     public function getSheet(int $index)
     {
-
+        return $this->sheetHandle->load($index);
     }
 
     public function close()

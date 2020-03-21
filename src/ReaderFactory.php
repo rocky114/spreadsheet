@@ -9,7 +9,7 @@ class ReaderFactory
 {
     /**
      * @param string $path
-     * @return \Rocky114\Spreadsheet\Reader\ReaderInterface
+     * @return CSVReader|XLSXReader
      * @throws \Exception
      */
     public static function createReaderFromFile(string $path)
