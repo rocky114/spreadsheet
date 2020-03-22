@@ -36,7 +36,7 @@ class Row implements \Iterator
             $element === 'c' && $this->cellType = $this->readerHandle->getAttribute('t');
 
             if ($element === '#text') {
-                if ($this->columns[0] !== '*' && !in_array($i, $this->columnIndex)) {
+                if ($this->columns[0] !== '*' && !in_array($i, $this->columnIndex, true)) {
                     continue;
                 }
 

@@ -7,6 +7,7 @@ use Rocky114\Spreadsheet\FileFactory;
 class Row implements \Iterator
 {
     protected $columns = [];
+    protected $columnIndex = [];
     protected $row = [];
     protected $rowNumber = 0;
 
@@ -38,7 +39,17 @@ class Row implements \Iterator
 
     public function valid()
     {
-        $this->row = $this->fileHandle->getCsv();
+        $row = $this->fileHandle->getCsv();
+
+        if ($this->columns[0] !== '*') {
+            foreach ($row as $index => $item) {
+                if (in_array($index, $this->columnIndex, true)) {
+                    $this->row[] = $item;
+                }
+            }
+        } else {
+            $this->row = $row;
+        }
 
         return $this->row !== null && $this->row !== false;
     }
@@ -47,9 +58,15 @@ class Row implements \Iterator
     {
         $this->rowNumber = 0;
         $this->row = [];
+
+        if ($this->columns[0] !== '*') {
+            foreach ($this->columns as $column) {
+                $this->columnIndex[] = getSheetHeaderIndex($column);
+            }
+        }
     }
 
-    public function setReadColumns(array $column = [])
+    public function setColumns(array $column = ['*'])
     {
         $this->columns = $column;
     }

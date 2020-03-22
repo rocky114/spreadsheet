@@ -49,22 +49,25 @@ class Sheet implements \Iterator
     }
 
     /**
+     * @param array $columns
      * @return Row
      */
-    public function getRowIterator()
+    public function getRowIterator(array $columns = ['*'])
     {
         $this->rowHandle = new Row($this->fileHandle);
+        $this->rowHandle->setColumns($columns);
 
         return $this->rowHandle;
     }
 
     /**
+     * @param array $columns
      * @return array
      */
-    public function load()
+    public function load(array $columns = ['*'])
     {
         $rows = [];
-        foreach ($this->getRowIterator() as $row) {
+        foreach ($this->getRowIterator($columns) as $row) {
             $rows[] = $row;
         }
 
