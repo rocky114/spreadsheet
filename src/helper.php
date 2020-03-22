@@ -1,11 +1,11 @@
 <?php
 
-if (!function_exists('getColumnHeader')) {
+if (!function_exists('getSheetHeaderChar')) {
     /**
      * @param int $index
      * @return mixed
      */
-    function getColumnHeader(int $index)
+    function getSheetHeaderChar(int $index)
     {
         $key = $index;
         static $columnHeader = [];
@@ -13,14 +13,48 @@ if (!function_exists('getColumnHeader')) {
         if (!isset($columnHeader[$index])) {
             $chars = '';
             $asciiNumber = ord('A');
-
+            $i = 0;
             do {
+                $index = $i > 0 ? $index - 1 : $index;
                 $chars = chr($index % 26 + $asciiNumber) . $chars;
 
                 $index = intval($index / 26);
+                $i++;
             } while ($index > 0);
 
             $columnHeader[$key] = $chars;
+        }
+
+        return $columnHeader[$key];
+    }
+}
+
+if (!function_exists('getSheetHeaderIndex')) {
+    /**
+     * @param string $chars
+     * @return int
+     */
+    function getSheetHeaderIndex(string $chars)
+    {
+        $key = $chars;
+
+        static $columnHeader = [];
+
+        if (!isset($columnHeader[$key])) {
+            $chars = str_split(strrev($chars));
+
+            $asciiNumber = ord('A');
+
+            $number = 0;
+            foreach ($chars as $index => $char) {
+                $number += (ord($char) - $asciiNumber) + 26 * $index;
+
+                if ($index === 0) {
+                    $number += 1;
+                }
+            }
+
+            $columnHeader[$key] = $number - 1;
         }
 
         return $columnHeader[$key];
@@ -40,6 +74,10 @@ if (!function_exists('createUniqueId')) {
 }
 
 if (!function_exists('isUTF8Code')) {
+    /**
+     * @param $string
+     * @return bool
+     */
     function isUTF8Code($string)
     {
         if (function_exists('mb_check_encoding')) {
@@ -51,13 +89,18 @@ if (!function_exists('isUTF8Code')) {
 }
 
 if (!function_exists('download')) {
-    function download($filename, $path, $contentType='text/csv')
+    /**
+     * @param string $filename
+     * @param string $filepath
+     * @param string $contentType
+     */
+    function download(string $filename, string $filepath, $contentType = 'text/csv')
     {
         header('Content-Type: ' . $contentType);
         header('Content-Disposition: attachment; filename="' . $filename . '"');
         header('Cache-Control: max-age=0');
         header('Pragma: public');
 
-        readfile($path);
+        readfile($filepath);
     }
 }

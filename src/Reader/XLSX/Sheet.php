@@ -7,7 +7,6 @@ class Sheet implements \Iterator
     protected $index = 0;
     protected $sheets = [];
 
-    protected $readerHandle;
     protected $rowHandle;
 
     /**
@@ -16,8 +15,8 @@ class Sheet implements \Iterator
      */
     public function __construct(XMLReader $reader)
     {
-        $this->readerHandle = $reader;
-        $this->sheets = $this->readerHandle->getSheets();
+        $this->rowHandle = new Row($reader);
+        $this->sheets = $reader->getSheets();
     }
 
     /**
@@ -49,23 +48,25 @@ class Sheet implements \Iterator
     }
 
     /**
+     * @param array $columns
      * @return Row
      */
-    public function getRowIterator()
+    public function getRowIterator($columns = ['*'])
     {
-        $this->rowHandle = new Row($this->readerHandle);
         $this->rowHandle->setSheetFile($this->sheets[$this->index]);
+        $this->rowHandle->setColumns($columns);
 
         return $this->rowHandle;
     }
 
     /**
+     * @param array $columns
      * @return array
      */
-    public function load()
+    public function load($columns = ['*'])
     {
         $rows = [];
-        foreach ($this->getRowIterator() as $row) {
+        foreach ($this->getRowIterator($columns) as $row) {
             $rows[] = $row;
         }
 

@@ -51,7 +51,7 @@ class Row
 
     protected function getCellXML(int $columnIndex, string &$cellValue = '')
     {
-        $coordinate = getColumnHeader($columnIndex);
+        $coordinate = getSheetHeaderChar($columnIndex);
         $styleId = $this->styleHandle->getStyleId($coordinate);
 
         $cellXML = '<c r="' . $coordinate . $this->currentRowIndex . '" s="' . $styleId . '"';

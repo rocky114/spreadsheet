@@ -4,7 +4,8 @@ namespace Rocky114\Spreadsheet\Reader\XLSX;
 
 class Row implements \Iterator
 {
-    protected $columns = [];
+    protected $columns = ['*'];
+    protected $columnIndex = [];
     protected $file;
 
     protected $readerHandle;
@@ -22,6 +23,8 @@ class Row implements \Iterator
     public function current()
     {
         $row = [];
+        $i = 0;
+
         while ($this->readerHandle->read()) {
             $element = $this->readerHandle->name;
             $type = $this->readerHandle->nodeType;
@@ -33,9 +36,15 @@ class Row implements \Iterator
             $element === 'c' && $this->cellType = $this->readerHandle->getAttribute('t');
 
             if ($element === '#text') {
+                if ($this->columns[0] !== '*' && !in_array($i, $this->columnIndex)) {
+                    continue;
+                }
+
                 $value = $this->readerHandle->value;
-                $row[] = $this->cellType === 's' ? $this->readerHandle->getShareStringByIndex($value) : $value;
+                $row[$i] = $this->cellType === 's' ? $this->readerHandle->getShareStringByIndex($value) : $value;
             }
+
+            $i++;
         }
 
         return $row;
@@ -73,6 +82,9 @@ class Row implements \Iterator
         return !$this->eof;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function rewind()
     {
         $this->eof = false;
@@ -90,11 +102,20 @@ class Row implements \Iterator
                 break;
             }
         }
+
+        if ($this->columns[0] !== '*') {
+            foreach ($this->columns as $column) {
+                $this->columnIndex[] = getSheetHeaderIndex($column);
+            }
+        }
     }
 
-    public function setReadColumns(array $column = [])
+    /**
+     * @param array $columns
+     */
+    public function setColumns(array $columns = ['*'])
     {
-        $this->columns = $column;
+        $this->columns = $columns;
     }
 
     public function setSheetFile($file)
