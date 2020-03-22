@@ -24,7 +24,18 @@ class Row implements \Iterator
 
     public function current()
     {
-        return $this->row;
+        if ($this->columns[0] !== '*') {
+            $data = [];
+            foreach ($this->row as $index => $item) {
+                if (in_array($index, $this->columnIndex, true)) {
+                    $data[] = $item;
+                }
+            }
+
+            return $data;
+        } else {
+            return $this->row;
+        }
     }
 
     public function next()
@@ -39,17 +50,7 @@ class Row implements \Iterator
 
     public function valid()
     {
-        $row = $this->fileHandle->getCsv();
-
-        if ($this->columns[0] !== '*') {
-            foreach ($row as $index => $item) {
-                if (in_array($index, $this->columnIndex, true)) {
-                    $this->row[] = $item;
-                }
-            }
-        } else {
-            $this->row = $row;
-        }
+        $this->row = $this->fileHandle->getCsv();
 
         return $this->row !== null && $this->row !== false;
     }
