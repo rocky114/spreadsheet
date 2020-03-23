@@ -51,10 +51,11 @@ class Sheet implements \Iterator
      * @param array $columns
      * @return Row
      */
-    public function getRowIterator($columns = ['*'])
+    public function getRowIterator($columns = [])
     {
         $this->rowHandle->setSheetFile($this->sheets[$this->index]);
-        $this->rowHandle->setColumns($columns);
+
+        !empty($columns) && $this->rowHandle->setColumns($columns);
 
         return $this->rowHandle;
     }
@@ -63,7 +64,7 @@ class Sheet implements \Iterator
      * @param array $columns
      * @return array
      */
-    public function load($columns = ['*'])
+    public function load($columns = [])
     {
         $rows = [];
         foreach ($this->getRowIterator($columns) as $row) {

@@ -7,7 +7,7 @@ use Rocky114\Spreadsheet\FileFactory;
 class Row implements \Iterator
 {
     protected $columns = [];
-    protected $columnIndex = [];
+    protected $indexes = [];
     protected $row = [];
     protected $rowNumber = 0;
 
@@ -24,10 +24,10 @@ class Row implements \Iterator
 
     public function current()
     {
-        if ($this->columns[0] !== '*') {
+        if (!empty($this->columns)) {
             $data = [];
             foreach ($this->row as $index => $item) {
-                if (in_array($index, $this->columnIndex, true)) {
+                if (in_array($index, $this->indexes, true)) {
                     $data[] = $item;
                 }
             }
@@ -60,14 +60,14 @@ class Row implements \Iterator
         $this->rowNumber = 0;
         $this->row = [];
 
-        if ($this->columns[0] !== '*') {
+        if (!empty($this->columns)) {
             foreach ($this->columns as $column) {
-                $this->columnIndex[] = getSheetHeaderIndex($column);
+                $this->indexes[] = getSheetHeaderIndex($column);
             }
         }
     }
 
-    public function setColumns(array $column = ['*'])
+    public function setColumns(array $column = [])
     {
         $this->columns = $column;
     }

@@ -4,8 +4,8 @@ namespace Rocky114\Spreadsheet\Reader\XLSX;
 
 class Row implements \Iterator
 {
-    protected $columns = ['*'];
-    protected $columnIndex = [];
+    protected $columns = [];
+    protected $indexes = [];
     protected $file;
 
     protected $readerHandle;
@@ -36,7 +36,7 @@ class Row implements \Iterator
             $element === 'c' && $this->cellType = $this->readerHandle->getAttribute('t');
 
             if ($element === '#text') {
-                if ($this->columns[0] !== '*' && !in_array($i, $this->columnIndex, true)) {
+                if (!empty($this->columns) && !in_array($i, $this->indexes, true)) {
                     continue;
                 }
 
@@ -103,9 +103,9 @@ class Row implements \Iterator
             }
         }
 
-        if ($this->columns[0] !== '*') {
+        if (!empty($this->columns)) {
             foreach ($this->columns as $column) {
-                $this->columnIndex[] = getSheetHeaderIndex($column);
+                $this->indexes[] = getSheetHeaderIndex($column);
             }
         }
     }
@@ -113,7 +113,7 @@ class Row implements \Iterator
     /**
      * @param array $columns
      */
-    public function setColumns(array $columns = ['*'])
+    public function setColumns(array $columns = [])
     {
         $this->columns = $columns;
     }
