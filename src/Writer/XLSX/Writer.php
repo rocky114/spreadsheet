@@ -79,9 +79,17 @@ class Writer
         return $this;
     }
 
+    /**
+     * @example mergeCell('A1', 'D3')
+     * @param $startCoordinate
+     * @param $endCoordinate
+     * @return $this
+     */
     public function mergeCell($startCoordinate, $endCoordinate)
     {
         $this->workbook->getCurrentSheet()->mergeCell($startCoordinate, $endCoordinate);
+
+        return $this;
     }
 
     /**
