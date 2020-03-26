@@ -11,6 +11,7 @@ this is a PHP library to read and write spreadsheet files (CSV, XLSX), in a fast
 ## writer example
 ```
 $writer = \Rocky114\Excel\Writer\WriterFactory::createXLSXWriter();
+$writer->setTempFolder('.');
 
 $writer->addNewSheet('sheet1');
 
@@ -24,8 +25,7 @@ $writer->addHeader(['name', 'id'], $type)->addRow(['xinzhu', 1234565])->addRow([
 ## reader example
 
 ```
-$reader = \Rocky114\Spreadsheet\ReaderFactory::createXLSXReader('/Users/huangdongcheng/Downloads/test.xlsx');
-$reader->open();
+$reader = \Rocky114\Spreadsheet\ReaderFactory::createReaderFromFile('./test.xlsx');
 
 $data = [];
 foreach ($reader->getSheetIterator() as $sheet) {
@@ -33,4 +33,7 @@ foreach ($reader->getSheetIterator() as $sheet) {
         $data[] = $row;
     }
 }
+
+// or
+$data = $reader->getSheet()->load();
 ```

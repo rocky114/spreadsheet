@@ -24,14 +24,22 @@ class Workbook
         $this->styleHandle = new Style();
     }
 
-    public function setTempFolder($tempFolder)
+    /**
+     * @param $tempFolder
+     * @return $this
+     */
+    public function setTempFolder(string $tempFolder)
     {
         $this->tempFolder = rtrim(realpath($tempFolder), '/') . DIRECTORY_SEPARATOR;
 
         return $this;
     }
 
-    public function setFilename($filename)
+    /**
+     * @param $filename
+     * @return $this
+     */
+    public function setFilename(string $filename)
     {
         $this->filename = $filename;
 
@@ -43,7 +51,12 @@ class Workbook
         return $this->workbookId;
     }
 
-    public function addNewSheet($name)
+    /**
+     * @param string $name
+     * @return $this
+     * @throws \Exception
+     */
+    public function addNewSheet(string $name)
     {
         if (isset($this->worksheets[$name])) {
             throw new \Exception("$name already exists");
@@ -59,7 +72,11 @@ class Workbook
         return $this;
     }
 
-    public function isInvalidSheetName($name)
+    /**
+     * @param string $name
+     * @return bool
+     */
+    public function isInvalidSheetName(string $name)
     {
         $invalidChars = ['\\', '/', '?', '*', ':', '[', ']'];
 
@@ -79,7 +96,12 @@ class Workbook
         $this->currentSheet = $sheet;
     }
 
-    public function getWorksheetByName($name)
+    /**
+     * @param $name
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getWorksheetByName(string $name)
     {
         if (!isset($this->worksheets[$name])) {
             throw new \Exception("sheet $name not exists");

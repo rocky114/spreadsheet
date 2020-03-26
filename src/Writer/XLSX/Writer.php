@@ -28,6 +28,11 @@ class Writer
         return $this;
     }
 
+    /**
+     * @param $name
+     * @return $this
+     * @throws \Exception
+     */
     public function addNewSheet($name)
     {
         $this->workbook->addNewSheet($name);
@@ -35,6 +40,12 @@ class Writer
         return $this;
     }
 
+    /**
+     * @param array $header
+     * @param array $formats
+     * @return $this
+     * @throws \Exception
+     */
     public function addHeader(array $header, array $formats = [])
     {
         $this->workbook->getCurrentSheet()->addHeader($header, $formats);
@@ -42,6 +53,11 @@ class Writer
         return $this;
     }
 
+    /**
+     * @param array $row
+     * @return $this
+     * @throws \Exception
+     */
     public function addRow(array $row = [])
     {
         $this->workbook->getCurrentSheet()->addRow($row);
@@ -49,6 +65,11 @@ class Writer
         return $this;
     }
 
+    /**
+     * @param array $rows
+     * @return $this
+     * @throws \Exception
+     */
     public function addRows(array $rows = [])
     {
         foreach ($rows as $row) {
