@@ -109,6 +109,17 @@ class Writer
     }
 
     /**
+     * @param Worksheet $worksheet
+     * @return $this
+     */
+    public function setCurrentSheet(Worksheet $worksheet)
+    {
+        $this->workbook->setCurrentSheet($worksheet);
+
+        return $this;
+    }
+
+    /**
      * @param string $name
      * @return \Rocky114\Spreadsheet\Writer\XLSX\Worksheet
      */

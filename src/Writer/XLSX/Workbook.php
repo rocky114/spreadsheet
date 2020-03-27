@@ -99,29 +99,23 @@ class Workbook
     public function getSheet(string $name)
     {
         if (!isset($this->worksheets[$name])) {
-            throw new \Exception("$name does not exists");
+            throw new \Exception("sheet $name does not exists");
         }
 
         return $this->worksheets[$name];
-    }
-
-    public function setCurrentSheet($sheet)
-    {
-        $this->currentSheet = $sheet;
     }
 
     /**
-     * @param $name
-     * @return mixed
-     * @throws \Exception
+     * @param Worksheet $sheet
+     * @return $this
      */
-    public function getWorksheetByName(string $name)
+    public function setCurrentSheet(Worksheet $sheet)
     {
-        if (!isset($this->worksheets[$name])) {
-            throw new \Exception("sheet $name not exists");
-        }
+        $this->currentSheet = $sheet;
 
-        return $this->worksheets[$name];
+        $this->getStyle()->setSheetId($this->currentSheet->getId());
+
+        return $this;
     }
 
     public function createAppXml()
