@@ -262,7 +262,7 @@ HTML;
 
         $zipHandle->addEmptyDir('xl/worksheets/');
         foreach ($this->getWorksheets() as $worksheet) {
-            $zipHandle->addFile($worksheet->filePath, 'xl/worksheets/' . $worksheet->name . '.xml');
+            $zipHandle->addFile($worksheet->getFileHandle()->getFilepath(), 'xl/worksheets/' . $worksheet->name . '.xml');
         }
 
         $zipHandle->addFromString('xl/workbook.xml', $this->createWorkbookXml());
@@ -283,7 +283,7 @@ HTML;
         $this->writeToZipArchive();
 
         foreach ($this->getWorksheets() as $worksheet) {
-            unlink($worksheet->filePath);
+            unlink($worksheet->getFileHandle()->getFilepath());
         }
     }
 }

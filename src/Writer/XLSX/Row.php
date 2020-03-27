@@ -12,19 +12,15 @@ class Row
 
     protected $currentRowIndex;
 
-    protected $sheetId;
-
     protected $isTableHeader = false;
 
     /**
      * Row constructor.
      * @param Style $style
-     * @param int $sheetId
      */
-    public function __construct(Style $style, int $sheetId)
+    public function __construct(Style $style)
     {
         $this->styleHandle = $style;
-        $this->sheetId = $sheetId;
     }
 
     /**

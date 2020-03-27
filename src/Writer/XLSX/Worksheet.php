@@ -10,10 +10,6 @@ class Worksheet
 
     public $name;
 
-    public $filename;
-
-    public $filePath;
-
     protected $fileHandle;
 
     protected $typeHandle;
@@ -45,11 +41,8 @@ class Worksheet
         $this->name = $name;
         $this->workbook = $workbook;
 
-        $this->filename = createUniqueId('.xml');
-        $this->filePath = $workbook->tempFolder . $this->filename;
-        $this->fileHandle = new FileFactory($this->filePath);
-
-        $this->rowHandle = new Row($this->workbook->getStyle(), $this->id);
+        $this->fileHandle = new FileFactory($workbook->tempFolder . createUniqueId('.xml'));
+        $this->rowHandle = new Row($this->workbook->getStyle());
 
         $this->startSheet();
     }
@@ -166,5 +159,13 @@ HTML;
     public function getStyle($coordinate)
     {
         return $this->workbook->getStyle()->setCoordinate($coordinate);
+    }
+
+    /**
+     * @return FileFactory
+     */
+    public function getFileHandle()
+    {
+        return $this->fileHandle;
     }
 }
