@@ -28,11 +28,10 @@ class Border
         return $this->borderFormats;
     }
 
-    public function getBorderId(string $coordinate = null)
+    public function getBorderId(string $coordinate = 'general')
     {
-        $key = $coordinate . '_' . $this->currentSheetId;
-        if (isset($this->borderFormats[$key])) {
-            return $this->borderFormats[$key]['id'];
+        if (isset($this->borderFormats[$coordinate])) {
+            return $this->borderFormats[$coordinate]['id'];
         }
 
         return 0;

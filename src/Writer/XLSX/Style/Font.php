@@ -67,11 +67,10 @@ class Font
         return $this->fontFormats;
     }
 
-    public function getFontId(string $coordinate = null)
+    public function getFontId(string $coordinate = 'general')
     {
-        $key = $coordinate . '_' . $this->currentSheetId;
-        if (isset($this->fontFormats[$key])) {
-            return $this->fontFormats[$key]['id'];
+        if (isset($this->fontFormats[$coordinate])) {
+            return $this->fontFormats[$coordinate]['id'];
         }
 
         return 0;

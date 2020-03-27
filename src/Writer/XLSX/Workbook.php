@@ -281,9 +281,5 @@ HTML;
         }
 
         $this->writeToZipArchive();
-
-        foreach ($this->getWorksheets() as $worksheet) {
-            unlink($worksheet->getFileHandle()->getFilepath());
-        }
     }
 }

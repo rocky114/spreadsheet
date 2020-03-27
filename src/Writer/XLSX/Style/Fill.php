@@ -51,11 +51,10 @@ class Fill
         return $this->fillFormats;
     }
 
-    public function getFillId(string $coordinate = null)
+    public function getFillId(string $coordinate = 'general')
     {
-        $key = $coordinate . '_' . $this->currentSheetId;
-        if (isset($this->fillFormats[$key])) {
-            return $this->fillFormats[$key]['id'];
+        if (isset($this->fillFormats[$coordinate])) {
+            return $this->fillFormats[$coordinate]['id'];
         }
 
         return 0;

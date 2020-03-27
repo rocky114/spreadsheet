@@ -39,12 +39,10 @@ class Alignment
 
     public function getAlignmentFormat(string $coordinate = 'general')
     {
-        $key = $coordinate . '_' . $this->currentSheetId;
-        if (isset($this->alignmentFormats[$key])) {
-            return $this->alignmentFormats[$key];
+        if (isset($this->alignmentFormats[$coordinate])) {
+            return $this->alignmentFormats[$coordinate];
         }
 
         return $this->alignmentFormats['general'];
     }
-
 }

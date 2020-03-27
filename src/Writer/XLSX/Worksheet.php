@@ -58,7 +58,9 @@ class Worksheet
         $this->columnNumber = count($header);
 
         if (!empty($formats)) {
-            $this->workbook->getStyle()->getType()->setNumberFormats($formats);
+            foreach ($formats as $coordinate => $format) {
+                $this->getStyle($coordinate)->getType()->setNumberFormats($format);
+            }
         }
 
         $this->rowHandle->setTableHeader(true);
@@ -78,7 +80,7 @@ class Worksheet
     public function addRow(array $row = [])
     {
         if (!$this->hasSetStyle) {
-            $this->workbook->getStyle()->createCoordinateStyle()->createColumnTypeStyle();
+            $this->workbook->getStyle()->createCoordinateStyle();
             $this->hasSetStyle = true;
         }
 
@@ -167,5 +169,10 @@ HTML;
     public function getFileHandle()
     {
         return $this->fileHandle;
+    }
+
+    public function __destruct()
+    {
+        unlink($this->fileHandle->getFilepath());
     }
 }

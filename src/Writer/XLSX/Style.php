@@ -17,7 +17,9 @@ class Style
 
     protected $filename;
 
-    protected $coordinates = [];
+    protected $coordinates = [
+        'general' => []
+    ];
 
     protected $currentCoordinate;
     protected $currentSheetId;
@@ -37,7 +39,7 @@ class Style
      */
     public function setCoordinate(string $coordinate)
     {
-        $this->coordinates[$coordinate . $this->currentSheetId] = [];
+        $this->coordinates[$coordinate . '_' . $this->currentSheetId] = [];
 
         $this->currentCoordinate = $coordinate;
         $this->typeHandle->setCoordinate($coordinate);
@@ -245,29 +247,6 @@ HTML;
         }
 
         return 0;
-    }
-
-    public function createColumnTypeStyle()
-    {
-        $numberFormats = $this->typeHandle->getNumberFormats();
-
-        $id = count($this->coordinates);
-        $alignment = $this->alignmentHandle->getAlignmentFormat();
-
-        foreach ($numberFormats as $key => $format) {
-            $this->coordinates[$key] = [
-                'id'               => $id,
-                'number_format_id' => $format['id'],
-                'font_id'          => 0,
-                'fill_id'          => 0,
-                'border_id'        => 0,
-                'alignment'        => $alignment
-            ];
-
-            $id++;
-        }
-
-        return $this;
     }
 
     public function createCoordinateStyle()

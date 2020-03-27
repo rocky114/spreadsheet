@@ -44,9 +44,8 @@ class Type
 
     public function getNumberFormatId($coordinate)
     {
-        $key = $coordinate . '_' . $this->currentSheetId;
-        if (isset($this->numberFormats[$key])) {
-            return $this->numberFormats[$key]['id'];
+        if (isset($this->numberFormats[$coordinate])) {
+            return $this->numberFormats[$coordinate]['id'];
         }
 
         return 0;
@@ -72,24 +71,22 @@ class Type
         return null;
     }
 
-    public function setNumberFormats(array $formats)
+    public function setNumberFormats(string $format)
     {
-        foreach ($formats as $coordinate => $code) {
-            if (isset($this->numberFormatCodeMap[$code])) {
-                $code = $this->numberFormatCodeMap[$code];
-            }
-
-            if (!isset($this->numberFormatCode[$code])) {
-                throw new \Exception('Invalid cell format');
-            }
-
-            $numberFormatId = $this->numberFormatCode[$code];
-
-            $this->numberFormats[$coordinate . '_' . $this->currentSheetId] = [
-                'code' => $code,
-                'id'   => $numberFormatId
-            ];
+        if (isset($this->numberFormatCodeMap[$format])) {
+            $format = $this->numberFormatCodeMap[$format];
         }
+
+        if (!isset($this->numberFormatCode[$format])) {
+            throw new \Exception('Invalid cell format');
+        }
+
+        $numberFormatId = $this->numberFormatCode[$format];
+
+        $this->numberFormats[$this->currentCoordinate . '_' . $this->currentSheetId] = [
+            'id'   => $numberFormatId,
+            'code' => $format,
+        ];
 
         return $this;
     }
