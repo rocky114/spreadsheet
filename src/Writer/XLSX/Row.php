@@ -16,13 +16,23 @@ class Row
 
     protected $isTableHeader = false;
 
+    /**
+     * Row constructor.
+     * @param Style $style
+     * @param int $sheetId
+     */
     public function __construct(Style $style, int $sheetId)
     {
         $this->styleHandle = $style;
         $this->sheetId = $sheetId;
     }
 
-    public function setCells($rowIndex, $cells)
+    /**
+     * @param int $rowIndex
+     * @param array $cells
+     * @return $this
+     */
+    public function setCells(int $rowIndex, array $cells)
     {
         $this->currentRowIndex = $rowIndex;
 
@@ -37,6 +47,10 @@ class Row
         return $this;
     }
 
+    /**
+     * @param bool $bool
+     * @return $this
+     */
     public function setTableHeader(bool $bool)
     {
         $this->isTableHeader = $bool;
@@ -49,6 +63,12 @@ class Row
         return $this->rowXML;
     }
 
+    /**
+     * @param int $columnIndex
+     * @param string|null $cellValue
+     * @return string
+     * @throws \Exception
+     */
     protected function getCellXML(int $columnIndex, string &$cellValue = null)
     {
         $coordinate = getSheetHeaderChar($columnIndex);

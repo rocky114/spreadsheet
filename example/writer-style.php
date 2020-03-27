@@ -1,7 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: huangdongcheng
- * Date: 2020/3/19
- * Time: 4:22 PM
- */
+
+
+include "../src/Autoload.php";
+
+try {
+    $writer = \Rocky114\Spreadsheet\WriterFactory::createXLSXWriter();
+
+    $writer->setTempFolder('.');
+
+    $writer->addNewSheet('sheet1');
+
+} catch (\Exception $e) {
+    echo $e->getMessage();
+}
