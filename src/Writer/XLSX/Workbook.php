@@ -91,6 +91,20 @@ class Workbook
         return $this->currentSheet;
     }
 
+    /**
+     * @param string $name
+     * @return \Rocky114\Spreadsheet\Writer\XLSX\Worksheet
+     * @throws \Exception
+     */
+    public function getSheet(string $name)
+    {
+        if (!isset($this->worksheets[$name])) {
+            throw new \Exception("$name does not exists");
+        }
+
+        return $this->worksheets[$name];
+    }
+
     public function setCurrentSheet($sheet)
     {
         $this->currentSheet = $sheet;

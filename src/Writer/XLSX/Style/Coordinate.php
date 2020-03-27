@@ -9,13 +9,11 @@ trait Coordinate
 
     /**
      * @param string $coordinate
-     * @param int $sheetId
      * @return $this
      */
-    public function setCoordinate(string $coordinate, int $sheetId)
+    public function setCoordinate(string $coordinate)
     {
         $this->currentCoordinate = $coordinate;
-        $this->currentSheetId = $sheetId;
 
         return $this;
     }

@@ -33,19 +33,18 @@ class Style
 
     /**
      * @param string $coordinate
-     * @param int $sheetId
      * @return $this
      */
-    public function setCoordinate(string $coordinate, int $sheetId)
+    public function setCoordinate(string $coordinate)
     {
-        $this->coordinates[$coordinate . $sheetId] = [];
+        $this->coordinates[$coordinate . $this->currentSheetId] = [];
 
         $this->currentCoordinate = $coordinate;
-        $this->typeHandle->setCoordinate($coordinate, $sheetId);
-        $this->fontHandle->setCoordinate($coordinate, $sheetId);
-        $this->fillHandle->setCoordinate($coordinate, $sheetId);
-        $this->borderHandle->setCoordinate($coordinate, $sheetId);
-        $this->alignmentHandle->setCoordinate($coordinate, $sheetId);
+        $this->typeHandle->setCoordinate($coordinate);
+        $this->fontHandle->setCoordinate($coordinate);
+        $this->fillHandle->setCoordinate($coordinate);
+        $this->borderHandle->setCoordinate($coordinate);
+        $this->alignmentHandle->setCoordinate($coordinate);
 
         return $this;
     }

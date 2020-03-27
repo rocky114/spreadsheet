@@ -165,6 +165,6 @@ HTML;
      */
     public function getStyle($coordinate)
     {
-        return $this->workbook->getStyle()->setCoordinate($coordinate, $this->id);
+        return $this->workbook->getStyle()->setCoordinate($coordinate);
     }
 }

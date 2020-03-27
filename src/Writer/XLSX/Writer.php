@@ -100,6 +100,23 @@ class Writer
         return $this->workbook;
     }
 
+    /**
+     * @return \Rocky114\Spreadsheet\Writer\XLSX\Worksheet
+     */
+    public function getCurrentSheet()
+    {
+        return $this->workbook->getCurrentSheet();
+    }
+
+    /**
+     * @param string $name
+     * @return \Rocky114\Spreadsheet\Writer\XLSX\Worksheet
+     */
+    public function getSheet(string $name)
+    {
+        return $this->workbook->getSheet($name);
+    }
+
     public function close()
     {
         $this->workbook->close();
