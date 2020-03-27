@@ -115,10 +115,11 @@ HTML;
     }
 
     /**
+     * @example merge('A1', 'B3')
      * @param $startCoordinate
      * @param $endCoordinate
      */
-    public function mergeCell($startCoordinate, $endCoordinate)
+    public function mergeCell(string $startCoordinate, string $endCoordinate)
     {
         $this->mergeCells[] = [$startCoordinate, $endCoordinate];
     }
@@ -129,7 +130,7 @@ HTML;
     public function closeSheet()
     {
         if (!$this->hasClosed) {
-            $html = '';
+            $html = '</sheetData>';
             if (!empty($this->mergeCells)) {
                 $html .= '<mergeCells count="' . count($this->mergeCells) . '">';
                 foreach ($this->mergeCells as $cells) {
@@ -138,7 +139,7 @@ HTML;
                 $html .= '</mergeCells>';
             }
 
-            $html .= '</sheetData></worksheet>';
+            $html .= '</worksheet>';
 
             $this->fileHandle->write($html);
             $this->fileHandle->close();

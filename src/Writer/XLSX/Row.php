@@ -49,7 +49,7 @@ class Row
         return $this->rowXML;
     }
 
-    protected function getCellXML(int $columnIndex, string &$cellValue = '')
+    protected function getCellXML(int $columnIndex, string &$cellValue = null)
     {
         $coordinate = getSheetHeaderChar($columnIndex);
         $styleId = $this->styleHandle->getStyleId($coordinate);
@@ -59,28 +59,29 @@ class Row
         if ($this->isTableHeader) {
             $type = 'string';
         } else {
-            $type = $this->styleHandle->getType()->getCellValueType($coordinate);
-
-            if ($type === null) {
-                if ($cellValue === null || $cellValue === '') {
-                    $type = 'null';
-                } else if (is_numeric($cellValue)) {
-                    $type = 'number';
-                } else {
-                    $type = 'string';
+            if ($cellValue === null || $cellValue === '') {
+                $type = 'null';
+            } else {
+                $type = $this->styleHandle->getType()->getCellValueType($coordinate);
+                if ($type === null) {
+                    if (is_numeric($cellValue)) {
+                        $type = 'number';
+                    } else {
+                        $type = 'string';
+                    }
                 }
             }
         }
 
         switch ($type) {
             case 'string':
-                $cellXML .= ' t="inlineStr"><is><t>' . $cellValue . '</t></is>';
+                $cellXML .= ' t="inlineStr"><is><t>' . $cellValue . '</t></is></c>';
                 break;
             case 'number':
-                $cellXML .= ' t="n"><v>' . $cellValue . '</v>';
+                $cellXML .= ' t="n"><v>' . $cellValue . '</v></c>';
                 break;
             case 'boolean':
-                $cellXML .= ' t="b"><v>' . $cellValue . '</v>';
+                $cellXML .= ' t="b"><v>' . $cellValue . '</v></c>';
                 break;
             case 'null':
                 $cellXML .= '/>';
@@ -88,8 +89,6 @@ class Row
             default:
                 throw new \Exception($cellValue . ' is unknown type');
         }
-
-        $cellXML .= '</c>';
 
         return $cellXML;
     }

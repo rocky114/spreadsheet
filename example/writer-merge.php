@@ -11,24 +11,22 @@ try {
 
     $type = [
         'A' => 'string',
-        'B' => '#,##0',
+        'B' => 'string',
         'C' => 'string',
         'D' => 'string',
-        'E' => 'string'
     ];
-    $writer->addHeader(['name', 'money', 'country', 'province', 'city'], $type);
+    $writer->addHeader(['name', 'country', 'province', 'city'], $type);
 
-    foreach (range(1, 10) as $index => $item) {
-        $name = 'name';
-        $money = 10;
-        $country = 'china';
-        $province = 'jiangsu';
-        $city = 'suzhou';
+    $name = 'name';
+    $country = 'china';
+    $province = 'jiangsu';
+    $city = 'suzhou';
 
-        $writer->addRow([$name, $money, $country, $province, $city]);
-    }
+    $writer->addRow([$name, null, $province, $city]);
+    $writer->addRow([null, null, $province, $city]);
+    $writer->addRow([$name, $country, $province, $city]);
 
-    $writer->mergeCell('A1', 'B2')->save();
+    $writer->mergeCell('A2', 'B3')->save();
 } catch (\Exception $e) {
     echo $e->getMessage();
 }
