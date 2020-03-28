@@ -12,8 +12,6 @@ class FileFactory
 
     protected $fileHandle;
 
-    protected $filepath;
-
     /**
      * FileFactory constructor.
      * @param null $filepath
@@ -22,8 +20,6 @@ class FileFactory
      */
     public function __construct($filepath = null, $mode = 'w')
     {
-        $this->filepath = $filepath;
-
         if (false === $this->fileHandle = fopen($filepath, $mode)) {
             throw new \Exception('Cannot open file ' . $filepath);
         }
@@ -72,13 +68,5 @@ class FileFactory
         }
 
         fclose($this->fileHandle);
-    }
-
-    /**
-     * @return string
-     */
-    public function getFilepath()
-    {
-        return $this->filepath;
     }
 }

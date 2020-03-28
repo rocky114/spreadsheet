@@ -10,6 +10,8 @@ class Worksheet
 
     public $name;
 
+    public $filepath;
+
     protected $fileHandle;
 
     protected $typeHandle;
@@ -41,7 +43,8 @@ class Worksheet
         $this->name = $name;
         $this->workbook = $workbook;
 
-        $this->fileHandle = new FileFactory($workbook->tempFolder . createUniqueId('.xml'));
+        $this->filepath = $workbook->tempFolder . createUniqueId('.xml');
+        $this->fileHandle = new FileFactory($this->filepath);
         $this->rowHandle = new Row($this->workbook->getStyle());
 
         $this->startSheet();
@@ -53,7 +56,7 @@ class Worksheet
      * @return $this
      * @throws \Exception
      */
-    public function addHeader(array $header, $formats = [])
+    public function addHeader(array $header, array $formats = [])
     {
         $this->columnNumber = count($header);
 
@@ -153,6 +156,11 @@ HTML;
         return $this->name;
     }
 
+    public function getFilepath()
+    {
+        return $this->filepath;
+    }
+
     /**
      * @param $coordinate
      *
@@ -173,6 +181,6 @@ HTML;
 
     public function __destruct()
     {
-        unlink($this->fileHandle->getFilepath());
+        unlink($this->filepath);
     }
 }

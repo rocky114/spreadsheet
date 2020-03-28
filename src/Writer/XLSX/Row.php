@@ -27,6 +27,7 @@ class Row
      * @param int $rowIndex
      * @param array $cells
      * @return $this
+     * @throws \Exception
      */
     public function setCells(int $rowIndex, array $cells)
     {

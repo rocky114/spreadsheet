@@ -8,18 +8,12 @@ try {
 
     $writer->addNewSheet('sheet1');
 
-    $writer->getCurrentSheet()->getStyle('A')->getAlignment()->setWrapText(true);
+    //$writer->getCurrentSheet()->getStyle('A')->getAlignment()->setWrapText(true);
 
-
-    $type = [
-        'A' => 'string'
-    ];
-
-    $writer->addHeader(['address'], $type);
-    $writer->addRow(['address street city province country area zone']);
-    $writer->addRow(['rocky xinzhuzhixiang test test test test testtest']);
-    $writer->save();
-
+    $writer->addRow([null]);
+    $writer->addRow([null, 'TAX INVOICE']);
+    $writer->addRow([null]);
+    $writer->mergeCell('B2', 'F3')->save();
 } catch (\Exception $e) {
     echo $e->getMessage();
 }
