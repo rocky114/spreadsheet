@@ -71,6 +71,11 @@ class Type
         return null;
     }
 
+    /**
+     * @param string $format
+     * @return $this
+     * @throws \Exception
+     */
     public function setNumberFormats(string $format)
     {
         if (isset($this->numberFormatCodeMap[$format])) {
