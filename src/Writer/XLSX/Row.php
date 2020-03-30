@@ -79,7 +79,7 @@ class Row
             if ($cellValue === null || $cellValue === '') {
                 $type = 'null';
             } else {
-                $type = $this->styleHandle->getType()->getCellValueType($coordinate);
+                $type = $this->styleHandle->getType()->getCellValueType($coordinate.$this->currentRowIndex);
                 if ($type === null) {
                     if (is_numeric($cellValue)) {
                         $type = 'number';

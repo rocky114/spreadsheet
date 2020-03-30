@@ -123,6 +123,8 @@ class Style
         foreach ($this->fontHandle->getFontFormats() as $format) {
             $fontXML .= <<<HTML
                 <font>
+                    <b val="{$format['bold']}" />
+                    <color rgb="{$format['color']}" />
                     <name val="{$format['name']}"/>
                     <sz val="{$format['size']}"/>
                 </font>

@@ -8,7 +8,30 @@ try {
 
     $writer->addNewSheet('sheet1');
 
+    $writer->getCurrentSheet()->getStyle('B2')->getFont()->setBold(true)->setSize(18);
+    $writer->getCurrentSheet()->getStyle('B5')->getFont()->setBold(true);
+    $writer->getCurrentSheet()->getStyle('B6')->getFont()->setBold(true);
+    $writer->getCurrentSheet()->getStyle('B7')->getFont()->setBold(true);
+    $writer->getCurrentSheet()->getStyle('B8')->getFont()->setBold(true);
+
+    $writer->getCurrentSheet()->getStyle('C11')->getFont()->setBold(true);
+    $writer->getCurrentSheet()->getStyle('C11')->getAlignment()->setHorizontal('center');
+    $writer->getCurrentSheet()->getStyle('F11')->getFont()->setBold(true);
+    $writer->getCurrentSheet()->getStyle('F11')->getAlignment()->setHorizontal('center');
+    $writer->getCurrentSheet()->getStyle('M11')->getFont()->setBold(true);
+    $writer->getCurrentSheet()->getStyle('M11')->getAlignment()->setHorizontal('center');
+    $writer->getCurrentSheet()->getStyle('O11')->getFont()->setBold(true);
+    $writer->getCurrentSheet()->getStyle('O11')->getAlignment()->setHorizontal('center');
+    $writer->getCurrentSheet()->getStyle('Q11')->getFont()->setBold(true);
+    $writer->getCurrentSheet()->getStyle('Q11')->getAlignment()->setHorizontal('center');
+
     $writer->getCurrentSheet()->getStyle('D7')->getType()->setNumberFormats('string');
+    $writer->getCurrentSheet()->getStyle('C12')->getType()->setNumberFormats('string');
+    $writer->getCurrentSheet()->getStyle('C13')->getType()->setNumberFormats('string');
+    $writer->getCurrentSheet()->getStyle('C14')->getType()->setNumberFormats('string');
+    $writer->getCurrentSheet()->getStyle('C15')->getType()->setNumberFormats('string');
+    $writer->getCurrentSheet()->getStyle('C16')->getType()->setNumberFormats('string');
+    $writer->getCurrentSheet()->getStyle('C17')->getType()->setNumberFormats('string');
 
     $writer->addRow([null]);
     $writer->addRow([null, 'TAX INVOICE']);
