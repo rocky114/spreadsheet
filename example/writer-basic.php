@@ -13,7 +13,7 @@ try {
         'A' => 'string',
         'B' => '#,##0'
     ];
-    $writer->addHeader(['name', 'id'], $type)->addRow(['xinzhu', 1234565])->addRow(['rocky', 21])->save();
+    $writer->addHeader(['name', 'id'], $type)->addRow(['xinzhu', 1234565])->addRow(['rocky', 21])->download();
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

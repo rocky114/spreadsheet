@@ -42,9 +42,9 @@ class Row implements \Iterator
 
                 $value = $this->readerHandle->value;
                 $row[$i] = $this->cellType === 's' ? $this->readerHandle->getShareStringByIndex($value) : $value;
-            }
 
-            $i++;
+                $i++;
+            }
         }
 
         return $row;
