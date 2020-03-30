@@ -13,6 +13,8 @@ If you have any ideas, please contact me and I will try to achieve
 
 ## Writer example
 ```
+include "./vendor/autoload.php";
+
 $writer = \Rocky114\Excel\Writer\WriterFactory::createXLSXWriter();
 $writer->setTempFolder('.');
 
@@ -28,6 +30,8 @@ $writer->addHeader(['name', 'id'], $type)->addRow(['xinzhu', 1234565])->addRow([
 ## Reader example
 
 ```
+include "./vendor/autoload.php";
+
 $reader = \Rocky114\Spreadsheet\ReaderFactory::createReaderFromFile('./test.xlsx');
 
 $data = [];
