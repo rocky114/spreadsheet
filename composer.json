@@ -18,10 +18,10 @@
     },
     "autoload": {
         "files": [
-            "spreadsheet/src/helper.php"
+            "src/helper.php"
         ],
         "psr-4": {
-            "Rocky114\\Spreadsheet\\": "spreadsheet/src"
+            "Rocky114\\Spreadsheet\\": "src"
         }
     }
 }
