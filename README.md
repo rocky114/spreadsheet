@@ -6,7 +6,7 @@ this is a PHP library to read and write spreadsheet files (CSV, XLSX), in a fast
 
 * PHP version 7.1 or higher
 * PHP extension `php_zip` enabled
-* PHP extension `php_xmlreader` enabledR
+* PHP extension `php_xmlreader` enabled
 
 ## Tips
 If you have any ideas, please contact me and I will try to achieve
