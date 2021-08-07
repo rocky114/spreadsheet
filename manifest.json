@@ -1,0 +1,9 @@
+{
+    "packages": [
+        {
+            "name": "spreadsheet",
+            "version": "v0.1.1",
+            "url": "https://github.com/rocky114/spreadsheet.git"
+        }
+    ]
+}
